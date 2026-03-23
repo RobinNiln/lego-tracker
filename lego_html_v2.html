@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>LEGO Priser – Jämför nordiska butiker</title>
+<style>
+  :root{--red:#E3000B;--blue:#006DB7;--yellow:#FFD700;--bg:#f4f4f6;--card:#fff;--border:#e5e7eb;--text:#1a1a2e;--muted:#6b7280;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  header{background:var(--red);color:#fff;padding:1rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+  .logo{display:flex;align-items:center;gap:.6rem;}
+  .logo h1{font-size:1.5rem;font-weight:900;letter-spacing:-.5px;}
+  .logo p{font-size:.75rem;opacity:.8;margin-top:2px;}
+  .currency-bar{display:flex;align-items:center;gap:.5rem;}
+  .currency-bar span{font-size:.8rem;opacity:.85;}
+  .cur-btns{display:flex;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.4);}
+  .cur-btn{background:transparent;color:#fff;border:none;padding:.4rem .85rem;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .15s;}
+  .cur-btn.active,.cur-btn:hover{background:rgba(255,255,255,.25);}
+  .search-bar{background:#fff;border-bottom:1px solid var(--border);padding:.85rem 1.5rem;display:flex;gap:.6rem;flex-wrap:wrap;}
+  .search-bar input{flex:1;min-width:200px;padding:.7rem 1rem;border:1px solid var(--border);border-radius:10px;font-size:.95rem;outline:none;transition:border .2s;}
+  .search-bar input:focus{border-color:var(--blue);}
+  .search-bar button{padding:.7rem 1.4rem;background:var(--red);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;transition:background .2s;}
+  .search-bar button:hover{background:#b50009;}
+  .search-bar button:disabled{opacity:.5;cursor:default;}
+  #clear-btn{background:transparent;color:var(--muted);border:none;font-size:.85rem;cursor:pointer;text-decoration:underline;white-space:nowrap;}
+  main{max-width:1200px;margin:0 auto;padding:1.5rem;}
+  .meta{font-size:.75rem;color:var(--muted);margin-bottom:1rem;}
+  h2{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:1rem;}
+  h2 span{font-weight:400;color:var(--muted);font-size:.9rem;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:box-shadow .2s;}
+  .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);}
+  .card.best{border-color:var(--yellow);box-shadow:0 0 0 2px var(--yellow);}
+  .best-badge{position:absolute;top:8px;left:8px;background:var(--yellow);color:#000;font-size:.65rem;font-weight:800;padding:2px 8px;border-radius:999px;z-index:2;}
+  .card-img{width:100%;height:140px;background:#f8f8f8;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .card-img img{width:100%;height:100%;object-fit:contain;padding:8px;}
+  .card-img .placeholder{font-size:3rem;}
+  .card-body{padding:.9rem;flex:1;display:flex;flex-direction:column;}
+  .card-meta{font-size:.68rem;color:var(--muted);font-family:monospace;margin-bottom:.3rem;}
+  .card-meta .theme{color:var(--blue);}
+  .card-name{font-weight:700;font-size:.82rem;line-height:1.3;margin-bottom:.7rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .card-footer{margin-top:auto;}
+  .price-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:.6rem;}
+  .price-main{font-size:1.4rem;font-weight:900;color:var(--red);}
+  .price-local{font-size:.7rem;color:var(--muted);margin-top:1px;}
+  .store-info{text-align:right;}
+  .store-name{font-size:.75rem;font-weight:600;color:var(--text);}
+  .stock{font-size:.7rem;margin-top:1px;}
+  .in-stock{color:#16a34a;}
+  .out-stock{color:#dc2626;}
+  .card-link{display:block;width:100%;text-align:center;padding:.55rem;background:var(--blue);color:#fff;border-radius:8px;font-weight:700;font-size:.82rem;text-decoration:none;transition:background .2s;}
+  .card-link:hover{background:#0054a3;}
+  .skeleton{background:linear-gradient(90deg,#e5e7eb 25%,#f3f4f6 50%,#e5e7eb 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:16px;height:260px;}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .empty{text-align:center;padding:4rem 1rem;color:var(--muted);}
+  .empty .icon{font-size:3rem;margin-bottom:.8rem;}
+  .error{background:#fff1f1;border:1px solid #fca5a5;border-radius:12px;padding:1rem 1.2rem;color:#b91c1c;font-size:.88rem;}
+  footer{text-align:center;padding:2rem;font-size:.75rem;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem;}
+  footer a{color:var(--blue);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span style="font-size:2rem">🧱</span>
+    <div>
+      <h1>LEGO Priser</h1>
+      <p>Jämför nordiska butiker</p>
+    </div>
+  </div>
+  <div class="currency-bar">
+    <span>Valuta:</span>
+    <div class="cur-btns" id="cur-btns">
+      <button class="cur-btn active" data-cur="SEK">SEK</button>
+      <button class="cur-btn" data-cur="NOK">NOK</button>
+      <button class="cur-btn" data-cur="DKK">DKK</button>
+      <button class="cur-btn" data-cur="EUR">EUR</button>
+    </div>
+  </div>
+</header>
+
+<div class="search-bar">
+  <input id="q" type="text" placeholder="Sök på namn eller set-nummer, t.ex. 'City' eller '60388'"/>
+  <button id="search-btn" onclick="doSearch()">Sök</button>
+  <button id="clear-btn" style="display:none" onclick="clearSearch()">← Tillbaka till deals</button>
+</div>
+
+<main>
+  <div class="meta" id="rates-meta"></div>
+  <h2 id="section-title">Aktuella LEGO-set <span>– officiella priser nordiska butiker</span></h2>
+  <div id="results" class="grid"></div>
+</main>
+
+<footer>
+  Priser via <a href="https://brickset.com" target="_blank">Brickset API</a>.
+  Växelkurser via <a href="https://frankfurter.app" target="_blank">frankfurter.app</a> (ECB).
+  API-anrop via <a href="https://corsproxy.io" target="_blank">corsproxy.io</a>.
+  Inga garantier om prisnoggrannhet.
+</footer>
+
+<script>
+const BRICKSET_KEY = "3-vC1o-H7i6-uYtZK";
+const PROXY = "https://corsproxy.io/?";
+const BRICKSET_BASE = "https://brickset.com/api/v3.asmx";
+
+let currency = "SEK";
+let rates = { EUR:1, SEK:11.2, NOK:11.8, DKK:7.46 };
+let lastQuery = "";
+let mode = "deals";
+
+async function loadRates() {
+  try {
+    const r = await fetch("https://api.frankfurter.app/latest?from=EUR&to=SEK,NOK,DKK");
+    const d = await r.json();
+    rates = { EUR:1, SEK:d.rates.SEK, NOK:d.rates.NOK, DKK:d.rates.DKK };
+    document.getElementById("rates-meta").textContent =
+      `Växelkurser uppdaterade ${new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"})}`;
+  } catch(e) { console.warn("Rates fallback:", e); }
+}
+
+function convert(amount, from, to) {
+  if (from === to) return amount;
+  return (amount / rates[from]) * rates[to];
+}
+
+function fmt(amount, cur) {
+  const loc = {SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
+  return new Intl.NumberFormat(loc[cur], {style:"currency",currency:cur,maximumFractionDigits:0}).format(amount);
+}
+
+function setCurrency(cur) {
+  currency = cur;
+  document.querySelectorAll(".cur-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.cur === cur));
+  if (mode === "deals") loadDeals();
+  else doSearch(lastQuery);
+}
+
+document.querySelectorAll(".cur-btn").forEach(b =>
+  b.addEventListener("click", () => setCurrency(b.dataset.cur)));
+
+document.getElementById("q").addEventListener("keydown", e => {
+  if (e.key === "Enter") doSearch();
+});
+
+function showSkeletons(n=8) {
+  document.getElementById("results").innerHTML =
+    Array(n).fill('<div class="skeleton"></div>').join("");
+}
+
+function showError(msg) {
+  document.getElementById("results").innerHTML =
+    `<div class="error">⚠️ ${msg}</div>`;
+}
+
+function showEmpty(msg="Inga resultat hittades.") {
+  document.getElementById("results").innerHTML =
+    `<div class="empty"><div class="icon">🔍</div><p>${msg}</p></div>`;
+}
+
+async function bricksetCall(method, params) {
+  const body = new URLSearchParams({ apiKey: BRICKSET_KEY, ...params });
+  const url = PROXY + encodeURIComponent(`${BRICKSET_BASE}/${method}`);
+  const r = await fetch(url, {
+    method:"POST",
+    headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body: body.toString()
+  });
+  if (!r.ok) throw new Error(`Brickset HTTP ${r.status}`);
+  return r.json();
+}
+
+async function fetchSets(queryParams) {
+  const data = await bricksetCall("getSets", {
+    userHash:"",
+    params: JSON.stringify({ pageSize:30, ...queryParams })
+  });
+  if (data.status !== "success") throw new Error(data.message || "Brickset error");
+  return data.sets || [];
+}
+
+function extractListings(sets) {
+  const listings = [];
+  const stores = [
+    { key:"SE", id:"lego_se", name:"LEGO Shop SE", cur:"SEK" },
+    { key:"NO", id:"lego_no", name:"LEGO Shop NO", cur:"NOK" },
+    { key:"DK", id:"lego_dk", name:"LEGO Shop DK", cur:"DKK" },
+  ];
+  for (const s of sets) {
+    const setNum = `${s.number}-${s.numberVariant}`;
+    const cleanNum = s.number;
+    for (const store of stores) {
+      const p = s.LEGOCom?.[store.key];
+      if (p?.retailPrice) {
+        listings.push({
+          setNumber: setNum,
+          setName: s.name,
+          theme: s.theme || "LEGO",
+          imageUrl: s.image?.imageURL || null,
+          store: store.id,
+          storeName: store.name,
+          storeUrl: `https://www.lego.com/${store.key.toLowerCase()}-${store.key.toLowerCase()}/product/${cleanNum}`,
+          priceLocal: p.retailPrice,
+          localCurrency: store.cur,
+          inStock: true,
+        });
+      }
+    }
+  }
+  return listings;
+}
+
+function buildResults(listings) {
+  const bySet = {};
+  for (const l of listings) {
+    if (!bySet[l.setNumber]) bySet[l.setNumber] = [];
+    bySet[l.setNumber].push(l);
+  }
+  const results = [];
+  for (const grp of Object.values(bySet)) {
+    const converted = grp.map(l => ({
+      ...l,
+      priceConverted: convert(l.priceLocal, l.localCurrency, currency),
+      isBestPrice: false,
+    }));
+    const sorted = [...converted].sort((a,b) => a.priceConverted - b.priceConverted);
+    if (sorted[0]) sorted[0].isBestPrice = true;
+    results.push(...converted);
+  }
+  return results.sort((a,b) => {
+    if (a.isBestPrice && !b.isBestPrice) return -1;
+    if (!a.isBestPrice && b.isBestPrice) return 1;
+    return a.priceConverted - b.priceConverted;
+  });
+}
+
+function renderCards(results) {
+  const el = document.getElementById("results");
+  if (!results.length) { showEmpty(); return; }
+  el.innerHTML = results.map(d => `
+    <div class="card ${d.isBestPrice?"best":""}">
+      ${d.isBestPrice ? '<div class="best-badge">🏆 Bästa pris</div>' : ""}
+      <div class="card-img">
+        ${d.imageUrl
+          ? `<img src="${d.imageUrl}" alt="${d.setName}" loading="lazy"/>`
+          : '<span class="placeholder">🧱</span>'}
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          ${d.setNumber !== "unknown" ? `#${d.setNumber} ` : ""}
+          <span class="theme">${d.theme}</span>
+        </div>
+        <div class="card-name">${d.setName}</div>
+        <div class="card-footer">
+          <div class="price-row">
+            <div>
+              <div class="price-main">${fmt(d.priceConverted, currency)}</div>
+              ${d.localCurrency !== currency
+                ? `<div class="price-local">${fmt(d.priceLocal, d.localCurrency)} lokalt</div>`
+                : ""}
+            </div>
+            <div class="store-info">
+              <div class="store-name">${d.storeName}</div>
+              <div class="stock ${d.inStock?"in-stock":"out-stock"}">
+                ${d.inStock ? "✅ I lager" : "❌ Slut"}
+              </div>
+            </div>
+          </div>
+          <a class="card-link" href="${d.storeUrl}" target="_blank" rel="noopener">
+            Till butiken →
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function loadDeals() {
+  mode = "deals";
+  document.getElementById("section-title").innerHTML =
+    'Aktuella LEGO-set <span>– officiella priser nordiska butiker</span>';
+  showSkeletons(12);
+  try {
+    const sets = await fetchSets({ year: new Date().getFullYear(), orderBy:"Pieces" });
+    const listings = extractListings(sets);
+    if (!listings.length) { showEmpty("Inga priser hittades just nu. Prova att söka på ett set."); return; }
+    renderCards(buildResults(listings));
+  } catch(e) {
+    console.error(e);
+    showError("Kunde inte hämta deals: " + e.message);
+  }
+}
+
+async function doSearch(q) {
+  q = q ?? document.getElementById("q").value.trim();
+  if (!q) return;
+  lastQuery = q;
+  mode = "search";
+  document.getElementById("clear-btn").style.display = "inline";
+  document.getElementById("search-btn").disabled = true;
+  document.getElementById("section-title").innerHTML =
+    `Sökresultat för <span>"${q}"</span>`;
+  showSkeletons(8);
+  try {
+    const isNum = /^\d{4,6}(-\d)?$/.test(q);
+    const params = isNum ? { setNumber: q } : { query: q };
+    const sets = await fetchSets(params);
+    const listings = extractListings(sets);
+    const results = buildResults(listings);
+    if (!listings.length) {
+      showEmpty("Inga LEGO-set med officiella nordiska priser hittades.");
+    } else {
+      renderCards(results);
+    }
+    document.getElementById("section-title").innerHTML =
+      `Sökresultat för <span>"${q}" (${results.length} träffar)</span>`;
+  } catch(e) {
+    console.error(e);
+    showError("Sökning misslyckades: " + e.message);
+  } finally {
+    document.getElementById("search-btn").disabled = false;
+  }
+}
+
+function clearSearch() {
+  lastQuery = "";
+  document.getElementById("q").value = "";
+  document.getElementById("clear-btn").style.display = "none";
+  loadDeals();
+}
+
+(async () => {
+  await loadRates();
+  await loadDeals();
+})();
+</script>
+</body>
+</html>
