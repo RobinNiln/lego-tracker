@@ -5,340 +5,531 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Best LEGO Price – Jämför nordiska butiker</title>
 <meta name="description" content="Hitta bästa priset på LEGO-set hos nordiska återförsäljare. Jämför priser i SEK, NOK, DKK och EUR."/>
+<!-- Google Ads – byt ut ca-pub-XXXXXXXXXXXXXXXX mot ditt riktiga publisher-ID -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 <style>
-:root{--red:#E3000B;--blue:#006DB7;--yellow:#FFD700;--green:#16a34a;--bg:#f4f4f6;--card:#fff;--border:#e5e7eb;--text:#1a1a2e;--muted:#6b7280;}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+:root {
+  --red:#E3000B; --red-dark:#b8000a; --blue:#0057A8; --blue-light:#e8f0fb;
+  --black:#1a1a1a; --yellow:#FFD700; --green:#00A651; --orange:#FF6B00;
+  --bg:#f5f6fa; --card:#fff; --border:#e2e5ed; --text:#1a1a1a; --muted:#6b7280;
+  --radius:16px;
+}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body{font-family:'Nunito',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* Header */
-header{background:var(--red);color:#fff;padding:1rem 1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 2px 8px rgba(0,0,0,.2);}
-.logo{display:flex;align-items:center;gap:.6rem;}
-.logo h1{font-size:1.5rem;font-weight:900;letter-spacing:-.5px;}
-.logo p{font-size:.75rem;opacity:.8;margin-top:2px;}
-.cur-btns{display:flex;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.4);}
-.cur-btn{background:transparent;color:#fff;border:none;padding:.4rem .85rem;font-weight:700;font-size:.82rem;cursor:pointer;transition:background .15s;}
-.cur-btn.active,.cur-btn:hover{background:rgba(255,255,255,.25);}
+/* HEADER */
+header{background:linear-gradient(135deg,#E3000B 0%,#c0000a 100%);color:#fff;padding:0 1.5rem;box-shadow:0 4px 12px rgba(227,0,11,.3);position:sticky;top:0;z-index:100;}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:68px;flex-wrap:wrap;padding:.5rem 0;}
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;cursor:pointer;}
+.logo-icon{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+.logo-text h1{font-size:1.15rem;font-weight:900;color:#fff;line-height:1.2;letter-spacing:-.3px;}
+.logo-text p{font-size:.68rem;color:rgba(255,255,255,.7);font-weight:600;margin-top:2px;}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
+.cur-btns,.lang-btns{display:flex;background:rgba(0,0,0,.2);border-radius:10px;padding:3px;gap:2px;}
+.cur-btn,.lang-btn{background:transparent;color:rgba(255,255,255,.8);border:none;padding:.32rem .7rem;font-weight:800;font-size:.72rem;cursor:pointer;border-radius:7px;transition:all .15s;font-family:'Nunito',sans-serif;}
+.cur-btn.active,.lang-btn.active{background:#fff;color:var(--red);}
+.cur-btn:hover:not(.active),.lang-btn:hover:not(.active){background:rgba(255,255,255,.15);color:#fff;}
 
-/* Search */
-.search-wrap{background:#fff;border-bottom:1px solid var(--border);padding:.85rem 1.5rem;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;}
-.search-wrap input{flex:1;min-width:200px;padding:.7rem 1rem;border:1px solid var(--border);border-radius:10px;font-size:.95rem;outline:none;transition:border .2s;}
-.search-wrap input:focus{border-color:var(--blue);}
-.search-wrap button.search-btn{padding:.7rem 1.4rem;background:var(--red);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.9rem;transition:background .2s;}
-.search-wrap button.search-btn:hover{background:#b50009;}
-.search-wrap button.search-btn:disabled{opacity:.5;cursor:default;}
-#clear-btn{background:transparent;color:var(--muted);border:none;font-size:.85rem;cursor:pointer;text-decoration:underline;white-space:nowrap;}
+/* SEARCH */
+.search-section{background:var(--black);padding:1.1rem 1.5rem;}
+.search-inner{max-width:1280px;margin:0 auto;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;}
+.search-box{flex:1;min-width:220px;display:flex;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.search-box input{flex:1;padding:.8rem 1.1rem;border:none;font-size:.95rem;font-family:'Nunito',sans-serif;font-weight:600;outline:none;color:var(--text);}
+.search-box input::placeholder{color:#aaa;font-weight:500;}
+.search-box button{background:var(--red);color:#fff;border:none;padding:.8rem 1.4rem;font-weight:800;font-size:.88rem;cursor:pointer;font-family:'Nunito',sans-serif;transition:background .15s;}
+.search-box button:hover{background:var(--red-dark);}
+.search-box button:disabled{opacity:.5;cursor:default;}
+#clear-btn{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:.5rem 1rem;font-size:.82rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;transition:all .15s;}
+#clear-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
 
-/* Popular tags */
-.tags{display:flex;gap:.5rem;flex-wrap:wrap;padding:.75rem 1.5rem;background:#fff;border-bottom:1px solid var(--border);}
-.tag{background:#f3f4f6;border:1px solid var(--border);border-radius:999px;padding:.3rem .85rem;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--text);transition:all .15s;}
-.tag:hover{background:var(--blue);color:#fff;border-color:var(--blue);}
+/* FILTERS */
+.filter-section{background:var(--black);border-top:1px solid rgba(255,255,255,.06);padding:.6rem 1.5rem .8rem;}
+.filter-inner{max-width:1280px;margin:0 auto;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;}
+.tags-label{font-size:.72rem;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tag{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:.28rem .85rem;font-size:.76rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;}
+.tag:hover,.tag.active{background:var(--red);border-color:var(--red);color:#fff;}
+.filter-sep{width:1px;height:20px;background:rgba(255,255,255,.12);margin:0 .25rem;}
+.sort-select{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.28rem .7rem;font-size:.76rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;outline:none;}
+.sort-select option{background:#1a1a1a;color:#fff;}
+.price-filter{display:flex;align-items:center;gap:.4rem;}
+.price-filter label{font-size:.72rem;color:rgba(255,255,255,.5);font-weight:700;}
+.price-filter input{width:80px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.28rem .6rem;font-size:.76rem;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;outline:none;}
 
-/* Main */
-main{max-width:1280px;margin:0 auto;padding:1.25rem 1.5rem;}
-.meta{font-size:.75rem;color:var(--muted);margin-bottom:.75rem;}
-h2{font-size:1.05rem;font-weight:700;margin-bottom:1rem;}
-h2 span{font-weight:400;color:var(--muted);font-size:.88rem;}
+/* MAIN */
+main{max-width:1280px;margin:0 auto;padding:1.5rem;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
+.section-header h2{font-size:1.05rem;font-weight:800;}
+.section-header h2 span{font-weight:500;color:var(--muted);font-size:.88rem;}
+.meta-text{font-size:.72rem;color:var(--muted);font-weight:600;}
 
-/* Set cards (grouped by set, all stores shown) */
-.set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;}
-.set-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s;}
-.set-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.09);}
-.set-top{display:flex;gap:.75rem;padding:.85rem;}
-.set-img{width:90px;height:90px;flex-shrink:0;background:#f8f8f8;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.set-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
-.set-info{flex:1;min-width:0;}
-.set-num{font-size:.68rem;font-family:monospace;color:var(--muted);}
-.set-theme{font-size:.68rem;color:var(--blue);font-weight:600;}
-.set-name{font-weight:800;font-size:.88rem;line-height:1.3;margin:.2rem 0 .4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+/* DEALS HIGHLIGHT */
+.deals-highlight{margin-bottom:1.5rem;}
+.deals-highlight h3{font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--orange);margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem;}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.85rem;}
+.highlight-card{background:linear-gradient(135deg,#fff9f0,#fff);border:2px solid #ffd599;border-radius:14px;padding:.85rem;display:flex;gap:.75rem;align-items:center;cursor:pointer;transition:all .2s;}
+.highlight-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,0,.12);}
+.highlight-img{width:64px;height:64px;border-radius:8px;object-fit:contain;background:#f8f8f8;flex-shrink:0;}
+.highlight-info{flex:1;min-width:0;}
+.highlight-name{font-size:.8rem;font-weight:800;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.3rem;}
+.highlight-price{font-size:1.1rem;font-weight:900;color:var(--red);}
+.highlight-save{font-size:.7rem;font-weight:800;color:var(--green);background:#e8f9ef;border-radius:999px;padding:1px 8px;display:inline-block;margin-top:.2rem;}
 
-/* Store rows */
-.stores{border-top:1px solid var(--border);}
-.store-row{display:flex;align-items:center;justify-content:space-between;padding:.55rem .85rem;border-bottom:1px solid #f3f4f6;gap:.5rem;}
-.store-row:last-child{border-bottom:none;}
-.store-row.best-row{background:#fffbeb;}
-.store-left{display:flex;align-items:center;gap:.5rem;min-width:0;}
-.best-tag{background:var(--yellow);color:#000;font-size:.6rem;font-weight:800;padding:1px 6px;border-radius:999px;white-space:nowrap;}
-.store-name-txt{font-size:.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.store-flag{font-size:.85rem;}
+/* AD SLOTS */
+.ad-slot{background:#f0f2f8;border:1px dashed #c5cade;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#9ba3bf;font-size:.75rem;font-weight:700;text-align:center;margin:1.25rem 0;}
+.ad-slot-banner{height:90px;}
+.ad-slot-inline{height:120px;grid-column:1/-1;}
+
+/* GRID */
+.set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem;}
+
+/* CARD */
+.set-card{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s,border-color .2s;}
+.set-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1);border-color:var(--blue);}
+.card-top{display:flex;gap:.85rem;padding:1rem;border-bottom:1px solid var(--border);}
+.card-img{width:88px;height:88px;flex-shrink:0;background:var(--bg);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.card-info{flex:1;min-width:0;}
+.card-badges{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.35rem;}
+.badge{font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.3px;}
+.badge-num{background:var(--blue-light);color:var(--blue);}
+.badge-theme{background:#f0f0f0;color:#555;}
+.card-name{font-weight:800;font-size:.88rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.card-summary{margin-top:.4rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.card-from{font-size:.75rem;color:var(--muted);font-weight:600;}
+.card-from strong{color:var(--red);font-size:.9rem;font-weight:900;}
+.save-badge{background:#e8f9ef;color:#15803d;font-size:.65rem;font-weight:800;padding:2px 7px;border-radius:999px;}
+
+/* STORE ROWS */
+.store-rows{padding:.4rem 0;}
+.store-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem 1rem;gap:.5rem;transition:background .1s;}
+.store-row:hover{background:#f9f9fb;}
+.store-row.best{background:linear-gradient(90deg,#fffbeb,#fff);border-left:3px solid var(--yellow);}
+.store-left{display:flex;align-items:center;gap:.45rem;min-width:0;flex:1;}
+.store-flag{font-size:.95rem;flex-shrink:0;}
+.store-name-txt{font-size:.78rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.best-badge{background:var(--yellow);color:#000;font-size:.58rem;font-weight:900;padding:1px 6px;border-radius:999px;white-space:nowrap;flex-shrink:0;}
 .store-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
-.price-converted{font-size:1rem;font-weight:900;color:var(--red);}
-.price-local{font-size:.68rem;color:var(--muted);}
-.go-btn{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:.3rem .7rem;font-size:.75rem;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .2s;}
-.go-btn:hover{background:#0054a3;}
+.price-main{font-size:1.05rem;font-weight:900;color:var(--black);line-height:1;}
+.price-local{font-size:.65rem;color:var(--muted);font-weight:600;margin-top:1px;}
+.go-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:.4rem .85rem;font-size:.75rem;font-weight:800;cursor:pointer;text-decoration:none;font-family:'Nunito',sans-serif;transition:background .15s,transform .1s;white-space:nowrap;}
+.go-btn:hover{background:#004a8f;transform:scale(1.04);}
 
-/* Skeletons */
-.skeleton{background:linear-gradient(90deg,#e5e7eb 25%,#f3f4f6 50%,#e5e7eb 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:16px;height:220px;}
+/* SAVINGS ROW */
+.savings-row{display:flex;align-items:center;justify-content:center;padding:.5rem 1rem;background:#f0fdf4;border-top:1px solid #bbf7d0;font-size:.72rem;font-weight:800;color:#15803d;gap:.3rem;}
+
+/* SKELETON */
+.skeleton{background:linear-gradient(90deg,#e8eaf0 25%,#f4f5f8 50%,#e8eaf0 75%);background-size:200% 100%;animation:shimmer 1.3s infinite;border-radius:var(--radius);height:240px;border:2px solid transparent;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.empty{text-align:center;padding:4rem 1rem;color:var(--muted);}
-.empty .icon{font-size:3rem;margin-bottom:.8rem;}
-.error-box{background:#fff1f1;border:1px solid #fca5a5;border-radius:12px;padding:1rem 1.2rem;color:#b91c1c;font-size:.88rem;}
+.empty{text-align:center;padding:4rem 1rem;color:var(--muted);grid-column:1/-1;}
+.empty .icon{font-size:3.5rem;margin-bottom:.75rem;}
+.error-box{background:#fff1f1;border:2px solid #fca5a5;border-radius:12px;padding:1rem 1.2rem;color:#b91c1c;font-size:.88rem;font-weight:600;grid-column:1/-1;}
 
-footer{text-align:center;padding:2rem;font-size:.73rem;color:var(--muted);border-top:1px solid var(--border);margin-top:2rem;line-height:1.8;}
-footer a{color:var(--blue);}
+footer{background:var(--black);color:rgba(255,255,255,.45);text-align:center;padding:1.75rem;font-size:.72rem;font-weight:600;margin-top:2rem;line-height:1.9;}
+footer a{color:rgba(255,255,255,.6);text-decoration:none;}
+footer a:hover{color:#fff;}
+
+@media(max-width:600px){
+  .header-inner{padding:.6rem 0;}
+  .logo-text h1{font-size:.95rem;}
+  .search-section,.filter-section{padding:.85rem 1rem;}
+  main{padding:1rem;}
+  .set-grid,.highlight-grid{grid-template-columns:1fr;gap:.85rem;}
+  .card-img{width:72px;height:72px;}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <span style="font-size:2rem">🧱</span>
-    <div>
-      <h1>Best LEGO Price</h1>
-      <p>Jämför nordiska butiker</p>
-    </div>
-  </div>
-  <div style="display:flex;align-items:center;gap:.5rem;">
-    <span style="font-size:.8rem;opacity:.85;">Valuta:</span>
-    <div class="cur-btns" id="cur-btns">
-      <button class="cur-btn active" data-cur="SEK">SEK</button>
-      <button class="cur-btn" data-cur="NOK">NOK</button>
-      <button class="cur-btn" data-cur="DKK">DKK</button>
-      <button class="cur-btn" data-cur="EUR">EUR</button>
+  <div class="header-inner">
+    <a class="logo" href="/" onclick="clearSearch();return false;">
+      <img src="/logo.png" class="logo-icon" alt="Best LEGO Price logo" onerror="this.style.display='none'"/>
+      <div class="logo-text">
+        <h1 id="header-title">Best LEGO prices right now</h1>
+        <p id="logo-tagline">Vi jämför priserna på flera stora nordiska sajter</p>
+      </div>
+    </a>
+    <div class="header-right">
+      <div style="display:flex;align-items:center;gap:.6rem;">
+        <span style="font-size:.72rem;color:rgba(255,255,255,.6);font-weight:700;" id="lbl-currency">VALUTA</span>
+        <div class="cur-btns" id="cur-btns">
+          <button class="cur-btn active" data-cur="SEK">SEK</button>
+          <button class="cur-btn" data-cur="NOK">NOK</button>
+          <button class="cur-btn" data-cur="DKK">DKK</button>
+          <button class="cur-btn" data-cur="EUR">EUR</button>
+        </div>
+      </div>
+      <div class="lang-btns" id="lang-btns">
+        <button class="lang-btn active" data-lang="sv">🇸🇪 SV</button>
+        <button class="lang-btn" data-lang="no">🇳🇴 NO</button>
+        <button class="lang-btn" data-lang="da">🇩🇰 DA</button>
+        <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+      </div>
     </div>
   </div>
 </header>
 
-<div class="search-wrap">
-  <input id="q" type="text" placeholder="Sök på namn eller set-nummer, t.ex. 'Star Wars' eller '75192'"/>
-  <button class="search-btn" id="search-btn" onclick="doSearch()">Sök</button>
-  <button id="clear-btn" style="display:none" onclick="clearSearch()">← Tillbaka</button>
+<div class="search-section">
+  <div class="search-inner">
+    <div class="search-box">
+      <input id="q" type="text" placeholder="🔍  Sök på namn eller set-nummer..."/>
+      <button id="search-btn" onclick="doSearch()">Sök</button>
+    </div>
+    <button id="clear-btn" style="display:none" onclick="clearSearch()">← Tillbaka</button>
+  </div>
 </div>
 
-<div class="tags" id="tags">
-  <span style="font-size:.78rem;color:var(--muted);align-self:center;">Populärt:</span>
-  <button class="tag" onclick="doSearch('Star Wars')">⭐ Star Wars</button>
-  <button class="tag" onclick="doSearch('Technic')">⚙️ Technic</button>
-  <button class="tag" onclick="doSearch('City')">🏙️ City</button>
-  <button class="tag" onclick="doSearch('Harry Potter')">🧙 Harry Potter</button>
-  <button class="tag" onclick="doSearch('Ideas')">💡 Ideas</button>
-  <button class="tag" onclick="doSearch('Creator')">🏗️ Creator</button>
-  <button class="tag" onclick="doSearch('Icons')">🏛️ Icons</button>
+<div class="filter-section" id="filter-section">
+  <div class="filter-inner">
+    <span class="tags-label" id="lbl-popular">Populärt:</span>
+    <button class="tag" onclick="setTheme('Star Wars')">⭐ Star Wars</button>
+    <button class="tag" onclick="setTheme('Technic')">⚙️ Technic</button>
+    <button class="tag" onclick="setTheme('City')">🏙️ City</button>
+    <button class="tag" onclick="setTheme('Harry Potter')">🧙 Harry Potter</button>
+    <button class="tag" onclick="setTheme('Ideas')">💡 Ideas</button>
+    <button class="tag" onclick="setTheme('Creator')">🏗️ Creator</button>
+    <div class="filter-sep"></div>
+    <select class="sort-select" id="sort-select" onchange="applyFilters()">
+      <option value="price_asc">💰 Billigast först</option>
+      <option value="price_desc">💎 Dyrast först</option>
+      <option value="savings">🔥 Mest att spara</option>
+      <option value="name">🔤 Namn A–Ö</option>
+    </select>
+    <div class="price-filter">
+      <label id="lbl-max-price">Max:</label>
+      <input type="number" id="max-price" placeholder="t.ex. 500" onchange="applyFilters()"/>
+    </div>
+  </div>
 </div>
 
 <main>
-  <div class="meta" id="rates-meta"></div>
-  <h2 id="section-title">Aktuella LEGO-set <span>– jämför priser per butik</span></h2>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem;">
+    <div class="section-header" style="margin:0;">
+      <h2 id="section-title">Aktuella LEGO-set <span>– jämför priser per butik</span></h2>
+    </div>
+    <span class="meta-text" id="rates-meta"></span>
+  </div>
+
+  <!-- Top ad banner -->
+  <div class="ad-slot ad-slot-banner" id="ad-top">
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+      data-ad-slot="1234567890"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- Best deals highlight -->
+  <div class="deals-highlight" id="deals-highlight" style="display:none;">
+    <h3 id="highlight-title">🔥 Bästa deals just nu</h3>
+    <div class="highlight-grid" id="highlight-grid"></div>
+  </div>
+
   <div id="results" class="set-grid"></div>
 </main>
 
 <footer>
-  Priser via <a href="https://brickset.com" target="_blank">Brickset API</a> (officiella LEGO-butikerspriser för SE, NO, DK).<br>
-  Växelkurser via <a href="https://frankfurter.app" target="_blank">frankfurter.app</a> (ECB-kurser).
+  Priser via <a href="https://brickset.com" target="_blank">Brickset API</a> &amp; nordiska butiker.
+  Växelkurser via <a href="https://frankfurter.app" target="_blank">frankfurter.app</a> (ECB).<br>
   Inga garantier om prisnoggrannhet – kontrollera alltid slutpriset i butiken.
+  <br><br>© 2026 bestlegoprice.com
 </footer>
 
 <script>
-const API_BASE = "/api/brickset";
+// ── i18n ──────────────────────────────────────────────────
+const I18N = {
+  sv:{ tagline:"Vi jämför priserna på flera stora nordiska sajter", search_placeholder:"🔍  Sök på namn eller set-nummer...", search_btn:"Sök", back_btn:"← Tillbaka", popular:"Populärt:", deals_title:"Aktuella LEGO-set", deals_sub:"– jämför priser per butik", highlight:"🔥 Bästa deals just nu", best:"🏆 Bäst", buy_btn:"Köp →", no_price:"Kontrollera", save:"Du sparar", empty:"Inga set hittades.", currency:"VALUTA", max_price:"Max:", sort_cheap:"💰 Billigast först", sort_exp:"💎 Dyrast först", sort_save:"🔥 Mest att spara", sort_name:"🔤 Namn A–Ö", from:"Från" },
+  no:{ tagline:"Vi sammenligner priser på store nordiske nettbutikker", search_placeholder:"🔍  Søk på navn eller sett-nummer...", search_btn:"Søk", back_btn:"← Tilbake", popular:"Populært:", deals_title:"Aktuelle LEGO-sett", deals_sub:"– sammenlign priser per butikk", highlight:"🔥 Beste deals nå", best:"🏆 Best", buy_btn:"Kjøp →", no_price:"Sjekk butikk", save:"Du sparer", empty:"Ingen sett funnet.", currency:"VALUTA", max_price:"Maks:", sort_cheap:"💰 Billigst først", sort_exp:"💎 Dyrest først", sort_save:"🔥 Mest å spare", sort_name:"🔤 Navn A–Å", from:"Fra" },
+  da:{ tagline:"Vi sammenligner priser på store nordiske webshops", search_placeholder:"🔍  Søg på navn eller sæt-nummer...", search_btn:"Søg", back_btn:"← Tilbage", popular:"Populært:", deals_title:"Aktuelle LEGO-sæt", deals_sub:"– sammenlign priser per butik", highlight:"🔥 Bedste deals nu", best:"🏆 Bedst", buy_btn:"Køb →", no_price:"Tjek butik", save:"Du sparer", empty:"Ingen sæt fundet.", currency:"VALUTA", max_price:"Maks:", sort_cheap:"💰 Billigst først", sort_exp:"💎 Dyrest først", sort_save:"🔥 Mest at spare", sort_name:"🔤 Navn A–Å", from:"Fra" },
+  en:{ tagline:"We compare prices across major Nordic stores", search_placeholder:"🔍  Search by name or set number...", search_btn:"Search", back_btn:"← Back", popular:"Popular:", deals_title:"Current LEGO sets", deals_sub:"– compare prices per store", highlight:"🔥 Best deals right now", best:"🏆 Best", buy_btn:"Buy →", no_price:"Check store", save:"You save", empty:"No sets found.", currency:"CURRENCY", max_price:"Max:", sort_cheap:"💰 Cheapest first", sort_exp:"💎 Most expensive", sort_save:"🔥 Most savings", sort_name:"🔤 Name A–Z", from:"From" },
+};
+let lang = "sv";
+function t(k){ return I18N[lang][k] ?? k; }
 
+function applyLang(){
+  document.getElementById("logo-tagline").textContent = t("tagline");
+  document.getElementById("q").placeholder = t("search_placeholder");
+  document.getElementById("search-btn").textContent = t("search_btn");
+  document.getElementById("clear-btn").textContent = t("back_btn");
+  document.getElementById("lbl-popular").textContent = t("popular");
+  document.getElementById("lbl-currency").textContent = t("currency");
+  document.getElementById("lbl-max-price").textContent = t("max_price");
+  document.getElementById("highlight-title").textContent = t("highlight");
+  const sel = document.getElementById("sort-select");
+  sel.options[0].text = t("sort_cheap");
+  sel.options[1].text = t("sort_exp");
+  sel.options[2].text = t("sort_save");
+  sel.options[3].text = t("sort_name");
+}
+
+document.querySelectorAll(".lang-btn").forEach(b =>
+  b.addEventListener("click", () => {
+    lang = b.dataset.lang;
+    document.querySelectorAll(".lang-btn").forEach(x => x.classList.toggle("active", x===b));
+    applyLang();
+    if(mode==="deals") renderCards(allCards);
+    else renderCards(allCards);
+  })
+);
+
+// ── Currency ──────────────────────────────────────────────
 let currency = "SEK";
 let rates = { EUR:1, SEK:11.2, NOK:11.8, DKK:7.46 };
-let lastQuery = "";
-let mode = "deals";
 
-// ── Rates ─────────────────────────────────────────────────
-async function loadRates() {
-  try {
+async function loadRates(){
+  try{
     const r = await fetch("https://api.frankfurter.app/latest?from=EUR&to=SEK,NOK,DKK");
     const d = await r.json();
     rates = { EUR:1, SEK:d.rates.SEK, NOK:d.rates.NOK, DKK:d.rates.DKK };
     document.getElementById("rates-meta").textContent =
-      `Växelkurser uppdaterade ${new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"})}`;
-  } catch(e) { console.warn("Rates fallback:", e); }
+      `${t("currency") === "CURRENCY" ? "Rates" : "Kurser"} ${new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"})}`;
+  } catch(e){ console.warn("Rates fallback"); }
 }
 
-function convert(amount, from, to) {
-  if (from === to) return amount;
-  return (amount / rates[from]) * rates[to];
+function convert(a, from, to){
+  if(from===to) return a;
+  return (a/rates[from])*rates[to];
 }
 
-function fmt(amount, cur) {
-  const loc = {SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
-  return new Intl.NumberFormat(loc[cur],{style:"currency",currency:cur,maximumFractionDigits:0}).format(amount);
+function fmt(a, cur){
+  const loc={SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
+  return new Intl.NumberFormat(loc[cur],{style:"currency",currency:cur,maximumFractionDigits:0}).format(a);
 }
 
-// ── Currency UI ───────────────────────────────────────────
-function setCurrency(cur) {
-  currency = cur;
-  document.querySelectorAll(".cur-btn").forEach(b =>
-    b.classList.toggle("active", b.dataset.cur === cur));
-  if (mode === "deals") loadDeals();
-  else doSearch(lastQuery);
-}
 document.querySelectorAll(".cur-btn").forEach(b =>
-  b.addEventListener("click", () => setCurrency(b.dataset.cur)));
-document.getElementById("q").addEventListener("keydown", e => {
-  if (e.key === "Enter") doSearch();
-});
+  b.addEventListener("click", ()=>{
+    currency = b.dataset.cur;
+    document.querySelectorAll(".cur-btn").forEach(x=>x.classList.toggle("active",x===b));
+    if(mode==="deals") loadDeals(); else doSearch(lastQuery);
+  })
+);
+document.getElementById("q").addEventListener("keydown", e=>{ if(e.key==="Enter") doSearch(); });
 
 // ── Brickset ──────────────────────────────────────────────
-async function bricksetCall(method, params) {
-  const r = await fetch(API_BASE, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ method, params }),
-  });
-  if (!r.ok) throw new Error(`API HTTP ${r.status}`);
+const BRICKSET_KEY = "3-vC1o-H7i6-uYtZK";
+const PROXY = "https://api.allorigins.win/raw?url=";
+const BRICKSET_BASE = "https://brickset.com/api/v3.asmx";
+
+async function bricksetCall(method, params){
+  const qs = new URLSearchParams({ apiKey:BRICKSET_KEY, userHash:"", params:JSON.stringify(params) });
+  const url = PROXY + encodeURIComponent(`${BRICKSET_BASE}/${method}?${qs}`);
+  const r = await fetch(url, { headers:{ Accept:"application/json" } });
+  if(!r.ok) throw new Error(`Brickset HTTP ${r.status}`);
   return r.json();
 }
 
-async function fetchSets(queryParams) {
-  const data = await bricksetCall("getSets", {
-    pageSize: 24,
-    ...queryParams
-  });
-  if (data.status !== "success") throw new Error(data.message || "Brickset error");
-  return data.sets || [];
+async function fetchSets(p){
+  const d = await bricksetCall("getSets", { pageSize:30, ...p });
+  if(d.status!=="success") throw new Error(d.message||"Brickset error");
+  return d.sets||[];
 }
 
-// ── Extract store listings from a set ────────────────────
-const STORES = [
-  { key:"SE", name:"LEGO Shop SE", flag:"🇸🇪", cur:"SEK", slug:"sv-se" },
-  { key:"NO", name:"LEGO Shop NO", flag:"🇳🇴", cur:"NOK", slug:"nb-no" },
-  { key:"DK", name:"LEGO Shop DK", flag:"🇩🇰", cur:"DKK", slug:"da-dk" },
+const STORES=[
+  {key:"SE",name:"LEGO Shop SE",flag:"🇸🇪",cur:"SEK",slug:"sv-se"},
+  {key:"NO",name:"LEGO Shop NO",flag:"🇳🇴",cur:"NOK",slug:"nb-no"},
+  {key:"DK",name:"LEGO Shop DK",flag:"🇩🇰",cur:"DKK",slug:"da-dk"},
 ];
 
-function setToCard(s) {
-  const setNum = `${s.number}-${s.numberVariant}`;
-  const listings = [];
-  for (const store of STORES) {
-    const p = s.LEGOCom?.[store.key];
-    if (p?.retailPrice) {
+function setToCard(s){
+  const setNum=`${s.number}-${s.numberVariant}`;
+  const listings=[];
+  for(const store of STORES){
+    const p=s.LEGOCom?.[store.key];
+    if(p?.retailPrice){
       listings.push({
-        store: store.name,
-        flag: store.flag,
-        cur: store.cur,
-        priceLocal: p.retailPrice,
-        priceConverted: convert(p.retailPrice, store.cur, currency),
-        url: `https://www.lego.com/${store.slug}/product/${s.number}`,
+        store:store.name, flag:store.flag, cur:store.cur,
+        priceLocal:p.retailPrice,
+        priceConverted:convert(p.retailPrice,store.cur,currency),
+        url:`https://www.lego.com/${store.slug}/product/${s.number}`,
       });
     }
   }
-  if (!listings.length) return null;
-  listings.sort((a,b) => a.priceConverted - b.priceConverted);
-  listings[0].isBest = true;
+  if(!listings.length){
+    for(const store of STORES){
+      listings.push({ store:store.name, flag:store.flag, cur:store.cur, priceLocal:null, priceConverted:null, url:`https://www.lego.com/${store.slug}/product/${s.number}` });
+    }
+  }
+  listings.sort((a,b)=>{ if(a.priceConverted===null) return 1; if(b.priceConverted===null) return -1; return a.priceConverted-b.priceConverted; });
+  if(listings[0]?.priceConverted!==null) listings[0].isBest=true;
+
+  const prices = listings.filter(l=>l.priceConverted!==null).map(l=>l.priceConverted);
+  const minPrice = prices.length ? Math.min(...prices) : null;
+  const maxPrice = prices.length ? Math.max(...prices) : null;
+  const savings = (minPrice && maxPrice && maxPrice>minPrice) ? Math.round(maxPrice-minPrice) : null;
+
   return {
-    setNumber: setNum,
-    name: s.name,
-    theme: s.theme || "",
-    imageUrl: s.image?.imageURL || null,
-    listings,
+    setNumber:setNum, name:s.name, theme:s.theme||"",
+    imageUrl:s.image?.imageURL||null, listings,
+    hasPrices:!!minPrice, minPrice, maxPrice, savings,
   };
 }
 
-// ── Render ────────────────────────────────────────────────
-function showSkeletons(n=8) {
-  document.getElementById("results").innerHTML =
-    Array(n).fill('<div class="skeleton"></div>').join("");
+// ── Filtering & sorting ───────────────────────────────────
+let allCards = [];
+let activeTheme = null;
+let mode = "deals";
+let lastQuery = "";
+
+function setTheme(theme){
+  document.querySelectorAll(".tag").forEach(t=>t.classList.toggle("active", t.textContent.includes(theme)));
+  activeTheme = theme;
+  doSearch(theme);
 }
 
-function renderCards(cards) {
-  const el = document.getElementById("results");
-  if (!cards.length) {
-    el.innerHTML = '<div class="empty"><div class="icon">🔍</div><p>Inga set med nordiska priser hittades.</p></div>';
-    return;
-  }
-  el.innerHTML = cards.map(c => `
-    <div class="set-card">
-      <div class="set-top">
-        <div class="set-img">
-          ${c.imageUrl
-            ? `<img src="${c.imageUrl}" alt="${c.name}" loading="lazy"/>`
-            : `<span style="font-size:2.5rem">🧱</span>`}
-        </div>
-        <div class="set-info">
-          <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-            <span class="set-num">#${c.setNumber}</span>
-            <span class="set-theme">${c.theme}</span>
-          </div>
-          <div class="set-name">${c.name}</div>
-          <div style="font-size:.72rem;color:var(--muted);">
-            ${c.listings.length} butik${c.listings.length>1?"er":""} · från ${fmt(c.listings[0].priceConverted, currency)}
-          </div>
-        </div>
-      </div>
-      <div class="stores">
-        ${c.listings.map(l => `
-          <div class="store-row ${l.isBest?"best-row":""}">
-            <div class="store-left">
-              <span class="store-flag">${l.flag}</span>
-              <span class="store-name-txt">${l.store}</span>
-              ${l.isBest ? '<span class="best-tag">🏆 Bäst</span>' : ""}
-            </div>
-            <div class="store-right">
-              <div>
-                <div class="price-converted">${fmt(l.priceConverted, currency)}</div>
-                ${l.cur !== currency
-                  ? `<div class="price-local">${fmt(l.priceLocal, l.cur)}</div>`
-                  : ""}
-              </div>
-              <a class="go-btn" href="${l.url}" target="_blank" rel="noopener">Köp →</a>
-            </div>
-          </div>
-        `).join("")}
+function applyFilters(){
+  const sort = document.getElementById("sort-select").value;
+  const maxPrice = parseFloat(document.getElementById("max-price").value) || Infinity;
+  let filtered = allCards.filter(c => !c.minPrice || c.minPrice <= maxPrice);
+  if(sort==="price_asc") filtered.sort((a,b)=>(a.minPrice||9999)-(b.minPrice||9999));
+  else if(sort==="price_desc") filtered.sort((a,b)=>(b.minPrice||0)-(a.minPrice||0));
+  else if(sort==="savings") filtered.sort((a,b)=>(b.savings||0)-(a.savings||0));
+  else if(sort==="name") filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  renderCards(filtered, false);
+}
+
+// ── Render ────────────────────────────────────────────────
+function showSkeletons(n=8){
+  document.getElementById("results").innerHTML = Array(n).fill('<div class="skeleton"></div>').join("");
+  document.getElementById("deals-highlight").style.display="none";
+}
+
+function renderHighlights(cards){
+  const best = cards.filter(c=>c.savings && c.savings>0).sort((a,b)=>b.savings-a.savings).slice(0,4);
+  const hl = document.getElementById("deals-highlight");
+  if(!best.length){ hl.style.display="none"; return; }
+  hl.style.display="block";
+  document.getElementById("highlight-grid").innerHTML = best.map(c=>`
+    <div class="highlight-card" onclick="scrollToSet('${c.setNumber}')">
+      ${c.imageUrl ? `<img class="highlight-img" src="${c.imageUrl}" alt="${c.name}" loading="lazy"/>` : `<div class="highlight-img" style="display:flex;align-items:center;justify-content:center;font-size:2rem">🧱</div>`}
+      <div class="highlight-info">
+        <div class="highlight-name">${c.name}</div>
+        <div class="highlight-price">${fmt(c.minPrice, currency)}</div>
+        <div class="highlight-save">${t("save")} ${fmt(c.savings, currency)}</div>
       </div>
     </div>
   `).join("");
 }
 
+function scrollToSet(setNum){
+  const el = document.querySelector(`[data-set="${setNum}"]`);
+  if(el) el.scrollIntoView({ behavior:"smooth", block:"center" });
+}
+
+function renderCards(cards, updateHighlights=true){
+  const el = document.getElementById("results");
+  if(!cards.length){
+    el.innerHTML=`<div class="empty"><div class="icon">🔍</div><p>${t("empty")}</p></div>`;
+    document.getElementById("deals-highlight").style.display="none";
+    return;
+  }
+  if(updateHighlights) renderHighlights(cards);
+
+  // Insert inline ad after every 8 cards
+  let html = "";
+  cards.forEach((c,i)=>{
+    if(i===8) html += `<div class="ad-slot ad-slot-inline"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+    html += `
+    <div class="set-card" data-set="${c.setNumber}">
+      <div class="card-top">
+        <div class="card-img">
+          ${c.imageUrl ? `<img src="${c.imageUrl}" alt="${c.name}" loading="lazy"/>` : `<span style="font-size:2.5rem">🧱</span>`}
+        </div>
+        <div class="card-info">
+          <div class="card-badges">
+            ${c.setNumber!=="unknown"?`<span class="badge badge-num">#${c.setNumber}</span>`:""}
+            ${c.theme?`<span class="badge badge-theme">${c.theme}</span>`:""}
+          </div>
+          <div class="card-name">${c.name}</div>
+          <div class="card-summary">
+            ${c.hasPrices ? `<span class="card-from">${t("from")} <strong>${fmt(c.minPrice,currency)}</strong></span>` : `<span style="color:#f59e0b;font-size:.72rem">⚠️ ${t("no_price")}</span>`}
+            ${c.savings ? `<span class="save-badge">💰 ${t("save")} ${fmt(c.savings,currency)}</span>` : ""}
+          </div>
+        </div>
+      </div>
+      <div class="store-rows">
+        ${c.listings.map(l=>`
+          <div class="store-row ${l.isBest?"best":""}">
+            <div class="store-left">
+              <span class="store-flag">${l.flag}</span>
+              <span class="store-name-txt">${l.store}</span>
+              ${l.isBest?`<span class="best-badge">${t("best")}</span>`:""}
+            </div>
+            <div class="store-right">
+              <div style="text-align:right">
+                ${l.priceConverted!==null
+                  ? `<div class="price-main">${fmt(l.priceConverted,currency)}</div>${l.cur!==currency?`<div class="price-local">${fmt(l.priceLocal,l.cur)}</div>`:""}`
+                  : `<div style="font-size:.72rem;color:var(--muted);font-weight:600">${t("no_price")}</div>`}
+              </div>
+              <a class="go-btn" href="${l.url}" target="_blank" rel="noopener">${t("buy_btn")}</a>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+      ${c.savings ? `<div class="savings-row">💰 ${t("save")} ${fmt(c.savings,currency)} ${lang==="sv"?"jämfört med dyraste butik":lang==="no"?"sammenlignet med dyreste butikk":lang==="da"?"sammenlignet med dyreste butik":"vs. most expensive store"}</div>` : ""}
+    </div>`;
+  });
+  el.innerHTML = html;
+  // Init ads
+  try{ (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e){}
+}
+
 // ── Load deals ────────────────────────────────────────────
-async function loadDeals() {
-  mode = "deals";
-  document.getElementById("section-title").innerHTML =
-    'Aktuella LEGO-set <span>– jämför priser per butik</span>';
-  document.getElementById("tags").style.display = "flex";
+async function loadDeals(){
+  mode="deals";
+  document.getElementById("section-title").innerHTML=`${t("deals_title")} <span>${t("deals_sub")}</span>`;
+  document.getElementById("filter-section").style.display="block";
+  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
   showSkeletons(12);
-  try {
-    const sets = await fetchSets({ year: new Date().getFullYear(), orderBy:"Pieces" });
-    const cards = sets.map(setToCard).filter(Boolean);
-    renderCards(cards);
-  } catch(e) {
-    console.error(e);
-    document.getElementById("results").innerHTML =
-      `<div class="error-box">⚠️ Kunde inte hämta deals: ${e.message}</div>`;
+  try{
+    const sets = await fetchSets({ year:new Date().getFullYear(), orderBy:"Pieces" });
+    allCards = sets.map(setToCard);
+    applyFilters();
+  } catch(e){
+    document.getElementById("results").innerHTML=`<div class="error-box">⚠️ ${e.message}</div>`;
   }
 }
 
 // ── Search ────────────────────────────────────────────────
-async function doSearch(q) {
+async function doSearch(q){
   q = q ?? document.getElementById("q").value.trim();
-  if (!q) return;
-  if (q !== lastQuery) document.getElementById("q").value = q;
-  lastQuery = q;
-  mode = "search";
-  document.getElementById("clear-btn").style.display = "inline";
-  document.getElementById("search-btn").disabled = true;
-  document.getElementById("tags").style.display = "none";
-  document.getElementById("section-title").innerHTML =
-    `Sökresultat för <span>"${q}"</span>`;
+  if(!q) return;
+  if(q!==lastQuery) document.getElementById("q").value=q;
+  lastQuery=q;
+  mode="search";
+  document.getElementById("clear-btn").style.display="inline";
+  document.getElementById("search-btn").disabled=true;
+  document.getElementById("section-title").innerHTML=`${t("deals_title")} <span>"${q}"</span>`;
   showSkeletons(8);
-  try {
-    const isNum = /^\d{4,6}(-\d)?$/.test(q);
-    const params = isNum ? { setNumber: q } : { query: q };
+  try{
+    const isNum=/^\d{4,6}(-\d)?$/.test(q);
+    const params = isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()};
     const sets = await fetchSets(params);
-    const cards = sets.map(setToCard).filter(Boolean);
-    renderCards(cards);
-    document.getElementById("section-title").innerHTML =
-      `Sökresultat för <span>"${q}" · ${cards.length} set med priser</span>`;
-  } catch(e) {
-    console.error(e);
-    document.getElementById("results").innerHTML =
-      `<div class="error-box">⚠️ Sökning misslyckades: ${e.message}</div>`;
-  } finally {
-    document.getElementById("search-btn").disabled = false;
+    allCards = sets.map(setToCard);
+    applyFilters();
+    document.getElementById("section-title").innerHTML=`<span>"${q}" · ${allCards.length} set</span>`;
+  } catch(e){
+    document.getElementById("results").innerHTML=`<div class="error-box">⚠️ ${e.message}</div>`;
+  } finally{
+    document.getElementById("search-btn").disabled=false;
   }
 }
 
-function clearSearch() {
-  lastQuery = "";
-  document.getElementById("q").value = "";
-  document.getElementById("clear-btn").style.display = "none";
+function clearSearch(){
+  lastQuery="";
+  activeTheme=null;
+  document.getElementById("q").value="";
+  document.getElementById("clear-btn").style.display="none";
+  document.querySelectorAll(".tag").forEach(t=>t.classList.remove("active"));
   loadDeals();
 }
 
 // ── Init ──────────────────────────────────────────────────
-(async () => {
+(async()=>{
   await loadRates();
   await loadDeals();
+  try{ (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e){}
 })();
 </script>
 </body>
