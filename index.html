@@ -128,9 +128,7 @@ footer a{color:var(--blue);}
 </footer>
 
 <script>
-const BRICKSET_KEY = "3-vC1o-H7i6-uYtZK";
-const PROXY = "https://api.allorigins.win/raw?url=";
-const BRICKSET_BASE = "https://brickset.com/api/v3.asmx";
+const API_BASE = "/api/brickset";
 
 let currency = "SEK";
 let rates = { EUR:1, SEK:11.2, NOK:11.8, DKK:7.46 };
@@ -174,13 +172,13 @@ document.getElementById("q").addEventListener("keydown", e => {
 
 // ── Brickset ──────────────────────────────────────────────
 async function bricksetCall(method, params) {
-  const qs = new URLSearchParams({ apiKey: BRICKSET_KEY, ...params });
-  const targetUrl = `${BRICKSET_BASE}/${method}?${qs.toString()}`;
-  const url = PROXY + encodeURIComponent(targetUrl);
-  const r = await fetch(url, { headers:{ Accept:"application/json" } });
-  if (!r.ok) throw new Error(`Brickset HTTP ${r.status}`);
-  const text = await r.text();
-  return JSON.parse(text);
+  const r = await fetch(API_BASE, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ method, params }),
+  });
+  if (!r.ok) throw new Error(`API HTTP ${r.status}`);
+  return r.json();
 }
 
 async function fetchSets(queryParams) {
