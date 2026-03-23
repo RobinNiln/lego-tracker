@@ -183,8 +183,8 @@ async function bricksetCall(method, params) {
 
 async function fetchSets(queryParams) {
   const data = await bricksetCall("getSets", {
-    userHash:"",
-    params: JSON.stringify({ pageSize:24, ...queryParams })
+    pageSize: 24,
+    ...queryParams
   });
   if (data.status !== "success") throw new Error(data.message || "Brickset error");
   return data.sets || [];
