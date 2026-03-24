@@ -14,7 +14,7 @@ body{font-family:'Nunito',-apple-system,sans-serif;background:var(--bg);color:va
 header{background:linear-gradient(135deg,#E3000B 0%,#c0000a 100%);color:#fff;padding:0 1.5rem;box-shadow:0 4px 12px rgba(227,0,11,.3);position:sticky;top:0;z-index:100;}
 .header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:68px;flex-wrap:wrap;padding:.5rem 0;}
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;cursor:pointer;}
-  .logo-icon{width:46px;height:46px;border-radius:8px;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,0.8);background:#fff;}
+  .logo-icon{width:48px;height:48px;border-radius:8px;flex-shrink:0;}
 .logo-text h1{font-size:1.15rem;font-weight:900;color:#fff;line-height:1.2;}
 .logo-text p{font-size:.68rem;color:rgba(255,255,255,.7);font-weight:600;margin-top:2px;}
 .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
@@ -111,6 +111,44 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none;}
 <header>
   <div class="header-inner">
     <a class="logo" href="/" onclick="clearSearch();return false;">
+      <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Best LEGO Price logo">
+        <defs>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="-38" dy="26" stdDeviation="18" flood-color="#8f0000" flood-opacity="0.35"/>
+          </filter>
+          <g id="stud">
+            <rect x="0" y="0" width="44" height="18" rx="9" fill="#ffffff" fill-opacity="0.18"/>
+            <ellipse cx="22" cy="13" rx="16" ry="5" fill="#000000" fill-opacity="0.08"/>
+          </g>
+          <g id="brick-red"><rect x="0" y="0" width="96" height="64" rx="3" fill="#db1c10" stroke="#b2130c" stroke-width="2"/><use href="#stud" x="10" y="-10"/><use href="#stud" x="42" y="-10"/></g>
+          <g id="brick-white"><rect x="0" y="0" width="96" height="64" rx="3" fill="#f5f5f5" stroke="#dddddd" stroke-width="2"/><use href="#stud" x="10" y="-10"/><use href="#stud" x="42" y="-10"/></g>
+          <g id="brick-blue"><rect x="0" y="0" width="96" height="64" rx="3" fill="#1694e8" stroke="#0b76be" stroke-width="2"/><use href="#stud" x="10" y="-10"/><use href="#stud" x="42" y="-10"/></g>
+          <g id="brick-yellow"><rect x="0" y="0" width="96" height="64" rx="3" fill="#f3cc14" stroke="#c9a80f" stroke-width="2"/><use href="#stud" x="10" y="-10"/><use href="#stud" x="42" y="-10"/></g>
+          <g id="brick-red-v"><rect x="0" y="0" width="64" height="96" rx="3" fill="#db1c10" stroke="#b2130c" stroke-width="2"/></g>
+          <g id="brick-white-v"><rect x="0" y="0" width="64" height="96" rx="3" fill="#f5f5f5" stroke="#dddddd" stroke-width="2"/></g>
+          <g id="brick-blue-v"><rect x="0" y="0" width="64" height="96" rx="3" fill="#1694e8" stroke="#0b76be" stroke-width="2"/></g>
+          <g id="brick-yellow-v"><rect x="0" y="0" width="64" height="96" rx="3" fill="#f3cc14" stroke="#c9a80f" stroke-width="2"/></g>
+        </defs>
+        <rect width="1024" height="1024" fill="#ef140d"/>
+        <g filter="url(#shadow)" transform="translate(240 140)">
+          <use href="#brick-red" x="0" y="0"/><use href="#brick-red" x="96" y="0"/><use href="#brick-red" x="192" y="0"/><use href="#brick-red" x="288" y="0"/>
+          <use href="#brick-red-v" x="0" y="64"/><use href="#brick-red-v" x="0" y="160"/><use href="#brick-red-v" x="0" y="256"/><use href="#brick-red-v" x="0" y="352"/>
+          <use href="#brick-red-v" x="384" y="32"/><use href="#brick-red-v" x="384" y="384"/><use href="#brick-red-v" x="384" y="480"/>
+          <use href="#brick-red" x="32" y="640"/><use href="#brick-red" x="128" y="640"/><use href="#brick-red" x="224" y="640"/><use href="#brick-red" x="320" y="640"/>
+          <use href="#brick-white" x="96" y="64"/><use href="#brick-white" x="192" y="64"/>
+          <use href="#brick-white-v" x="96" y="128"/><use href="#brick-blue-v" x="96" y="224"/><use href="#brick-blue-v" x="96" y="320"/>
+          <use href="#brick-yellow" x="192" y="128"/><use href="#brick-white-v" x="320" y="128"/>
+          <use href="#brick-yellow-v" x="288" y="160"/><use href="#brick-white-v" x="320" y="224"/>
+          <use href="#brick-yellow" x="192" y="256"/><use href="#brick-white" x="96" y="320"/><use href="#brick-white" x="192" y="320"/>
+          <use href="#brick-white-v" x="96" y="384"/><use href="#brick-yellow-v" x="96" y="480"/>
+          <use href="#brick-blue" x="192" y="416"/><use href="#brick-white" x="288" y="416"/>
+          <use href="#brick-white" x="96" y="544"/><use href="#brick-yellow" x="96" y="608"/>
+          <use href="#brick-blue" x="192" y="544"/><use href="#brick-blue-v" x="320" y="480"/>
+          <use href="#brick-white-v" x="352" y="512"/><use href="#brick-white-v" x="320" y="608"/>
+          <use href="#brick-white" x="192" y="608"/><use href="#brick-white" x="96" y="704"/>
+          <use href="#brick-white" x="192" y="704"/><use href="#brick-yellow" x="320" y="704"/>
+        </g>
+      </svg>
       <div class="logo-text">
         <h1 id="header-title">Best LEGO prices right now</h1>
         <p id="logo-tagline">Vi jämför priserna på flera stora nordiska sajter</p>
