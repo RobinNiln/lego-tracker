@@ -5,239 +5,127 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Best LEGO Price – Jämför nordiska butiker</title>
 <meta name="description" content="Hitta bästa priset på LEGO-set hos nordiska återförsäljare."/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
-:root{
-  --red:#E3000B;--red-dark:#b8000a;--blue:#0057A8;--blue-light:#e8f0fb;
-  --black:#1a1a1a;--yellow:#FFD700;--green:#00A651;--orange:#FF6B00;
-  --bg:#f5f6fa;--card:#fff;--border:#e2e5ed;--text:#1a1a1a;--muted:#6b7280;
-  --radius:14px;
-}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body{font-family:'Nunito',-apple-system,sans-serif;background:#f5f6fa;color:#1a1a1a;min-height:100vh;}
 
-/* ── HEADER ── */
-header{
-  background:linear-gradient(135deg,#E3000B 0%,#c0000a 100%);
-  color:#fff;
-  padding:.75rem 1rem;
-  box-shadow:0 3px 12px rgba(227,0,11,.35);
-  position:sticky;top:0;z-index:100;
-}
-.header-inner{
-  max-width:1280px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
-}
-.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex-shrink:1;min-width:0;}
-.logo-icon{width:42px;height:42px;border-radius:7px;flex-shrink:0;}
-.logo-text h1{font-size:1rem;font-weight:900;color:#fff;line-height:1.2;white-space:nowrap;}
-.logo-text p{font-size:.62rem;color:rgba(255,255,255,.7);font-weight:600;margin-top:1px;white-space:nowrap;}
+header{background:#E3000B;color:#fff;padding:.75rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 3px 10px rgba(227,0,11,.3);}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.75rem;}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.logo-icon{width:40px;height:40px;border-radius:7px;flex-shrink:0;}
+.logo h1{font-size:1rem;font-weight:900;color:#fff;line-height:1.2;}
+.logo p{font-size:.62rem;color:rgba(255,255,255,.75);font-weight:600;}
 .header-controls{display:flex;align-items:center;gap:.5rem;flex-shrink:0;}
 .ctrl-group{display:flex;align-items:center;gap:.25rem;}
-.ctrl-label{font-size:.6rem;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;letter-spacing:.3px;}
-.hdr-select{
-  background:rgba(0,0,0,.25);color:#fff;
-  border:1px solid rgba(255,255,255,.25);border-radius:7px;
-  padding:.3rem .5rem;font-weight:700;font-size:.72rem;
-  cursor:pointer;font-family:'Nunito',sans-serif;outline:none;
-  appearance:none;-webkit-appearance:none;
-  padding-right:1.4rem;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23fff' d='M0 0l4 5 4-5z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right .4rem center;
-}
-.hdr-select option{background:#1a1a1a;color:#fff;}
+.ctrl-label{font-size:.62rem;color:rgba(255,255,255,.65);font-weight:700;}
+.hdr-select{background:rgba(0,0,0,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:7px;padding:.28rem .45rem;font-weight:700;font-size:.72rem;cursor:pointer;font-family:'Nunito',sans-serif;outline:none;}
 
-/* ── SEARCH ── */
-.search-section{background:var(--black);padding:.75rem 1rem;}
+.search-section{background:#1a1a1a;padding:.75rem 1rem;}
 .search-inner{max-width:1280px;margin:0 auto;display:flex;gap:.5rem;align-items:center;}
-.search-box{flex:1;display:flex;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.2);}
-.search-box input{
-  flex:1;padding:.7rem .9rem;border:none;
-  font-size:.9rem;font-family:'Nunito',sans-serif;font-weight:600;
-  outline:none;color:var(--text);min-width:0;
-}
-.search-box input::placeholder{color:#aaa;font-weight:500;}
-.search-box button{
-  background:var(--red);color:#fff;border:none;
-  padding:.7rem 1.1rem;font-weight:800;font-size:.85rem;
-  cursor:pointer;font-family:'Nunito',sans-serif;transition:background .15s;
-  white-space:nowrap;
-}
-.search-box button:hover{background:var(--red-dark);}
-.search-box button:disabled{opacity:.5;cursor:default;}
-#clear-btn{
-  background:transparent;color:rgba(255,255,255,.7);
-  border:1px solid rgba(255,255,255,.2);border-radius:8px;
-  padding:.45rem .8rem;font-size:.78rem;cursor:pointer;
-  font-family:'Nunito',sans-serif;font-weight:700;white-space:nowrap;
-}
+.search-box{flex:1;display:flex;background:#fff;border-radius:10px;overflow:hidden;}
+.search-box input{flex:1;padding:.7rem .9rem;border:none;font-size:.9rem;font-family:'Nunito',sans-serif;font-weight:600;outline:none;color:#1a1a1a;min-width:0;}
+.search-box input::placeholder{color:#aaa;}
+.search-box button{background:#E3000B;color:#fff;border:none;padding:.7rem 1.1rem;font-weight:800;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
+#clear-btn{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:.45rem .8rem;font-size:.78rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;white-space:nowrap;}
 
-/* ── FILTERS ── */
-.filter-section{background:var(--black);border-top:1px solid rgba(255,255,255,.06);padding:.5rem 1rem .65rem;}
+.filter-section{background:#1a1a1a;border-top:1px solid rgba(255,255,255,.06);padding:.5rem 1rem .6rem;}
 .filter-inner{max-width:1280px;margin:0 auto;display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;}
-.tags-label{font-size:.68rem;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
-.tag{
-  background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);
-  border:1px solid rgba(255,255,255,.12);border-radius:999px;
-  padding:.25rem .75rem;font-size:.74rem;font-weight:700;
-  cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s;
-  white-space:nowrap;
-}
-.tag:hover,.tag.active{background:var(--red);border-color:var(--red);color:#fff;}
+.tags-label{font-size:.66rem;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;}
+.tag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.24rem .75rem;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.tag:hover,.tag.active{background:#E3000B;border-color:#E3000B;color:#fff;}
 .filter-sep{width:1px;height:18px;background:rgba(255,255,255,.12);}
-.sort-select{
-  background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);
-  border:1px solid rgba(255,255,255,.15);border-radius:8px;
-  padding:.25rem .6rem;font-size:.74rem;font-weight:700;
-  cursor:pointer;font-family:'Nunito',sans-serif;outline:none;
-}
-.sort-select option{background:#1a1a1a;color:#fff;}
+.sort-select{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.24rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;outline:none;}
+.sort-select option{background:#1a1a1a;}
 .price-filter{display:flex;align-items:center;gap:.35rem;}
-.price-filter label{font-size:.68rem;color:rgba(255,255,255,.5);font-weight:700;}
-.price-filter input{
-  width:75px;background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.15);border-radius:7px;
-  padding:.25rem .5rem;font-size:.74rem;color:#fff;
-  font-family:'Nunito',sans-serif;font-weight:700;outline:none;
-}
-/* Mobile category dropdown */
-.cat-dropdown-wrap{display:none;position:relative;}
-.cat-dropdown-btn{
-  background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);
-  border:1px solid rgba(255,255,255,.12);border-radius:999px;
-  padding:.25rem .85rem;font-size:.74rem;font-weight:700;
-  cursor:pointer;font-family:'Nunito',sans-serif;
-  display:flex;align-items:center;gap:.3rem;
-}
-.cat-dropdown-menu{
-  position:absolute;top:calc(100% + 6px);left:0;
-  background:#1a1a1a;border:1px solid rgba(255,255,255,.15);
-  border-radius:10px;padding:.4rem;min-width:160px;
-  z-index:200;display:none;flex-direction:column;gap:.2rem;
-}
-.cat-dropdown-menu.open{display:flex;}
-.cat-dropdown-item{
-  color:rgba(255,255,255,.85);font-size:.78rem;font-weight:700;
-  padding:.45rem .75rem;border-radius:7px;cursor:pointer;
-  font-family:'Nunito',sans-serif;transition:background .1s;
-}
-.cat-dropdown-item:hover{background:rgba(255,255,255,.1);}
+.price-filter label{font-size:.66rem;color:rgba(255,255,255,.5);font-weight:700;}
+.price-filter input{width:75px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:7px;padding:.24rem .5rem;font-size:.73rem;color:#fff;font-family:'Nunito',sans-serif;outline:none;}
+.cat-more-wrap{position:relative;}
+.cat-more-btn{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.24rem .75rem;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.cat-more-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#222;border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.35rem;min-width:155px;z-index:200;flex-direction:column;gap:.15rem;}
+.cat-more-menu.open{display:flex;}
+.cat-more-item{color:rgba(255,255,255,.85);font-size:.78rem;font-weight:700;padding:.4rem .7rem;border-radius:7px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.cat-more-item:hover{background:rgba(255,255,255,.1);}
 
-/* ── MAIN ── */
 main{max-width:1280px;margin:0 auto;padding:1.25rem 1rem;}
 .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.4rem;}
 .section-header h2{font-size:1rem;font-weight:800;}
-.section-header h2 span{font-weight:500;color:var(--muted);font-size:.85rem;}
-.meta-text{font-size:.7rem;color:var(--muted);font-weight:600;}
+.section-header h2 span{font-weight:500;color:#6b7280;font-size:.85rem;}
+.meta-text{font-size:.7rem;color:#6b7280;font-weight:600;}
 
-/* ── HIGHLIGHTS ── */
 .deals-highlight{margin-bottom:1.25rem;}
-.deals-highlight h3{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--orange);margin-bottom:.65rem;}
-.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;}
-.highlight-card{
-  background:linear-gradient(135deg,#fff9f0,#fff);
-  border:2px solid #ffd599;border-radius:12px;
-  padding:.75rem;display:flex;gap:.65rem;align-items:center;
-  cursor:pointer;transition:all .2s;
-}
-.highlight-card:hover{border-color:var(--orange);transform:translateY(-2px);}
-.highlight-img{width:56px;height:56px;border-radius:7px;object-fit:contain;background:#f8f8f8;flex-shrink:0;}
-.highlight-name{font-size:.76rem;font-weight:800;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.25rem;}
-.highlight-price{font-size:1rem;font-weight:900;color:var(--red);}
-.highlight-save{font-size:.66rem;font-weight:800;color:#15803d;background:#e8f9ef;border-radius:999px;padding:1px 7px;display:inline-block;margin-top:.15rem;}
+.deals-highlight h3{font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#FF6B00;margin-bottom:.65rem;}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.75rem;}
+.highlight-card{background:#fff;border:2px solid #ffd599;border-radius:12px;padding:.75rem;display:flex;gap:.6rem;align-items:center;cursor:pointer;}
+.highlight-card:hover{border-color:#FF6B00;}
+.highlight-img{width:54px;height:54px;border-radius:7px;object-fit:contain;background:#f8f8f8;flex-shrink:0;}
+.hl-name{font-size:.75rem;font-weight:800;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.2rem;}
+.hl-price{font-size:1rem;font-weight:900;color:#E3000B;}
+.hl-save{font-size:.64rem;font-weight:800;color:#15803d;background:#e8f9ef;border-radius:999px;padding:1px 7px;display:inline-block;margin-top:.15rem;}
 
-/* ── AD ── */
-.ad-slot{background:#f0f2f8;border:1px dashed #c5cade;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#9ba3bf;font-size:.72rem;font-weight:700;margin:1rem 0;}
-.ad-slot-banner{height:80px;}
-.ad-slot-inline{height:100px;grid-column:1/-1;}
-
-/* ── GRID ── */
 .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
 
-/* ── CARD ── */
-.set-card{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s,border-color .2s;}
-.set-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.09);border-color:var(--blue);}
-.card-top{display:flex;gap:.75rem;padding:.85rem;border-bottom:1px solid var(--border);}
-.card-img{width:80px;height:80px;flex-shrink:0;background:var(--bg);border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+/* CARD */
+.set-card{background:#fff;border:2px solid #e2e5ed;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;}
+.set-card:hover{border-color:#0057A8;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+
+.card-top{display:flex;gap:.75rem;padding:.85rem;border-bottom:1px solid #e2e5ed;}
+.card-img{width:76px;height:76px;flex-shrink:0;background:#f5f6fa;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2rem;}
 .card-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
 .card-info{flex:1;min-width:0;}
-.card-badges{display:flex;gap:.25rem;flex-wrap:wrap;margin-bottom:.3rem;}
+.badges{display:flex;gap:.25rem;flex-wrap:wrap;margin-bottom:.3rem;}
 .badge{font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:999px;text-transform:uppercase;}
-.badge-num{background:var(--blue-light);color:var(--blue);}
+.badge-num{background:#e8f0fb;color:#0057A8;}
 .badge-theme{background:#f0f0f0;color:#555;}
-.card-name{font-weight:800;font-size:.85rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.card-summary{margin-top:.35rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
-.card-from{font-size:.72rem;color:var(--muted);font-weight:600;}
-.card-from strong{color:var(--red);font-size:.86rem;font-weight:900;}
-.save-badge{background:#e8f9ef;color:#15803d;font-size:.62rem;font-weight:800;padding:2px 6px;border-radius:999px;}
+.card-name{font-weight:800;font-size:.84rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.35rem;}
+.card-from{font-size:.72rem;color:#6b7280;font-weight:600;}
+.card-from strong{color:#E3000B;font-size:.88rem;font-weight:900;}
+.save-pill{background:#e8f9ef;color:#15803d;font-size:.62rem;font-weight:800;padding:2px 6px;border-radius:999px;margin-left:.3rem;}
 
-/* ── STORE ROWS ── */
-.store-rows{padding:.3rem 0;}
-.store-row{display:flex;align-items:center;justify-content:space-between;padding:.45rem .85rem;gap:.4rem;transition:background .1s;}
-.store-row:hover{background:#f9f9fb;}
-.store-row.best{background:linear-gradient(90deg,#fffbeb,#fff);border-left:3px solid var(--yellow);}
-.store-left{display:flex;align-items:center;gap:.4rem;min-width:0;flex:1;}
+/* STORE ROWS */
+.store-rows{display:flex;flex-direction:column;}
+.store-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem .85rem;gap:.5rem;border-bottom:1px solid #f3f4f6;}
+.store-row:last-child{border-bottom:none;}
+.store-row.best{background:#fffbeb;border-left:3px solid #FFD700;}
+.store-left{display:flex;align-items:center;gap:.4rem;flex:1;min-width:0;}
 .store-flag{font-size:.9rem;flex-shrink:0;}
-.store-name-txt{font-size:.74rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.best-badge{background:var(--yellow);color:#000;font-size:.56rem;font-weight:900;padding:1px 6px;border-radius:999px;white-space:nowrap;flex-shrink:0;}
+.store-name{font-size:.76rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.best-pill{background:#FFD700;color:#000;font-size:.58rem;font-weight:900;padding:1px 6px;border-radius:999px;flex-shrink:0;}
 .store-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;}
-.price-main{font-size:.95rem;font-weight:900;color:var(--black);line-height:1;}
-.price-local{font-size:.62rem;color:var(--muted);font-weight:600;margin-top:1px;}
-.go-btn{
-  background:var(--blue);color:#fff;border:none;border-radius:7px;
-  padding:.35rem .75rem;font-size:.72rem;font-weight:800;
-  cursor:pointer;text-decoration:none;font-family:'Nunito',sans-serif;
-  transition:background .15s;white-space:nowrap;
-}
-.go-btn:hover{background:#004a8f;}
-.savings-row{display:flex;align-items:center;justify-content:center;padding:.45rem;background:#f0fdf4;border-top:1px solid #bbf7d0;font-size:.68rem;font-weight:800;color:#15803d;}
+.price-block{text-align:right;}
+.price-main{font-size:.95rem;font-weight:900;color:#1a1a1a;white-space:nowrap;}
+.price-local{font-size:.62rem;color:#6b7280;font-weight:600;white-space:nowrap;}
+.buy-btn{display:inline-block;background:#0057A8;color:#fff;border:none;border-radius:7px;padding:.35rem .75rem;font-size:.72rem;font-weight:800;cursor:pointer;text-decoration:none;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.buy-btn:hover{background:#004a8f;}
 
-/* ── SKELETON ── */
-.skeleton{background:linear-gradient(90deg,#e8eaf0 25%,#f4f5f8 50%,#e8eaf0 75%);background-size:200% 100%;animation:shimmer 1.3s infinite;border-radius:var(--radius);height:220px;}
+.savings-bar{display:flex;align-items:center;justify-content:center;padding:.4rem;background:#f0fdf4;border-top:1px solid #bbf7d0;font-size:.68rem;font-weight:800;color:#15803d;}
+
+.skeleton{background:linear-gradient(90deg,#e8eaf0 25%,#f4f5f8 50%,#e8eaf0 75%);background-size:200% 100%;animation:shimmer 1.3s infinite;border-radius:14px;height:200px;}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.empty{text-align:center;padding:3rem 1rem;color:var(--muted);grid-column:1/-1;}
-.empty .icon{font-size:3rem;margin-bottom:.6rem;}
-.error-box{background:#fff1f1;border:2px solid #fca5a5;border-radius:10px;padding:.85rem 1rem;color:#b91c1c;font-size:.85rem;font-weight:600;grid-column:1/-1;}
+.empty{text-align:center;padding:3rem 1rem;color:#6b7280;grid-column:1/-1;}
+.empty .icon{font-size:3rem;margin-bottom:.5rem;}
+.error-msg{background:#fff1f1;border:2px solid #fca5a5;border-radius:10px;padding:.85rem 1rem;color:#b91c1c;font-size:.85rem;font-weight:600;grid-column:1/-1;}
 
-footer{background:var(--black);color:rgba(255,255,255,.4);text-align:center;padding:1.5rem 1rem;font-size:.7rem;font-weight:600;margin-top:2rem;line-height:1.9;}
+.ad-slot{background:#f0f2f8;border:1px dashed #c5cade;border-radius:10px;height:80px;display:flex;align-items:center;justify-content:center;color:#9ba3bf;font-size:.72rem;margin:1rem 0;}
+.ad-inline{grid-column:1/-1;height:100px;}
+
+footer{background:#1a1a1a;color:rgba(255,255,255,.4);text-align:center;padding:1.5rem 1rem;font-size:.7rem;font-weight:600;margin-top:2rem;line-height:1.9;}
 footer a{color:rgba(255,255,255,.55);text-decoration:none;}
 
-/* ── MOBILE ── */
 @media(max-width:640px){
-  header{padding:.6rem .85rem;}
-  .logo-text h1{font-size:.88rem;}
-  .logo-text p{display:none;}
-  .logo-icon{width:36px;height:36px;}
-  .ctrl-label{display:none;}
-  .hdr-select{font-size:.68rem;padding:.28rem .4rem;padding-right:1.2rem;}
-
-  .search-section{padding:.6rem .85rem;}
-  .search-box input{font-size:.85rem;padding:.6rem .8rem;}
-  .search-box button{padding:.6rem .9rem;font-size:.8rem;}
-
-  .filter-section{padding:.45rem .85rem .55rem;}
-  /* Show only 3 tags on mobile, rest in dropdown */
+  .logo p,.ctrl-label{display:none;}
+  .logo-icon{width:34px;height:34px;}
+  .logo h1{font-size:.88rem;}
+  .hdr-select{font-size:.68rem;padding:.25rem .4rem;}
   .tag:nth-child(n+6){display:none;}
-  .cat-dropdown-wrap{display:block;}
-
-  .sort-select{font-size:.7rem;}
-  .price-filter input{width:65px;}
-  .price-filter label{display:none;}
-
-  main{padding:1rem .85rem;}
-  .set-grid{grid-template-columns:1fr;gap:.75rem;}
-  .highlight-grid{grid-template-columns:1fr 1fr;gap:.6rem;}
-  .card-img{width:68px;height:68px;}
-  .card-name{font-size:.8rem;}
+  .cat-more-wrap{display:block !important;}
+  .set-grid{grid-template-columns:1fr;}
+  .highlight-grid{grid-template-columns:1fr 1fr;}
+  .card-img{width:64px;height:64px;}
   .price-main{font-size:.88rem;}
-  .go-btn{padding:.3rem .6rem;font-size:.68rem;}
+  .buy-btn{padding:.3rem .6rem;font-size:.68rem;}
 }
-
-@media(max-width:380px){
-  .highlight-grid{grid-template-columns:1fr;}
-  .header-controls{gap:.3rem;}
-}
+@media(min-width:641px){.cat-more-wrap{display:none;}}
 </style>
 </head>
 <body>
@@ -278,14 +166,14 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
           <use href="#bw" x="192" y="704"/><use href="#by" x="320" y="704"/>
         </g>
       </svg>
-      <div class="logo-text">
+      <div>
         <h1 id="header-title">Best LEGO prices right now</h1>
         <p id="logo-tagline">Vi jämför priserna på flera stora nordiska sajter</p>
       </div>
     </a>
     <div class="header-controls">
       <div class="ctrl-group">
-        <span class="ctrl-label" id="lbl-currency">Valuta</span>
+        <span class="ctrl-label">Valuta</span>
         <select class="hdr-select" id="cur-select">
           <option value="SEK">SEK</option>
           <option value="NOK">NOK</option>
@@ -316,37 +204,34 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
   </div>
 </div>
 
-<div class="filter-section" id="filter-section">
+<div class="filter-section">
   <div class="filter-inner">
     <span class="tags-label" id="lbl-popular">Populärt:</span>
     <button class="tag" onclick="doSearch('Star Wars')">⭐ Star Wars</button>
     <button class="tag" onclick="doSearch('Technic')">⚙️ Technic</button>
     <button class="tag" onclick="doSearch('City')">🏙️ City</button>
     <button class="tag" onclick="doSearch('Harry Potter')">🧙 Harry Potter</button>
-    <button class="tag" onclick="doSearch('Ideas')">💡 Ideas</button>
-    <button class="tag" onclick="doSearch('Creator')">🏗️ Creator</button>
-    <!-- Mobile dropdown for extra categories -->
-    <div class="cat-dropdown-wrap">
-      <button class="cat-dropdown-btn" onclick="toggleCatMenu()">Mer ▾</button>
-      <div class="cat-dropdown-menu" id="cat-menu">
-        <div class="cat-dropdown-item" onclick="doSearch('Harry Potter');toggleCatMenu()">🧙 Harry Potter</div>
-        <div class="cat-dropdown-item" onclick="doSearch('Ideas');toggleCatMenu()">💡 Ideas</div>
-        <div class="cat-dropdown-item" onclick="doSearch('Creator');toggleCatMenu()">🏗️ Creator</div>
-        <div class="cat-dropdown-item" onclick="doSearch('Ninjago');toggleCatMenu()">🥷 Ninjago</div>
-        <div class="cat-dropdown-item" onclick="doSearch('Friends');toggleCatMenu()">👧 Friends</div>
-        <div class="cat-dropdown-item" onclick="doSearch('Minecraft');toggleCatMenu()">⛏️ Minecraft</div>
+    <button class="tag" onclick="doSearch('Ninjago')">🥷 Ninjago</button>
+    <div class="cat-more-wrap">
+      <button class="cat-more-btn" onclick="toggleMore()">Mer ▾</button>
+      <div class="cat-more-menu" id="more-menu">
+        <div class="cat-more-item" onclick="doSearch('Ideas');closeMore()">💡 Ideas</div>
+        <div class="cat-more-item" onclick="doSearch('Creator');closeMore()">🏗️ Creator</div>
+        <div class="cat-more-item" onclick="doSearch('Friends');closeMore()">👧 Friends</div>
+        <div class="cat-more-item" onclick="doSearch('Minecraft');closeMore()">⛏️ Minecraft</div>
+        <div class="cat-more-item" onclick="doSearch('Icons');closeMore()">🏛️ Icons</div>
       </div>
     </div>
     <div class="filter-sep"></div>
     <select class="sort-select" id="sort-select" onchange="applyFilters()">
       <option value="price_asc">💰 Billigast</option>
       <option value="price_desc">💎 Dyrast</option>
-      <option value="savings">🔥 Mest besparing</option>
+      <option value="savings">🔥 Besparing</option>
       <option value="name">🔤 Namn</option>
     </select>
     <div class="price-filter">
-      <label id="lbl-max-price">Max:</label>
-      <input type="number" id="max-price" placeholder="t.ex. 500" onchange="applyFilters()"/>
+      <label>Max:</label>
+      <input type="number" id="max-price" placeholder="500" onchange="applyFilters()"/>
     </div>
   </div>
 </div>
@@ -356,387 +241,251 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
     <h2 id="section-title">Aktuella LEGO-set <span>– jämför priser</span></h2>
     <span class="meta-text" id="rates-meta"></span>
   </div>
-  <div class="ad-slot ad-slot-banner">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-  </div>
-  <div class="deals-highlight" id="deals-highlight" style="display:none">
-    <h3 id="highlight-title">🔥 Bästa deals just nu</h3>
-    <div class="highlight-grid" id="highlight-grid"></div>
+  <div class="ad-slot" id="ad-top"></div>
+  <div id="deals-highlight" style="display:none">
+    <div class="deals-highlight">
+      <h3 id="hl-title">🔥 Bästa deals just nu</h3>
+      <div class="highlight-grid" id="hl-grid"></div>
+    </div>
   </div>
   <div id="results" class="set-grid"></div>
 </main>
 
 <footer>
   Priser via nordiska butiker. Växelkurser via <a href="https://frankfurter.app" target="_blank">frankfurter.app</a>.<br>
-  Inga garantier om prisnoggrannhet – kontrollera alltid slutpriset i butiken.<br><br>
-  © 2026 bestlegoprice.com
+  Inga garantier om prisnoggrannhet – kontrollera alltid slutpriset i butiken.<br><br>© 2026 bestlegoprice.com
 </footer>
 
 <script>
-const RAILWAY = "https://lego-price-api-production.up.railway.app";
+var RAILWAY = "https://lego-price-api-production.up.railway.app";
+var lang = "sv";
+var currency = "SEK";
+var rates = {EUR:1,SEK:11.2,NOK:11.8,DKK:7.46};
+var allCards = [];
+var mode = "deals";
+var lastQuery = "";
 
-// ── i18n ──────────────────────────────────────────────────
-const I18N = {
-  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search_placeholder:"🔍  Sök på namn eller set-nummer...",search_btn:"Sök",back_btn:"← Tillbaka",popular:"Populärt:",deals_title:"Aktuella LEGO-set",deals_sub:"– jämför priser",highlight:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy_btn:"Köp →",no_price:"Kontrollera",save:"Du sparar",empty:"Inga set hittades.",from:"Från",sort_cheap:"💰 Billigast",sort_exp:"💎 Dyrast",sort_save:"🔥 Mest besparing",sort_name:"🔤 Namn",max_price:"Max:"},
-  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search_placeholder:"🔍  Søk på navn eller sett-nummer...",search_btn:"Søk",back_btn:"← Tilbake",popular:"Populært:",deals_title:"Aktuelle LEGO-sett",deals_sub:"– sammenlign priser",highlight:"🔥 Beste deals nå",best:"🏆 Best",buy_btn:"Kjøp →",no_price:"Sjekk butikk",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra",sort_cheap:"💰 Billigst",sort_exp:"💎 Dyrest",sort_save:"🔥 Mest å spare",sort_name:"🔤 Navn",max_price:"Maks:"},
-  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search_placeholder:"🔍  Søg på navn eller sæt-nummer...",search_btn:"Søg",back_btn:"← Tilbage",popular:"Populært:",deals_title:"Aktuelle LEGO-sæt",deals_sub:"– sammenlign priser",highlight:"🔥 Bedste deals nu",best:"🏆 Bedst",buy_btn:"Køb →",no_price:"Tjek butik",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra",sort_cheap:"💰 Billigst",sort_exp:"💎 Dyrest",sort_save:"🔥 Mest at spare",sort_name:"🔤 Navn",max_price:"Maks:"},
-  en:{tagline:"We compare prices across major Nordic stores",search_placeholder:"🔍  Search by name or set number...",search_btn:"Search",back_btn:"← Back",popular:"Popular:",deals_title:"Current LEGO sets",deals_sub:"– compare prices",highlight:"🔥 Best deals right now",best:"🏆 Best",buy_btn:"Buy →",no_price:"Check store",save:"You save",empty:"No sets found.",from:"From",sort_cheap:"💰 Cheapest",sort_exp:"💎 Most expensive",sort_save:"🔥 Most savings",sort_name:"🔤 Name",max_price:"Max:"},
+var LANG_COUNTRY = {sv:"SE",no:"NO",da:"DK",en:"SE"};
+var STORE_COUNTRY = {
+  "Elgiganten":"SE","Webhallen":"SE","Inet":"SE","Power":"SE","Ebrix":"SE","ToySpace":"SE",
+  "Komplett NO":"NO","Proshop DK":"DK","Bilka DK":"DK",
+  "LEGO Shop SE":"SE","LEGO Shop NO":"NO","LEGO Shop DK":"DK"
 };
-let lang = "sv";
-function tr(k){ return I18N[lang][k] ?? k; }
 
-// ── State ─────────────────────────────────────────────────
-let currency = "SEK";
-let rates = {EUR:1, SEK:11.2, NOK:11.8, DKK:7.46};
-let allCards = [];
-let mode = "deals";
-let lastQuery = "";
+var I18N = {
+  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search:"Sök",back:"← Tillbaka",popular:"Populärt:",title:"Aktuella LEGO-set",sub:"– jämför priser",hl:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy:"Köp →",save:"Du sparar",empty:"Inga set hittades.",from:"Från"},
+  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search:"Søk",back:"← Tilbake",popular:"Populært:",title:"Aktuelle LEGO-sett",sub:"– sammenlign priser",hl:"🔥 Beste deals nå",best:"🏆 Best",buy:"Kjøp →",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra"},
+  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search:"Søg",back:"← Tilbage",popular:"Populært:",title:"Aktuelle LEGO-sæt",sub:"– sammenlign priser",hl:"🔥 Bedste deals nu",best:"🏆 Bedst",buy:"Køb →",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra"},
+  en:{tagline:"We compare prices across major Nordic stores",search:"Search",back:"← Back",popular:"Popular:",title:"Current LEGO sets",sub:"– compare prices",hl:"🔥 Best deals right now",best:"🏆 Best",buy:"Buy →",save:"You save",empty:"No sets found.",from:"From"}
+};
+function t(k){ return (I18N[lang]||I18N.sv)[k]||k; }
 
-// ── Helpers ───────────────────────────────────────────────
-function convert(a, from, to){
-  if(from===to) return a;
-  return (a/rates[from])*rates[to];
+function convert(a,from,to){ return from===to?a:(a/rates[from])*rates[to]; }
+function fmt(a,cur){
+  var loc={SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
+  return new Intl.NumberFormat(loc[cur]||"sv-SE",{maximumFractionDigits:0}).format(a)+" "+cur;
 }
-function fmt(a, cur){
-  const loc={SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
-  return new Intl.NumberFormat(loc[cur],{maximumFractionDigits:0}).format(a)+" "+cur;
-}
-function getFlag(store){
-  if(!store) return "🛒";
-  const n = store.toLowerCase();
+function flag(store){
+  var n=(store||"").toLowerCase();
   if(n.includes("no")||n.includes("komplett")) return "🇳🇴";
   if(n.includes("dk")||n.includes("bilka")||n.includes("proshop")) return "🇩🇰";
   return "🇸🇪";
 }
+function country(store){ return STORE_COUNTRY[store]||"SE"; }
 
-// ── Rates ─────────────────────────────────────────────────
 async function loadRates(){
   try{
-    const r = await fetch("https://api.frankfurter.app/latest?from=EUR&to=SEK,NOK,DKK");
-    const d = await r.json();
-    rates = {EUR:1, SEK:d.rates.SEK, NOK:d.rates.NOK, DKK:d.rates.DKK};
-    document.getElementById("rates-meta").textContent =
-      "Kurser "+new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
-  } catch(e){ console.warn("Rates fallback"); }
+    var r=await fetch("https://api.frankfurter.app/latest?from=EUR&to=SEK,NOK,DKK");
+    var d=await r.json();
+    rates={EUR:1,SEK:d.rates.SEK,NOK:d.rates.NOK,DKK:d.rates.DKK};
+    document.getElementById("rates-meta").textContent="Kurser "+new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
+  }catch(e){}
 }
 
-// ── API ───────────────────────────────────────────────────
-async function fetchSets(params){
+async function fetchPrices(q){
   try{
-    const r = await fetch(RAILWAY+"/api/brickset",{
-      method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({method:"getSets",params:{pageSize:30,...params}})
-    });
+    var url=q?RAILWAY+"/api/search?q="+encodeURIComponent(q):RAILWAY+"/api/deals";
+    var r=await fetch(url);
     if(!r.ok) return [];
-    const d = await r.json();
-    return d.sets||[];
-  } catch(e){ return []; }
+    var d=await r.json();
+    return d.deals||[];
+  }catch(e){ return []; }
 }
 
-async function fetchPrices(query){
-  try{
-    const url = query
-      ? RAILWAY+"/api/search?q="+encodeURIComponent(query)
-      : RAILWAY+"/api/deals";
-    const r = await fetch(url);
-    if(!r.ok) return [];
-    const d = await r.json();
-    return d.deals??[];
-  } catch(e){ return []; }
-}
-
-// ── Country mapping ───────────────────────────────────────
-const LANG_COUNTRY = {sv:"SE", no:"NO", da:"DK", en:"SE"};
-const STORE_COUNTRY = {
-  "Elgiganten":"SE","Webhallen":"SE","Inet":"SE","Power":"SE",
-  "Ebrix":"SE","ToySpace":"SE",
-  "Komplett NO":"NO",
-  "Proshop DK":"DK","Bilka DK":"DK",
-  "LEGO Shop SE":"SE","LEGO Shop NO":"NO","LEGO Shop DK":"DK",
-};
-function getCountry(store){
-  return STORE_COUNTRY[store] ?? "SE";
-}
-
-// ── Build cards ───────────────────────────────────────────
-function buildCardsFromPrices(prices){
-  const groups = {};
-  for(const p of prices){
-    let key;
-    if(p.set_number && p.set_number!=="null"){
-      key = "set_"+String(p.set_number).replace(/^0+/,"").replace(/-\d+$/,"");
-    } else {
-      key = "name_"+p.name.toLowerCase().replace(/\b\d{4,6}\b/g,"").replace(/lego\s*/gi,"").replace(/[^a-zåäö0-9]+/g,"-").replace(/^-+|-+$/g,"").substring(0,50);
-    }
-    if(!groups[key]){
-      groups[key]={key,name:p.name,setNumber:p.set_number,imageUrl:null,allListings:[]};
-    }
+function buildCards(prices){
+  var groups={};
+  prices.forEach(function(p){
+    var key=p.set_number&&p.set_number!=="null"
+      ?"set_"+String(p.set_number).replace(/^0+/,"").replace(/-\d+$/,"")
+      :"name_"+p.name.toLowerCase().replace(/\b\d{4,6}\b/g,"").replace(/lego\s*/gi,"").replace(/[^a-z0-9]+/g,"-").substring(0,40);
+    if(!groups[key]) groups[key]={key:key,name:p.name,setNum:p.set_number,img:null,all:[]};
     if(p.name.length<groups[key].name.length) groups[key].name=p.name;
-    if(p.image_url&&!groups[key].imageUrl) groups[key].imageUrl=p.image_url;
-    groups[key].allListings.push({
-      store:p.store,flag:getFlag(p.store),cur:p.currency,
-      country: getCountry(p.store),
-      priceLocal:p.price_local,
-      priceConverted:convert(p.price_local,p.currency,currency),
-      url:p.store_url,inStock:p.in_stock===1,isBest:false,
+    if(p.image_url&&!groups[key].img) groups[key].img=p.image_url;
+    groups[key].all.push({
+      store:p.store,flag:flag(p.store),cur:p.currency,country:country(p.store),
+      local:p.price_local,converted:convert(p.price_local,p.currency,currency),
+      url:p.store_url,inStock:p.in_stock===1
     });
-  }
+  });
 
   return Object.values(groups).map(function(g){
-    // Sort all listings by price
-    g.allListings.sort(function(a,b){ return a.priceConverted-b.priceConverted; });
-
-    // User's preferred country based on language
-    const preferredCountry = LANG_COUNTRY[lang] ?? "SE";
-    const otherCountries = ["SE","NO","DK"].filter(function(c){ return c!==preferredCountry; });
-
-    // Pick best (cheapest) per country, preferred country first
-    var listings = [];
-
-    // 1. Best from preferred country
-    var preferred = g.allListings.filter(function(l){ return l.country===preferredCountry; });
-    if(preferred.length) listings.push(preferred[0]);
-
-    // 2. Best from other countries
-    for(var i=0;i<otherCountries.length;i++){
-      var country = otherCountries[i];
-      var countryListings = g.allListings.filter(function(l){ return l.country===country; });
-      if(countryListings.length) listings.push(countryListings[0]);
+    g.all.sort(function(a,b){return a.converted-b.converted;});
+    var pref=LANG_COUNTRY[lang]||"SE";
+    var others=["SE","NO","DK"].filter(function(c){return c!==pref;});
+    var listings=[];
+    var prefList=g.all.filter(function(l){return l.country===pref;});
+    if(prefList.length) listings.push(prefList[0]);
+    others.forEach(function(c){
+      var cl=g.all.filter(function(l){return l.country===c;});
+      if(cl.length) listings.push(cl[0]);
+    });
+    if(listings.length<4){
+      g.all.filter(function(l){
+        return l.country===pref&&!listings.some(function(x){return x.store===l.store;});
+      }).slice(0,4-listings.length).forEach(function(l){listings.push(l);});
     }
-
-    // 3. Fill up to 4 with next cheapest from preferred country (if available)
-    if(listings.length < 4){
-      var extra = g.allListings.filter(function(l){
-        return l.country===preferredCountry &&
-               !listings.some(function(x){ return x.store===l.store; });
-      });
-      for(var j=0;j<extra.length && listings.length<4;j++){
-        listings.push(extra[j]);
-      }
-    }
-
-    // Mark overall best price
-    var sorted = listings.slice().sort(function(a,b){ return a.priceConverted-b.priceConverted; });
-    if(sorted[0]) sorted[0].isBest=true;
-
-    var ps=listings.map(function(l){ return l.priceConverted; });
+    var sorted=listings.slice().sort(function(a,b){return a.converted-b.converted;});
+    if(sorted[0]) sorted[0].best=true;
+    var ps=listings.map(function(l){return l.converted;});
     var minP=Math.min.apply(null,ps);
     var maxP=Math.max.apply(null,ps);
-    var sav=(listings.length>1&&maxP>minP)?Math.round(maxP-minP):null;
-
     return {
-      setNumber:g.setNumber??g.key,name:g.name,theme:"",
-      imageUrl:g.imageUrl,listings:listings,
-      hasPrices:true,minPrice:minP,maxPrice:maxP,savings:sav
+      setNum:g.setNum,key:g.key,name:g.name,img:g.img,listings:listings,
+      minP:minP,maxP:maxP,savings:listings.length>1&&maxP>minP?Math.round(maxP-minP):null
     };
   });
 }
 
-// ── Filters ───────────────────────────────────────────────
 function applyFilters(){
-  const sort=document.getElementById("sort-select").value;
-  const maxP=parseFloat(document.getElementById("max-price").value)||Infinity;
-  var f=allCards.filter(function(c){ return !c.minPrice||c.minPrice<=maxP; });
-  if(sort==="price_asc") f.sort(function(a,b){ return (a.minPrice||9999)-(b.minPrice||9999); });
-  else if(sort==="price_desc") f.sort(function(a,b){ return (b.minPrice||0)-(a.minPrice||0); });
-  else if(sort==="savings") f.sort(function(a,b){ return (b.savings||0)-(a.savings||0); });
-  else if(sort==="name") f.sort(function(a,b){ return a.name.localeCompare(b.name); });
-  renderCards(f);
+  var sort=document.getElementById("sort-select").value;
+  var maxP=parseFloat(document.getElementById("max-price").value)||Infinity;
+  var f=allCards.filter(function(c){return c.minP<=maxP;});
+  if(sort==="price_asc") f.sort(function(a,b){return a.minP-b.minP;});
+  else if(sort==="price_desc") f.sort(function(a,b){return b.minP-a.minP;});
+  else if(sort==="savings") f.sort(function(a,b){return (b.savings||0)-(a.savings||0);});
+  else f.sort(function(a,b){return a.name.localeCompare(b.name);});
+  render(f);
 }
 
-// ── Render ────────────────────────────────────────────────
-function showSkeletons(n){
-  document.getElementById("results").innerHTML=Array(n||8).fill('<div class="skeleton"></div>').join("");
-  document.getElementById("deals-highlight").style.display="none";
-}
-
-function renderHighlights(cards){
-  var best=cards.filter(function(c){ return c.savings&&c.savings>0; }).sort(function(a,b){ return b.savings-a.savings; }).slice(0,4);
-  var hl=document.getElementById("deals-highlight");
-  if(!best.length){ hl.style.display="none"; return; }
-  hl.style.display="block";
-  document.getElementById("highlight-title").textContent=tr("highlight");
-  document.getElementById("highlight-grid").innerHTML=best.map(function(c){
-    return '<div class="highlight-card" onclick="scrollToSet(\''+c.setNumber+'\')"><img class="highlight-img" src="'+(c.imageUrl||"")+'" onerror="this.style.display=\'none\'"/><div><div class="highlight-name">'+c.name+'</div><div class="highlight-price">'+fmt(c.minPrice,currency)+'</div><div class="highlight-save">'+tr("save")+' '+fmt(c.savings,currency)+'</div></div></div>';
-  }).join("");
-}
-
-function renderCard(c){
-  var el = document.createElement("div");
-  el.className = "set-card";
-  el.dataset.set = c.setNumber;
-
-  // Top section
-  var top = document.createElement("div");
-  top.className = "card-top";
-
-  var img = document.createElement("div");
-  img.className = "card-img";
-  if(c.imageUrl){
-    var i = document.createElement("img");
-    i.src = c.imageUrl; i.alt = c.name; i.loading = "lazy";
-    img.appendChild(i);
-  } else {
-    img.textContent = "🧱";
-  }
-
-  var info = document.createElement("div");
-  info.className = "card-info";
-
-  var badges = document.createElement("div");
-  badges.className = "card-badges";
-  if(c.setNumber && !c.setNumber.startsWith("set_") && !c.setNumber.startsWith("name_")){
-    var bn = document.createElement("span");
-    bn.className = "badge badge-num";
-    bn.textContent = "#" + c.setNumber;
-    badges.appendChild(bn);
-  }
-
-  var name = document.createElement("div");
-  name.className = "card-name";
-  name.textContent = c.name;
-
-  var summary = document.createElement("div");
-  summary.className = "card-summary";
-  if(c.hasPrices){
-    var from = document.createElement("span");
-    from.className = "card-from";
-    from.innerHTML = tr("from") + " <strong>" + fmt(c.minPrice, currency) + "</strong>";
-    summary.appendChild(from);
-  }
-  if(c.savings){
-    var sav = document.createElement("span");
-    sav.className = "save-badge";
-    sav.textContent = "💰 " + tr("save") + " " + fmt(c.savings, currency);
-    summary.appendChild(sav);
-  }
-
-  info.appendChild(badges);
-  info.appendChild(name);
-  info.appendChild(summary);
-  top.appendChild(img);
-  top.appendChild(info);
-
-  // Store rows
-  var rows = document.createElement("div");
-  rows.className = "store-rows";
-  c.listings.forEach(function(l){
-    var row = document.createElement("div");
-    row.className = "store-row" + (l.isBest ? " best" : "");
-
-    var left = document.createElement("div");
-    left.className = "store-left";
-
-    var flag = document.createElement("span");
-    flag.className = "store-flag";
-    flag.textContent = l.flag;
-
-    var storeName = document.createElement("span");
-    storeName.className = "store-name-txt";
-    storeName.textContent = l.store;
-
-    left.appendChild(flag);
-    left.appendChild(storeName);
-
-    if(l.isBest){
-      var best = document.createElement("span");
-      best.className = "best-badge";
-      best.textContent = tr("best");
-      left.appendChild(best);
-    }
-
-    var right = document.createElement("div");
-    right.className = "store-right";
-
-    var priceWrap = document.createElement("div");
-    priceWrap.style.textAlign = "right";
-
-    var pm = document.createElement("div");
-    pm.className = "price-main";
-    pm.textContent = fmt(l.priceConverted, currency);
-    priceWrap.appendChild(pm);
-
-    if(l.cur !== currency){
-      var pl = document.createElement("div");
-      pl.className = "price-local";
-      pl.textContent = fmt(l.priceLocal, l.cur) + " lokalt";
-      priceWrap.appendChild(pl);
-    }
-
-    var btn = document.createElement("a");
-    btn.className = "go-btn";
-    btn.href = l.url;
-    btn.target = "_blank";
-    btn.rel = "noopener";
-    btn.textContent = tr("buy_btn");
-
-    right.appendChild(priceWrap);
-    right.appendChild(btn);
-    row.appendChild(left);
-    row.appendChild(right);
-    rows.appendChild(row);
-  });
-
-  // Savings row
-  el.appendChild(top);
-  el.appendChild(rows);
-
-  if(c.savings){
-    var savRow = document.createElement("div");
-    savRow.className = "savings-row";
-    savRow.textContent = "💰 " + tr("save") + " " + fmt(c.savings, currency);
-    el.appendChild(savRow);
-  }
-
+function makeEl(tag,cls,text){
+  var el=document.createElement(tag);
+  if(cls) el.className=cls;
+  if(text) el.textContent=text;
   return el;
 }
 
-function renderCards(cards){
+function renderCard(c){
+  var card=makeEl("div","set-card");
+  card.dataset.set=c.key;
+
+  // Top
+  var top=makeEl("div","card-top");
+  var imgBox=makeEl("div","card-img");
+  if(c.img){var im=makeEl("img");im.src=c.img;im.alt=c.name;im.loading="lazy";imgBox.appendChild(im);}
+  else imgBox.textContent="🧱";
+
+  var info=makeEl("div","card-info");
+  var badges=makeEl("div","badges");
+  var sn=c.setNum&&!String(c.setNum).startsWith("set_")&&!String(c.setNum).startsWith("name_");
+  if(sn){var b=makeEl("span","badge badge-num","#"+c.setNum);badges.appendChild(b);}
+  var nm=makeEl("div","card-name",c.name);
+  var fromRow=makeEl("div","card-from");
+  var fromLbl=document.createTextNode(t("from")+" ");
+  var fromVal=makeEl("strong","",fmt(c.minP,currency));
+  fromRow.appendChild(fromLbl);
+  fromRow.appendChild(fromVal);
+  if(c.savings){
+    var sp=makeEl("span","save-pill","💰 "+t("save")+" "+fmt(c.savings,currency));
+    fromRow.appendChild(sp);
+  }
+  info.appendChild(badges);info.appendChild(nm);info.appendChild(fromRow);
+  top.appendChild(imgBox);top.appendChild(info);
+
+  // Rows
+  var rows=makeEl("div","store-rows");
+  c.listings.forEach(function(l){
+    var row=makeEl("div","store-row"+(l.best?" best":""));
+    var left=makeEl("div","store-left");
+    left.appendChild(makeEl("span","store-flag",l.flag));
+    left.appendChild(makeEl("span","store-name",l.store));
+    if(l.best) left.appendChild(makeEl("span","best-pill",t("best")));
+
+    var right=makeEl("div","store-right");
+    var pb=makeEl("div","price-block");
+    pb.appendChild(makeEl("div","price-main",fmt(l.converted,currency)));
+    if(l.cur!==currency) pb.appendChild(makeEl("div","price-local",fmt(l.local,l.cur)+" lokalt"));
+
+    var btn=makeEl("a","buy-btn",t("buy"));
+    btn.href=l.url;btn.target="_blank";btn.rel="noopener";
+
+    right.appendChild(pb);right.appendChild(btn);
+    row.appendChild(left);row.appendChild(right);
+    rows.appendChild(row);
+  });
+
+  card.appendChild(top);card.appendChild(rows);
+  if(c.savings){
+    var sb=makeEl("div","savings-bar","💰 "+t("save")+" "+fmt(c.savings,currency));
+    card.appendChild(sb);
+  }
+  return card;
+}
+
+function renderHighlights(cards){
+  var best=cards.filter(function(c){return c.savings&&c.savings>0;})
+    .sort(function(a,b){return b.savings-a.savings;}).slice(0,4);
+  var hl=document.getElementById("deals-highlight");
+  if(!best.length){hl.style.display="none";return;}
+  hl.style.display="block";
+  document.getElementById("hl-title").textContent=t("hl");
+  var g=document.getElementById("hl-grid");
+  g.innerHTML="";
+  best.forEach(function(c){
+    var el=makeEl("div","highlight-card");
+    el.onclick=function(){var e=document.querySelector('[data-set="'+c.key+'"]');if(e) e.scrollIntoView({behavior:"smooth",block:"center"});};
+    if(c.img){var im=makeEl("img","highlight-img");im.src=c.img;im.loading="lazy";el.appendChild(im);}
+    var info=makeEl("div");
+    info.appendChild(makeEl("div","hl-name",c.name));
+    info.appendChild(makeEl("div","hl-price",fmt(c.minP,currency)));
+    info.appendChild(makeEl("div","hl-save",t("save")+" "+fmt(c.savings,currency)));
+    el.appendChild(info);g.appendChild(el);
+  });
+}
+
+function showSkeletons(n){
   var el=document.getElementById("results");
+  el.innerHTML="";
+  for(var i=0;i<(n||8);i++) el.appendChild(makeEl("div","skeleton"));
+  document.getElementById("deals-highlight").style.display="none";
+}
+
+function render(cards){
+  var el=document.getElementById("results");
+  el.innerHTML="";
   if(!cards.length){
-    el.innerHTML='<div class="empty"><div class="icon">🔍</div><p>'+tr("empty")+'</p></div>';
+    var em=makeEl("div","empty");
+    em.innerHTML='<div class="icon">🔍</div><p>'+t("empty")+'</p>';
+    el.appendChild(em);
     document.getElementById("deals-highlight").style.display="none";
     return;
   }
   renderHighlights(cards);
-  var html="";
-  for(var i=0;i<cards.length;i++){
-    var c=cards[i];
-    if(i===8) html+='<div class="ad-slot ad-slot-inline"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins></div>';
-    html+='<div class="set-card" data-set="'+c.setNumber+'">'
-      +'<div class="card-top">'
-      +'<div class="card-img">'+(c.imageUrl?'<img src="'+c.imageUrl+'" alt="'+c.name+'" loading="lazy"/>':"🧱")+'</div>'
-      +'<div class="card-info">'
-      +'<div class="card-badges">'+(c.setNumber?'<span class="badge badge-num">#'+c.setNumber+'</span>':'')+(c.theme?'<span class="badge badge-theme">'+c.theme+'</span>':"")+'</div>'
-      +'<div class="card-name">'+c.name+'</div>'
-      +'<div class="card-summary">'
-      +(c.hasPrices?'<span class="card-from">'+tr("from")+' <strong>'+fmt(c.minPrice,currency)+'</strong></span>':"")
-      +(c.savings?'<span class="save-badge">💰 '+tr("save")+' '+fmt(c.savings,currency)+'</span>':"")
-      +'</div></div></div>'
-      +'<div class="store-rows">'
-      +c.listings.map(function(l){
-        return '<div class="store-row'+(l.isBest?" best":"'")+'>'
-          +'<div class="store-left"><span class="store-flag">'+l.flag+'</span><span class="store-name-txt">'+l.store+'</span>'+(l.isBest?'<span class="best-badge">'+tr("best")+'</span>':"")+'</div>'
-          +'<div class="store-right"><div style="text-align:right"><div class="price-main">'+fmt(l.priceConverted,currency)+'</div>'+(l.cur!==currency?'<div class="price-local">'+fmt(l.priceLocal,l.cur)+' lokalt</div>':"")+'</div>'
-          +'<a class="go-btn" href="'+l.url+'" target="_blank" rel="noopener">'+tr("buy_btn")+'</a></div>'
-          +'</div>';
-      }).join("")
-      +'</div>'
-      +(c.savings?'<div class="savings-row">💰 '+tr("save")+' '+fmt(c.savings,currency)+'</div>':"")
-      +'</div>';
-  }
-  el.innerHTML=html;
-  try{ (adsbygoogle=window.adsbygoogle||[]).push({}); } catch(e){}
+  cards.forEach(function(c,i){
+    if(i===8){
+      var ad=makeEl("div","ad-slot ad-inline");
+      el.appendChild(ad);
+    }
+    el.appendChild(renderCard(c));
+  });
 }
 
-// ── Load / Search ─────────────────────────────────────────
 async function loadDeals(){
   mode="deals";
-  document.getElementById("section-title").innerHTML=tr("deals_title")+' <span>'+tr("deals_sub")+'</span>';
-  document.querySelectorAll(".tag").forEach(function(t){ t.classList.remove("active"); });
+  document.getElementById("section-title").innerHTML=t("title")+' <span>'+t("sub")+'</span>';
+  document.querySelectorAll(".tag").forEach(function(b){b.classList.remove("active");});
   showSkeletons(12);
-  const prices=await fetchPrices();
-  allCards=buildCardsFromPrices(prices);
+  var prices=await fetchPrices();
+  allCards=buildCards(prices);
   applyFilters();
 }
 
@@ -744,49 +493,34 @@ async function doSearch(q){
   q=q||document.getElementById("q").value.trim();
   if(!q) return;
   document.getElementById("q").value=q;
-  lastQuery=q; mode="search";
+  lastQuery=q;mode="search";
   document.getElementById("clear-btn").style.display="inline";
   document.getElementById("search-btn").disabled=true;
   showSkeletons(8);
-  const prices=await fetchPrices(q);
-  if(prices.length>0){
-    allCards=buildCardsFromPrices(prices);
-  } else {
-    const isNum=/^\d{4,6}(-\d)?$/.test(q);
-    const sets=await fetchSets(isNum?{setNumber:q}:{theme:q,year:new Date().getFullYear()});
-    allCards=buildCardsFromPrices([]);
-  }
+  var prices=await fetchPrices(q);
+  allCards=buildCards(prices);
   applyFilters();
-  document.getElementById("section-title").innerHTML='<span>"'+q+'" · '+allCards.length+' set</span>';
+  document.getElementById("section-title").innerHTML='"'+q+'" <span>· '+allCards.length+' set</span>';
   document.getElementById("search-btn").disabled=false;
 }
 
 function clearSearch(){
-  lastQuery="";
-  document.getElementById("q").value="";
+  lastQuery="";document.getElementById("q").value="";
   document.getElementById("clear-btn").style.display="none";
-  document.querySelectorAll(".tag").forEach(function(t){ t.classList.remove("active"); });
+  document.querySelectorAll(".tag").forEach(function(b){b.classList.remove("active");});
   loadDeals();
 }
 
-// ── Category dropdown (mobile) ────────────────────────────
-function toggleCatMenu(){
-  var m=document.getElementById("cat-menu");
-  m.classList.toggle("open");
-}
-document.addEventListener("click",function(e){
-  if(!e.target.closest(".cat-dropdown-wrap")){
-    document.getElementById("cat-menu").classList.remove("open");
-  }
-});
+function toggleMore(){document.getElementById("more-menu").classList.toggle("open");}
+function closeMore(){document.getElementById("more-menu").classList.remove("open");}
+document.addEventListener("click",function(e){if(!e.target.closest(".cat-more-wrap")) closeMore();});
 
-// ── Lang & Currency ───────────────────────────────────────
 function applyLang(){
-  document.getElementById("logo-tagline").textContent=tr("tagline");
-  document.getElementById("q").placeholder=tr("search_placeholder");
-  document.getElementById("search-btn").textContent=tr("search_btn");
-  document.getElementById("clear-btn").textContent=tr("back_btn");
-  document.getElementById("lbl-popular").textContent=tr("popular");
+  document.getElementById("logo-tagline").textContent=t("tagline");
+  document.getElementById("q").placeholder="🔍  "+t("search")+"...";
+  document.getElementById("search-btn").textContent=t("search");
+  document.getElementById("clear-btn").textContent=t("back");
+  document.getElementById("lbl-popular").textContent=t("popular");
 }
 
 document.getElementById("cur-select").addEventListener("change",function(){
@@ -794,16 +528,11 @@ document.getElementById("cur-select").addEventListener("change",function(){
   if(mode==="deals") loadDeals(); else doSearch(lastQuery);
 });
 document.getElementById("lang-select").addEventListener("change",function(){
-  lang=this.value;
-  applyLang();
-  applyFilters();
+  lang=this.value;applyLang();applyFilters();
 });
-document.getElementById("q").addEventListener("keydown",function(e){
-  if(e.key==="Enter") doSearch();
-});
+document.getElementById("q").addEventListener("keydown",function(e){if(e.key==="Enter") doSearch();});
 
-// ── Init ──────────────────────────────────────────────────
-loadRates().then(function(){ loadDeals(); });
+loadRates().then(function(){loadDeals();});
 </script>
 </body>
 </html>
