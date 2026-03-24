@@ -14,7 +14,7 @@ body{font-family:'Nunito',-apple-system,sans-serif;background:var(--bg);color:va
 header{background:linear-gradient(135deg,#E3000B 0%,#c0000a 100%);color:#fff;padding:0 1.5rem;box-shadow:0 4px 12px rgba(227,0,11,.3);position:sticky;top:0;z-index:100;}
 .header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:68px;flex-wrap:wrap;padding:.5rem 0;}
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;cursor:pointer;}
-.logo-icon{width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+  .logo-icon{width:46px;height:46px;border-radius:8px;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,0.8);background:#fff;}
 .logo-text h1{font-size:1.15rem;font-weight:900;color:#fff;line-height:1.2;}
 .logo-text p{font-size:.68rem;color:rgba(255,255,255,.7);font-weight:600;margin-top:2px;}
 .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;}
@@ -118,20 +118,23 @@ footer a{color:rgba(255,255,255,.6);text-decoration:none;}
       </div>
     </a>
     <div class="header-right">
-      <div style="display:flex;align-items:center;gap:.6rem;">
-        <span style="font-size:.72rem;color:rgba(255,255,255,.6);font-weight:700;" id="lbl-currency">VALUTA</span>
-        <div class="cur-btns">
-          <button class="cur-btn active" data-cur="SEK">SEK</button>
-          <button class="cur-btn" data-cur="NOK">NOK</button>
-          <button class="cur-btn" data-cur="DKK">DKK</button>
-          <button class="cur-btn" data-cur="EUR">EUR</button>
-        </div>
+      <div class="dropdown-wrap">
+        <span class="dropdown-label" id="lbl-currency">Valuta</span>
+        <select class="header-select" id="cur-select">
+          <option value="SEK">SEK</option>
+          <option value="NOK">NOK</option>
+          <option value="DKK">DKK</option>
+          <option value="EUR">EUR</option>
+        </select>
       </div>
-      <div class="lang-btns">
-        <button class="lang-btn active" data-lang="sv">🇸🇪 SV</button>
-        <button class="lang-btn" data-lang="no">🇳🇴 NO</button>
-        <button class="lang-btn" data-lang="da">🇩🇰 DA</button>
-        <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+      <div class="dropdown-wrap">
+        <span class="dropdown-label">Språk</span>
+        <select class="header-select" id="lang-select">
+          <option value="sv">🇸🇪 Svenska</option>
+          <option value="no">🇳🇴 Norsk</option>
+          <option value="da">🇩🇰 Dansk</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
       </div>
     </div>
   </div>
@@ -224,9 +227,10 @@ function convert(a, from, to){
   if(from===to) return a;
   return (a / rates[from]) * rates[to];
 }
+// Format price always with currency code
 function fmt(a, cur){
   const loc={SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
-  return new Intl.NumberFormat(loc[cur],{style:"currency",currency:cur,maximumFractionDigits:0}).format(a);
+  return new Intl.NumberFormat(loc[cur],{maximumFractionDigits:0}).format(a) + " " + cur;
 }
 
 // ── Fetch rates ───────────────────────────────────────────
@@ -574,21 +578,15 @@ function applyLang(){
 }
 
 // ── Event listeners ───────────────────────────────────────
-document.querySelectorAll(".cur-btn").forEach(function(b){
-  b.addEventListener("click", function(){
-    currency = b.dataset.cur;
-    document.querySelectorAll(".cur-btn").forEach(function(x){ x.classList.toggle("active", x===b); });
-    if(mode==="deals") loadDeals(); else doSearch(lastQuery);
-  });
+document.getElementById("cur-select").addEventListener("change", function(){
+  currency = this.value;
+  if(mode==="deals") loadDeals(); else doSearch(lastQuery);
 });
 
-document.querySelectorAll(".lang-btn").forEach(function(b){
-  b.addEventListener("click", function(){
-    lang = b.dataset.lang;
-    document.querySelectorAll(".lang-btn").forEach(function(x){ x.classList.toggle("active", x===b); });
-    applyLang();
-    applyFilters();
-  });
+document.getElementById("lang-select").addEventListener("change", function(){
+  lang = this.value;
+  applyLang();
+  applyFilters();
 });
 
 document.getElementById("q").addEventListener("keydown", function(e){
