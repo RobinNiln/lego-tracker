@@ -510,14 +510,7 @@ async function loadDeals(){
   showSkeletons(12);
   try{
     const prices = await fetchPrices();
-    if(prices.length > 0){
-      // Use Railway prices as primary source
-      allCards = buildCardsFromPrices(prices);
-    } else {
-      // Fallback to Brickset
-      const sets = await fetchSets({year: new Date().getFullYear(), orderBy:"Pieces"});
-      allCards = buildCards(sets, []);
-    }
+    allCards = buildCardsFromPrices(prices);
     applyFilters();
   } catch(e){
     document.getElementById("results").innerHTML = '<div class="error-box">⚠️ '+e.message+'</div>';
@@ -535,30 +528,16 @@ async function doSearch(q){
   document.getElementById("search-btn").disabled = true;
   showSkeletons(8);
   try{
-    // Search Railway prices (all sources) + Brickset metadata in parallel
-    const isNum = /^\d{4,6}(-\d)?$/.test(q);
-    const [prices, sets] = await Promise.all([
-      fetchPrices(q),
-      fetchSets(isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()})
-    ]);
-
+    // Always search Railway first (all real stores)
+    const prices = await fetchPrices(q);
     if(prices.length > 0){
-      // Build cards from Railway prices (has real store data)
-      const priceCards = buildCardsFromPrices(prices);
-      // Also get Brickset cards with images/metadata
-      const bricksetCards = buildCards(sets, prices);
-      // Merge – prefer cards with prices, deduplicate by name
-      const seen = new Set();
-      allCards = [...priceCards, ...bricksetCards].filter(function(c){
-        const key = c.name.toLowerCase().trim();
-        if(seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
+      allCards = buildCardsFromPrices(prices);
     } else {
+      // Fallback to Brickset if no Railway results
+      const isNum = /^\d{4,6}(-\d)?$/.test(q);
+      const sets = await fetchSets(isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()});
       allCards = buildCards(sets, []);
     }
-
     applyFilters();
     document.getElementById("section-title").innerHTML =
       '<span>"'+q+'" · '+allCards.length+' set</span>';
