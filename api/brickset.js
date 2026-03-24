@@ -1,20 +1,19 @@
-export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+import express from "express";
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).end();
+const router = express.Router();
+const API_KEY = "3-vC1o-H7i6-uYtZK";
 
-  const API_KEY = "3-vC1o-H7i6-uYtZK";
-
+router.post("/", async (req, res) => {
   try {
     const { method, params } = req.body;
 
     const body = new URLSearchParams({
       apiKey: API_KEY,
       userHash: "",
-      params: JSON.stringify(params),
+      params: JSON.stringify({
+        ...params,
+        extendedData: true,  // Get full price data
+      }),
     });
 
     const r = await fetch(`https://brickset.com/api/v3.asmx/${method}`, {
@@ -24,8 +23,10 @@ export default async function handler(req, res) {
     });
 
     const data = await r.json();
-    res.status(200).json(data);
+    res.json(data);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+});
+
+export default router;
