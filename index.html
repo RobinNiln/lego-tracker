@@ -445,6 +445,19 @@ async function fetchPrices(query){
   } catch(e){ return []; }
 }
 
+// ── Country mapping ───────────────────────────────────────
+const LANG_COUNTRY = {sv:"SE", no:"NO", da:"DK", en:"SE"};
+const STORE_COUNTRY = {
+  "Elgiganten":"SE","Webhallen":"SE","Inet":"SE","Power":"SE",
+  "Ebrix":"SE","ToySpace":"SE",
+  "Komplett NO":"NO",
+  "Proshop DK":"DK","Bilka DK":"DK",
+  "LEGO Shop SE":"SE","LEGO Shop NO":"NO","LEGO Shop DK":"DK",
+};
+function getCountry(store){
+  return STORE_COUNTRY[store] ?? "SE";
+}
+
 // ── Build cards ───────────────────────────────────────────
 function buildCardsFromPrices(prices){
   const groups = {};
@@ -456,28 +469,66 @@ function buildCardsFromPrices(prices){
       key = "name_"+p.name.toLowerCase().replace(/\b\d{4,6}\b/g,"").replace(/lego\s*/gi,"").replace(/[^a-zåäö0-9]+/g,"-").replace(/^-+|-+$/g,"").substring(0,50);
     }
     if(!groups[key]){
-      groups[key]={key,name:p.name,setNumber:p.set_number,imageUrl:null,listings:[]};
+      groups[key]={key,name:p.name,setNumber:p.set_number,imageUrl:null,allListings:[]};
     }
     if(p.name.length<groups[key].name.length) groups[key].name=p.name;
     if(p.image_url&&!groups[key].imageUrl) groups[key].imageUrl=p.image_url;
-    const dup = groups[key].listings.some(function(l){ return l.store===p.store; });
-    if(!dup){
-      groups[key].listings.push({
-        store:p.store,flag:getFlag(p.store),cur:p.currency,
-        priceLocal:p.price_local,
-        priceConverted:convert(p.price_local,p.currency,currency),
-        url:p.store_url,inStock:p.in_stock===1,isBest:false,
-      });
-    }
+    groups[key].allListings.push({
+      store:p.store,flag:getFlag(p.store),cur:p.currency,
+      country: getCountry(p.store),
+      priceLocal:p.price_local,
+      priceConverted:convert(p.price_local,p.currency,currency),
+      url:p.store_url,inStock:p.in_stock===1,isBest:false,
+    });
   }
+
   return Object.values(groups).map(function(g){
-    g.listings.sort(function(a,b){ return a.priceConverted-b.priceConverted; });
-    if(g.listings[0]) g.listings[0].isBest=true;
-    const ps=g.listings.map(function(l){ return l.priceConverted; });
-    const minP=Math.min.apply(null,ps);
-    const maxP=Math.max.apply(null,ps);
-    const sav=(g.listings.length>1&&maxP>minP)?Math.round(maxP-minP):null;
-    return {setNumber:g.setNumber??g.key,name:g.name,theme:"",imageUrl:g.imageUrl,listings:g.listings,hasPrices:true,minPrice:minP,maxPrice:maxP,savings:sav};
+    // Sort all listings by price
+    g.allListings.sort(function(a,b){ return a.priceConverted-b.priceConverted; });
+
+    // User's preferred country based on language
+    const preferredCountry = LANG_COUNTRY[lang] ?? "SE";
+    const otherCountries = ["SE","NO","DK"].filter(function(c){ return c!==preferredCountry; });
+
+    // Pick best (cheapest) per country, preferred country first
+    var listings = [];
+
+    // 1. Best from preferred country
+    var preferred = g.allListings.filter(function(l){ return l.country===preferredCountry; });
+    if(preferred.length) listings.push(preferred[0]);
+
+    // 2. Best from other countries
+    for(var i=0;i<otherCountries.length;i++){
+      var country = otherCountries[i];
+      var countryListings = g.allListings.filter(function(l){ return l.country===country; });
+      if(countryListings.length) listings.push(countryListings[0]);
+    }
+
+    // 3. Fill up to 4 with next cheapest from preferred country (if available)
+    if(listings.length < 4){
+      var extra = g.allListings.filter(function(l){
+        return l.country===preferredCountry &&
+               !listings.some(function(x){ return x.store===l.store; });
+      });
+      for(var j=0;j<extra.length && listings.length<4;j++){
+        listings.push(extra[j]);
+      }
+    }
+
+    // Mark overall best price
+    var sorted = listings.slice().sort(function(a,b){ return a.priceConverted-b.priceConverted; });
+    if(sorted[0]) sorted[0].isBest=true;
+
+    var ps=listings.map(function(l){ return l.priceConverted; });
+    var minP=Math.min.apply(null,ps);
+    var maxP=Math.max.apply(null,ps);
+    var sav=(listings.length>1&&maxP>minP)?Math.round(maxP-minP):null;
+
+    return {
+      setNumber:g.setNumber??g.key,name:g.name,theme:"",
+      imageUrl:g.imageUrl,listings:listings,
+      hasPrices:true,minPrice:minP,maxPrice:maxP,savings:sav
+    };
   });
 }
 
