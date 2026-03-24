@@ -309,14 +309,15 @@ document.getElementById("q").addEventListener("keydown", e=>{ if(e.key==="Enter"
 
 // ── Brickset ──────────────────────────────────────────────
 const BRICKSET_KEY = "3-vC1o-H7i6-uYtZK";
-const PROXY = "https://api.allorigins.win/raw?url=";
-const BRICKSET_BASE = "https://brickset.com/api/v3.asmx";
+const RAILWAY_API = "https://lego-price-api-production.up.railway.app";
 
 async function bricksetCall(method, params){
-  const qs = new URLSearchParams({ apiKey:BRICKSET_KEY, userHash:"", params:JSON.stringify(params) });
-  const url = PROXY + encodeURIComponent(`${BRICKSET_BASE}/${method}?${qs}`);
-  const r = await fetch(url, { headers:{ Accept:"application/json" } });
-  if(!r.ok) throw new Error(`Brickset HTTP ${r.status}`);
+  const r = await fetch(`${RAILWAY_API}/api/brickset`, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({method, params})
+  });
+  if(!r.ok) throw new Error(`API HTTP ${r.status}`);
   return r.json();
 }
 
