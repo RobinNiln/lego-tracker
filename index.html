@@ -561,9 +561,24 @@ function renderHighlights(cards){
   }).join("");
 }
 
-function scrollToSet(s){
-  var el=document.querySelector('[data-set="'+s+'"]');
-  if(el) el.scrollIntoView({behavior:"smooth",block:"center"});
+function renderStoreRow(l){
+  var cls = "store-row" + (l.isBest?" best":"");
+  var bestBadge = l.isBest ? '<span class="best-badge">'+tr("best")+'</span>' : "";
+  var localPrice = (l.cur!==currency) ? '<div class="price-local">'+fmt(l.priceLocal,l.cur)+' lokalt</div>' : "";
+  return '<div class="'+cls+'">'+
+    '<div class="store-left">'+
+      '<span class="store-flag">'+l.flag+'</span>'+
+      '<span class="store-name-txt">'+l.store+'</span>'+
+      bestBadge+
+    '</div>'+
+    '<div class="store-right">'+
+      '<div style="text-align:right">'+
+        '<div class="price-main">'+fmt(l.priceConverted,currency)+'</div>'+
+        localPrice+
+      '</div>'+
+      '<a class="go-btn" href="'+l.url+'" target="_blank" rel="noopener">'+tr("buy_btn")+'</a>'+
+    '</div>'+
+  '</div>';
 }
 
 function renderCards(cards){
