@@ -535,19 +535,22 @@ async function doSearch(q){
   document.getElementById("search-btn").disabled = true;
   showSkeletons(8);
   try{
+    // Search Railway prices (all sources) + Brickset metadata in parallel
     const isNum = /^\d{4,6}(-\d)?$/.test(q);
-    const [sets, prices] = await Promise.all([
-      fetchSets(isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()}),
-      fetchPrices(q)
+    const [prices, sets] = await Promise.all([
+      fetchPrices(q),
+      fetchSets(isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()})
     ]);
-    // Merge: Railway prices + Brickset metadata
+
     if(prices.length > 0){
+      // Build cards from Railway prices (has real store data)
       const priceCards = buildCardsFromPrices(prices);
+      // Also get Brickset cards with images/metadata
       const bricksetCards = buildCards(sets, prices);
-      // Combine, deduplicate by name
+      // Merge – prefer cards with prices, deduplicate by name
       const seen = new Set();
       allCards = [...priceCards, ...bricksetCards].filter(function(c){
-        const key = c.name.toLowerCase();
+        const key = c.name.toLowerCase().trim();
         if(seen.has(key)) return false;
         seen.add(key);
         return true;
@@ -555,10 +558,13 @@ async function doSearch(q){
     } else {
       allCards = buildCards(sets, []);
     }
+
     applyFilters();
-    document.getElementById("section-title").innerHTML = '<span>"'+q+'" · '+allCards.length+' set</span>';
+    document.getElementById("section-title").innerHTML =
+      '<span>"'+q+'" · '+allCards.length+' set</span>';
   } catch(e){
-    document.getElementById("results").innerHTML = '<div class="error-box">⚠️ '+e.message+'</div>';
+    document.getElementById("results").innerHTML =
+      '<div class="error-box">⚠️ '+e.message+'</div>';
   } finally{
     document.getElementById("search-btn").disabled = false;
   }
