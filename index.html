@@ -336,7 +336,7 @@ function buildCards(sets, prices){
 
     return {
       setNumber: setNum,
-      name: s.name,
+      name: s.name || "LEGO Set " + cleanNum,
       theme: s.theme || "",
       imageUrl: s.image && s.image.imageURL ? s.image.imageURL : null,
       listings: listings,
@@ -420,7 +420,7 @@ function renderCards(cards){
       +'</div></div></div>'
       +'<div class="store-rows">'
       +c.listings.map(function(l){
-        return '<div class="store-row'+(l.isBest?" best":"'")+'>'
+        return '<div class="store-row'+(l.isBest?' best':'')+'">'
           +'<div class="store-left">'
           +'<span class="store-flag">'+l.flag+'</span>'
           +'<span class="store-name-txt">'+l.store+'</span>'
