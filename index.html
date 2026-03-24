@@ -561,24 +561,134 @@ function renderHighlights(cards){
   }).join("");
 }
 
-function renderStoreRow(l){
-  var cls = "store-row" + (l.isBest?" best":"");
-  var bestBadge = l.isBest ? '<span class="best-badge">'+tr("best")+'</span>' : "";
-  var localPrice = (l.cur!==currency) ? '<div class="price-local">'+fmt(l.priceLocal,l.cur)+' lokalt</div>' : "";
-  return '<div class="'+cls+'">'+
-    '<div class="store-left">'+
-      '<span class="store-flag">'+l.flag+'</span>'+
-      '<span class="store-name-txt">'+l.store+'</span>'+
-      bestBadge+
-    '</div>'+
-    '<div class="store-right">'+
-      '<div style="text-align:right">'+
-        '<div class="price-main">'+fmt(l.priceConverted,currency)+'</div>'+
-        localPrice+
-      '</div>'+
-      '<a class="go-btn" href="'+l.url+'" target="_blank" rel="noopener">'+tr("buy_btn")+'</a>'+
-    '</div>'+
-  '</div>';
+function renderCard(c){
+  var el = document.createElement("div");
+  el.className = "set-card";
+  el.dataset.set = c.setNumber;
+
+  // Top section
+  var top = document.createElement("div");
+  top.className = "card-top";
+
+  var img = document.createElement("div");
+  img.className = "card-img";
+  if(c.imageUrl){
+    var i = document.createElement("img");
+    i.src = c.imageUrl; i.alt = c.name; i.loading = "lazy";
+    img.appendChild(i);
+  } else {
+    img.textContent = "🧱";
+  }
+
+  var info = document.createElement("div");
+  info.className = "card-info";
+
+  var badges = document.createElement("div");
+  badges.className = "card-badges";
+  if(c.setNumber && !c.setNumber.startsWith("set_") && !c.setNumber.startsWith("name_")){
+    var bn = document.createElement("span");
+    bn.className = "badge badge-num";
+    bn.textContent = "#" + c.setNumber;
+    badges.appendChild(bn);
+  }
+
+  var name = document.createElement("div");
+  name.className = "card-name";
+  name.textContent = c.name;
+
+  var summary = document.createElement("div");
+  summary.className = "card-summary";
+  if(c.hasPrices){
+    var from = document.createElement("span");
+    from.className = "card-from";
+    from.innerHTML = tr("from") + " <strong>" + fmt(c.minPrice, currency) + "</strong>";
+    summary.appendChild(from);
+  }
+  if(c.savings){
+    var sav = document.createElement("span");
+    sav.className = "save-badge";
+    sav.textContent = "💰 " + tr("save") + " " + fmt(c.savings, currency);
+    summary.appendChild(sav);
+  }
+
+  info.appendChild(badges);
+  info.appendChild(name);
+  info.appendChild(summary);
+  top.appendChild(img);
+  top.appendChild(info);
+
+  // Store rows
+  var rows = document.createElement("div");
+  rows.className = "store-rows";
+  c.listings.forEach(function(l){
+    var row = document.createElement("div");
+    row.className = "store-row" + (l.isBest ? " best" : "");
+
+    var left = document.createElement("div");
+    left.className = "store-left";
+
+    var flag = document.createElement("span");
+    flag.className = "store-flag";
+    flag.textContent = l.flag;
+
+    var storeName = document.createElement("span");
+    storeName.className = "store-name-txt";
+    storeName.textContent = l.store;
+
+    left.appendChild(flag);
+    left.appendChild(storeName);
+
+    if(l.isBest){
+      var best = document.createElement("span");
+      best.className = "best-badge";
+      best.textContent = tr("best");
+      left.appendChild(best);
+    }
+
+    var right = document.createElement("div");
+    right.className = "store-right";
+
+    var priceWrap = document.createElement("div");
+    priceWrap.style.textAlign = "right";
+
+    var pm = document.createElement("div");
+    pm.className = "price-main";
+    pm.textContent = fmt(l.priceConverted, currency);
+    priceWrap.appendChild(pm);
+
+    if(l.cur !== currency){
+      var pl = document.createElement("div");
+      pl.className = "price-local";
+      pl.textContent = fmt(l.priceLocal, l.cur) + " lokalt";
+      priceWrap.appendChild(pl);
+    }
+
+    var btn = document.createElement("a");
+    btn.className = "go-btn";
+    btn.href = l.url;
+    btn.target = "_blank";
+    btn.rel = "noopener";
+    btn.textContent = tr("buy_btn");
+
+    right.appendChild(priceWrap);
+    right.appendChild(btn);
+    row.appendChild(left);
+    row.appendChild(right);
+    rows.appendChild(row);
+  });
+
+  // Savings row
+  el.appendChild(top);
+  el.appendChild(rows);
+
+  if(c.savings){
+    var savRow = document.createElement("div");
+    savRow.className = "savings-row";
+    savRow.textContent = "💰 " + tr("save") + " " + fmt(c.savings, currency);
+    el.appendChild(savRow);
+  }
+
+  return el;
 }
 
 function renderCards(cards){
