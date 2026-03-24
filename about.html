@@ -3,169 +3,537 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Om oss – Best LEGO Price</title>
-<meta name="description" content="Best LEGO Price jämför priser på LEGO-set hos nordiska återförsäljare så att du alltid hittar bästa priset."/>
+<title>Best LEGO Price – Jämför nordiska butiker</title>
+<meta name="description" content="Hitta bästa priset på LEGO-set hos nordiska återförsäljare."/>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',-apple-system,sans-serif;background:#f5f6fa;color:#1a1a1a;}
+body{font-family:'Nunito',-apple-system,sans-serif;background:#f5f6fa;color:#1a1a1a;min-height:100vh;}
 
-header{background:#E3000B;color:#fff;padding:.75rem 1rem;box-shadow:0 3px 10px rgba(227,0,11,.3);}
-.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+header{background:#E3000B;color:#fff;padding:.75rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 3px 10px rgba(227,0,11,.3);}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.75rem;}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
-.logo h1{font-size:1rem;font-weight:900;color:#fff;}
+.logo-icon{width:40px;height:40px;border-radius:7px;flex-shrink:0;}
+.logo h1{font-size:1rem;font-weight:900;color:#fff;line-height:1.2;}
 .logo p{font-size:.62rem;color:rgba(255,255,255,.75);font-weight:600;}
-.nav a{color:rgba(255,255,255,.85);text-decoration:none;font-weight:700;font-size:.85rem;padding:.4rem .75rem;border-radius:8px;transition:background .15s;}
-.nav a:hover{background:rgba(255,255,255,.15);}
+.header-controls{display:flex;align-items:center;gap:.5rem;flex-shrink:0;}
+.ctrl-group{display:flex;align-items:center;gap:.25rem;}
+.ctrl-label{font-size:.62rem;color:rgba(255,255,255,.65);font-weight:700;}
+.hdr-select{background:rgba(0,0,0,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:7px;padding:.28rem .45rem;font-weight:700;font-size:.72rem;cursor:pointer;font-family:'Nunito',sans-serif;outline:none;}
 
-.hero{background:linear-gradient(135deg,#E3000B 0%,#c0000a 100%);color:#fff;padding:4rem 1rem;}
-.hero-inner{max-width:860px;margin:0 auto;text-align:center;}
-.hero h2{font-size:2.2rem;font-weight:900;line-height:1.2;margin-bottom:1rem;}
-.hero p{font-size:1.05rem;color:rgba(255,255,255,.85);font-weight:600;line-height:1.7;max-width:600px;margin:0 auto;}
+.search-section{background:#1a1a1a;padding:.75rem 1rem;}
+.search-inner{max-width:1280px;margin:0 auto;display:flex;gap:.5rem;align-items:center;}
+.search-box{flex:1;display:flex;background:#fff;border-radius:10px;overflow:hidden;}
+.search-box input{flex:1;padding:.7rem .9rem;border:none;font-size:.9rem;font-family:'Nunito',sans-serif;font-weight:600;outline:none;color:#1a1a1a;min-width:0;}
+.search-box input::placeholder{color:#aaa;}
+.search-box button{background:#E3000B;color:#fff;border:none;padding:.7rem 1.1rem;font-weight:800;font-size:.85rem;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
+#clear-btn{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:.45rem .8rem;font-size:.78rem;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;white-space:nowrap;}
 
-/* SVG illustration */
-.illustration{margin:2.5rem auto 0;width:180px;height:180px;display:block;}
+.filter-section{background:#1a1a1a;border-top:1px solid rgba(255,255,255,.06);padding:.5rem 1rem .6rem;}
+.filter-inner{max-width:1280px;margin:0 auto;display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;}
+.tags-label{font-size:.66rem;color:rgba(255,255,255,.4);font-weight:700;text-transform:uppercase;}
+.tag{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.24rem .75rem;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.tag:hover,.tag.active{background:#E3000B;border-color:#E3000B;color:#fff;}
+.filter-sep{width:1px;height:18px;background:rgba(255,255,255,.12);}
+.sort-select{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.24rem .6rem;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;outline:none;}
+.sort-select option{background:#1a1a1a;}
+.price-filter{display:flex;align-items:center;gap:.35rem;}
+.price-filter label{font-size:.66rem;color:rgba(255,255,255,.5);font-weight:700;}
+.price-filter input{width:75px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:7px;padding:.24rem .5rem;font-size:.73rem;color:#fff;font-family:'Nunito',sans-serif;outline:none;}
+.cat-more-wrap{position:relative;}
+.cat-more-btn{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.24rem .75rem;font-size:.73rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;}
+.cat-more-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:#222;border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.35rem;min-width:155px;z-index:200;flex-direction:column;gap:.15rem;}
+.cat-more-menu.open{display:flex;}
+.cat-more-item{color:rgba(255,255,255,.85);font-size:.78rem;font-weight:700;padding:.4rem .7rem;border-radius:7px;cursor:pointer;font-family:'Nunito',sans-serif;}
+.cat-more-item:hover{background:rgba(255,255,255,.1);}
 
-main{max-width:860px;margin:0 auto;padding:3rem 1rem;}
+main{max-width:1280px;margin:0 auto;padding:1.25rem 1rem;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;flex-wrap:wrap;gap:.4rem;}
+.section-header h2{font-size:1rem;font-weight:800;}
+.section-header h2 span{font-weight:500;color:#6b7280;font-size:.85rem;}
+.meta-text{font-size:.7rem;color:#6b7280;font-weight:600;}
 
-.section{margin-bottom:3rem;}
-.section h3{font-size:1.3rem;font-weight:900;color:#E3000B;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem;}
-.section p{font-size:.95rem;line-height:1.8;color:#333;font-weight:600;}
+.deals-highlight{margin-bottom:1.25rem;}
+.deals-highlight h3{font-size:.73rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#FF6B00;margin-bottom:.65rem;}
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.75rem;}
+.highlight-card{background:#fff;border:2px solid #ffd599;border-radius:12px;padding:.75rem;display:flex;gap:.6rem;align-items:center;cursor:pointer;}
+.highlight-card:hover{border-color:#FF6B00;}
+.highlight-img{width:54px;height:54px;border-radius:7px;object-fit:contain;background:#f8f8f8;flex-shrink:0;}
+.hl-name{font-size:.75rem;font-weight:800;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.2rem;}
+.hl-price{font-size:1rem;font-weight:900;color:#E3000B;}
+.hl-save{font-size:.64rem;font-weight:800;color:#15803d;background:#e8f9ef;border-radius:999px;padding:1px 7px;display:inline-block;margin-top:.15rem;}
 
-.stores-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;margin-top:1rem;}
-.store-chip{background:#fff;border:2px solid #e2e5ed;border-radius:12px;padding:.75rem 1rem;text-align:center;font-weight:800;font-size:.85rem;color:#1a1a1a;}
-.store-chip .flag{font-size:1.2rem;display:block;margin-bottom:.3rem;}
+.set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;}
 
-.values{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1rem;}
-.value-card{background:#fff;border:2px solid #e2e5ed;border-radius:14px;padding:1.25rem;text-align:center;}
-.value-card .icon{font-size:2rem;margin-bottom:.5rem;}
-.value-card h4{font-size:.9rem;font-weight:900;margin-bottom:.4rem;}
-.value-card p{font-size:.8rem;color:#6b7280;font-weight:600;line-height:1.6;}
+/* CARD */
+.set-card{background:#fff;border:2px solid #e2e5ed;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;}
+.set-card:hover{border-color:#0057A8;box-shadow:0 4px 16px rgba(0,0,0,.08);}
 
-.cta{background:linear-gradient(135deg,#E3000B,#c0000a);border-radius:18px;padding:2.5rem;text-align:center;color:#fff;margin-top:3rem;}
-.cta h3{font-size:1.5rem;font-weight:900;margin-bottom:.75rem;}
-.cta p{font-size:.95rem;color:rgba(255,255,255,.85);font-weight:600;margin-bottom:1.5rem;}
-.cta a{display:inline-block;background:#fff;color:#E3000B;font-weight:900;font-size:1rem;padding:.85rem 2rem;border-radius:12px;text-decoration:none;}
-.cta a:hover{background:#f0f0f0;}
+.card-top{display:flex;gap:.75rem;padding:.85rem;border-bottom:1px solid #e2e5ed;}
+.card-img{width:76px;height:76px;flex-shrink:0;background:#f5f6fa;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.card-info{flex:1;min-width:0;}
+.badges{display:flex;gap:.25rem;flex-wrap:wrap;margin-bottom:.3rem;}
+.badge{font-size:.6rem;font-weight:800;padding:2px 6px;border-radius:999px;text-transform:uppercase;}
+.badge-num{background:#e8f0fb;color:#0057A8;}
+.badge-theme{background:#f0f0f0;color:#555;}
+.card-name{font-weight:800;font-size:.84rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.35rem;}
+.card-from{font-size:.72rem;color:#6b7280;font-weight:600;}
+.card-from strong{color:#E3000B;font-size:.88rem;font-weight:900;}
+.save-pill{background:#e8f9ef;color:#15803d;font-size:.62rem;font-weight:800;padding:2px 6px;border-radius:999px;margin-left:.3rem;}
 
-footer{background:#1a1a1a;color:rgba(255,255,255,.4);text-align:center;padding:1.5rem;font-size:.72rem;font-weight:600;margin-top:2rem;line-height:1.9;}
+/* STORE ROWS */
+.store-rows{display:flex;flex-direction:column;}
+.store-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem .85rem;gap:.5rem;border-bottom:1px solid #f3f4f6;}
+.store-row:last-child{border-bottom:none;}
+.store-row.best{background:#fffbeb;border-left:3px solid #FFD700;}
+.store-left{display:flex;align-items:center;gap:.4rem;flex:1;min-width:0;}
+.store-flag{font-size:.9rem;flex-shrink:0;}
+.store-name{font-size:.76rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.best-pill{background:#FFD700;color:#000;font-size:.58rem;font-weight:900;padding:1px 6px;border-radius:999px;flex-shrink:0;}
+.store-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0;}
+.price-block{text-align:right;}
+.price-main{font-size:.95rem;font-weight:900;color:#1a1a1a;white-space:nowrap;}
+.price-local{font-size:.62rem;color:#6b7280;font-weight:600;white-space:nowrap;}
+.buy-btn{display:inline-block;background:#0057A8;color:#fff;border:none;border-radius:7px;padding:.35rem .75rem;font-size:.72rem;font-weight:800;cursor:pointer;text-decoration:none;font-family:'Nunito',sans-serif;white-space:nowrap;}
+.buy-btn:hover{background:#004a8f;}
+
+.savings-bar{display:flex;align-items:center;justify-content:center;padding:.4rem;background:#f0fdf4;border-top:1px solid #bbf7d0;font-size:.68rem;font-weight:800;color:#15803d;}
+
+.skeleton{background:linear-gradient(90deg,#e8eaf0 25%,#f4f5f8 50%,#e8eaf0 75%);background-size:200% 100%;animation:shimmer 1.3s infinite;border-radius:14px;height:200px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.empty{text-align:center;padding:3rem 1rem;color:#6b7280;grid-column:1/-1;}
+.empty .icon{font-size:3rem;margin-bottom:.5rem;}
+.error-msg{background:#fff1f1;border:2px solid #fca5a5;border-radius:10px;padding:.85rem 1rem;color:#b91c1c;font-size:.85rem;font-weight:600;grid-column:1/-1;}
+
+.ad-slot{background:#f0f2f8;border:1px dashed #c5cade;border-radius:10px;height:80px;display:flex;align-items:center;justify-content:center;color:#9ba3bf;font-size:.72rem;margin:1rem 0;}
+.ad-inline{grid-column:1/-1;height:100px;}
+
+footer{background:#1a1a1a;color:rgba(255,255,255,.4);text-align:center;padding:1.5rem 1rem;font-size:.7rem;font-weight:600;margin-top:2rem;line-height:1.9;}
 footer a{color:rgba(255,255,255,.55);text-decoration:none;}
 
 @media(max-width:640px){
-  .hero h2{font-size:1.6rem;}
-  .hero p{font-size:.9rem;}
+  .logo p,.ctrl-label{display:none;}
+  .logo-icon{width:34px;height:34px;}
+  .logo h1{font-size:.88rem;}
+  .hdr-select{font-size:.68rem;padding:.25rem .4rem;}
+  .tag:nth-child(n+6){display:none;}
+  .cat-more-wrap{display:block !important;}
+  .set-grid{grid-template-columns:1fr;}
+  .highlight-grid{grid-template-columns:1fr 1fr;}
+  .card-img{width:64px;height:64px;}
+  .price-main{font-size:.88rem;}
+  .buy-btn{padding:.3rem .6rem;font-size:.68rem;}
 }
+@media(min-width:641px){.cat-more-wrap{display:none;}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-inner">
-    <a class="logo" href="/">
+    <a class="logo" href="/" onclick="clearSearch();return false;">
+      <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+        <defs>
+          <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="-38" dy="26" stdDeviation="18" flood-color="#8f0000" flood-opacity="0.35"/></filter>
+          <g id="st"><rect x="0" y="0" width="44" height="18" rx="9" fill="#fff" fill-opacity=".18"/><ellipse cx="22" cy="13" rx="16" ry="5" fill="#000" fill-opacity=".08"/></g>
+          <g id="br"><rect x="0" y="0" width="96" height="64" rx="3" fill="#db1c10" stroke="#b2130c" stroke-width="2"/><use href="#st" x="10" y="-10"/><use href="#st" x="42" y="-10"/></g>
+          <g id="bw"><rect x="0" y="0" width="96" height="64" rx="3" fill="#f5f5f5" stroke="#ddd" stroke-width="2"/><use href="#st" x="10" y="-10"/><use href="#st" x="42" y="-10"/></g>
+          <g id="bb"><rect x="0" y="0" width="96" height="64" rx="3" fill="#1694e8" stroke="#0b76be" stroke-width="2"/><use href="#st" x="10" y="-10"/><use href="#st" x="42" y="-10"/></g>
+          <g id="by"><rect x="0" y="0" width="96" height="64" rx="3" fill="#f3cc14" stroke="#c9a80f" stroke-width="2"/><use href="#st" x="10" y="-10"/><use href="#st" x="42" y="-10"/></g>
+          <g id="brv"><rect x="0" y="0" width="64" height="96" rx="3" fill="#db1c10" stroke="#b2130c" stroke-width="2"/></g>
+          <g id="bwv"><rect x="0" y="0" width="64" height="96" rx="3" fill="#f5f5f5" stroke="#ddd" stroke-width="2"/></g>
+          <g id="bbv"><rect x="0" y="0" width="64" height="96" rx="3" fill="#1694e8" stroke="#0b76be" stroke-width="2"/></g>
+          <g id="byv"><rect x="0" y="0" width="64" height="96" rx="3" fill="#f3cc14" stroke="#c9a80f" stroke-width="2"/></g>
+        </defs>
+        <rect width="1024" height="1024" fill="#ef140d"/>
+        <g filter="url(#sh)" transform="translate(240 140)">
+          <use href="#br" x="0" y="0"/><use href="#br" x="96" y="0"/><use href="#br" x="192" y="0"/><use href="#br" x="288" y="0"/>
+          <use href="#brv" x="0" y="64"/><use href="#brv" x="0" y="160"/><use href="#brv" x="0" y="256"/><use href="#brv" x="0" y="352"/>
+          <use href="#brv" x="384" y="32"/><use href="#brv" x="384" y="384"/><use href="#brv" x="384" y="480"/>
+          <use href="#br" x="32" y="640"/><use href="#br" x="128" y="640"/><use href="#br" x="224" y="640"/><use href="#br" x="320" y="640"/>
+          <use href="#bw" x="96" y="64"/><use href="#bw" x="192" y="64"/>
+          <use href="#bwv" x="96" y="128"/><use href="#bbv" x="96" y="224"/><use href="#bbv" x="96" y="320"/>
+          <use href="#by" x="192" y="128"/><use href="#bwv" x="320" y="128"/>
+          <use href="#byv" x="288" y="160"/><use href="#bwv" x="320" y="224"/>
+          <use href="#by" x="192" y="256"/><use href="#bw" x="96" y="320"/><use href="#bw" x="192" y="320"/>
+          <use href="#bwv" x="96" y="384"/><use href="#byv" x="96" y="480"/>
+          <use href="#bb" x="192" y="416"/><use href="#bw" x="288" y="416"/>
+          <use href="#bw" x="96" y="544"/><use href="#by" x="96" y="608"/>
+          <use href="#bb" x="192" y="544"/><use href="#bbv" x="320" y="480"/>
+          <use href="#bwv" x="352" y="512"/><use href="#bwv" x="320" y="608"/>
+          <use href="#bw" x="192" y="608"/><use href="#bw" x="96" y="704"/>
+          <use href="#bw" x="192" y="704"/><use href="#by" x="320" y="704"/>
+        </g>
+      </svg>
       <div>
-        <h1>Best LEGO prices right now</h1>
-        <p>Vi jämför priserna på flera stora nordiska sajter</p>
+        <h1 id="header-title">Best LEGO prices right now</h1>
+        <p id="logo-tagline">Vi jämför priserna på flera stora nordiska sajter</p>
       </div>
     </a>
-    <nav class="nav">
-      <a href="/">← Tillbaka till priser</a>
-    </nav>
+    <div class="header-controls">
+      <div class="ctrl-group">
+        <span class="ctrl-label">Valuta</span>
+        <select class="hdr-select" id="cur-select">
+          <option value="SEK">SEK</option>
+          <option value="NOK">NOK</option>
+          <option value="DKK">DKK</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </div>
+      <div class="ctrl-group">
+        <span class="ctrl-label">Språk</span>
+        <select class="hdr-select" id="lang-select">
+          <option value="sv">🇸🇪 SV</option>
+          <option value="no">🇳🇴 NO</option>
+          <option value="da">🇩🇰 DA</option>
+          <option value="en">🇬🇧 EN</option>
+        </select>
+      </div>
+    </div>
   </div>
 </header>
 
-<div class="hero">
-  <div class="hero-inner">
-    <!-- LEGO brick illustration -->
-    <svg class="illustration" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <g id="stud"><ellipse cx="0" cy="0" rx="12" ry="5" fill="#fff" fill-opacity=".3"/></g>
-      </defs>
-      <!-- Main brick red -->
-      <rect x="20" y="80" width="160" height="90" rx="8" fill="#fff" fill-opacity=".2"/>
-      <rect x="20" y="80" width="160" height="90" rx="8" fill="none" stroke="#fff" stroke-width="2" stroke-opacity=".4"/>
-      <!-- Studs -->
-      <rect x="35" y="58" width="30" height="22" rx="5" fill="#fff" fill-opacity=".2"/>
-      <ellipse cx="50" cy="58" rx="15" ry="6" fill="#fff" fill-opacity=".35"/>
-      <rect x="85" y="58" width="30" height="22" rx="5" fill="#fff" fill-opacity=".2"/>
-      <ellipse cx="100" cy="58" rx="15" ry="6" fill="#fff" fill-opacity=".35"/>
-      <rect x="135" y="58" width="30" height="22" rx="5" fill="#fff" fill-opacity=".2"/>
-      <ellipse cx="150" cy="58" rx="15" ry="6" fill="#fff" fill-opacity=".35"/>
-      <!-- Price tag -->
-      <rect x="55" y="95" width="90" height="50" rx="8" fill="#fff"/>
-      <text x="100" y="118" font-family="Nunito,sans-serif" font-weight="900" font-size="13" fill="#E3000B" text-anchor="middle">BÄSTA</text>
-      <text x="100" y="135" font-family="Nunito,sans-serif" font-weight="900" font-size="13" fill="#E3000B" text-anchor="middle">PRISET</text>
-    </svg>
+<div class="search-section">
+  <div class="search-inner">
+    <div class="search-box">
+      <input id="q" type="text" placeholder="🔍  Sök på namn eller set-nummer..."/>
+      <button id="search-btn" onclick="doSearch()">Sök</button>
+    </div>
+    <button id="clear-btn" style="display:none" onclick="clearSearch()">← Tillbaka</button>
+  </div>
+</div>
 
-    <h2>Vi hjälper dig hitta bästa priset på LEGO</h2>
-    <p>Best LEGO Price är en gratis prisjämförelsetjänst som samlar priser från de största nordiska butikerna – så att du aldrig behöver betala mer än nödvändigt.</p>
+<div class="filter-section">
+  <div class="filter-inner">
+    <span class="tags-label" id="lbl-popular">Populärt:</span>
+    <button class="tag" onclick="doSearch('Star Wars')">⭐ Star Wars</button>
+    <button class="tag" onclick="doSearch('Technic')">⚙️ Technic</button>
+    <button class="tag" onclick="doSearch('City')">🏙️ City</button>
+    <button class="tag" onclick="doSearch('Harry Potter')">🧙 Harry Potter</button>
+    <button class="tag" onclick="doSearch('Ninjago')">🥷 Ninjago</button>
+    <div class="cat-more-wrap">
+      <button class="cat-more-btn" onclick="toggleMore()">Mer ▾</button>
+      <div class="cat-more-menu" id="more-menu">
+        <div class="cat-more-item" onclick="doSearch('Ideas');closeMore()">💡 Ideas</div>
+        <div class="cat-more-item" onclick="doSearch('Creator');closeMore()">🏗️ Creator</div>
+        <div class="cat-more-item" onclick="doSearch('Friends');closeMore()">👧 Friends</div>
+        <div class="cat-more-item" onclick="doSearch('Minecraft');closeMore()">⛏️ Minecraft</div>
+        <div class="cat-more-item" onclick="doSearch('Icons');closeMore()">🏛️ Icons</div>
+      </div>
+    </div>
+    <div class="filter-sep"></div>
+    <select class="sort-select" id="sort-select" onchange="applyFilters()">
+      <option value="price_asc">💰 Billigast</option>
+      <option value="price_desc">💎 Dyrast</option>
+      <option value="savings">🔥 Besparing</option>
+      <option value="name">🔤 Namn</option>
+    </select>
+    <div class="price-filter">
+      <label>Max:</label>
+      <input type="number" id="max-price" placeholder="500" onchange="applyFilters()"/>
+    </div>
   </div>
 </div>
 
 <main>
-
-  <div class="section">
-    <h3>🧱 Vad är Best LEGO Price?</h3>
-    <p>Best LEGO Price är en oberoende prisjämförelsetjänst skapad för alla LEGO-älskare i Norden. Vår mission är enkel: vi vill ge alla möjligheten att hitta LEGO till bästa möjliga pris, oavsett om du är förälder som letar en present, en vuxen samlare eller en hängiven byggare.</p>
-    <br/>
-    <p>Vi samlar automatiskt in aktuella priser från ett växande antal nordiska butiker och uppdaterar dem regelbundet – så att du alltid ser de senaste erbjudandena direkt när du besöker oss.</p>
+  <div class="section-header">
+    <h2 id="section-title">Aktuella LEGO-set <span>– jämför priser</span></h2>
+    <span class="meta-text" id="rates-meta"></span>
   </div>
-
-  <div class="section">
-    <h3>🏪 Butiker vi jämför</h3>
-    <p>Vi täcker idag ett brett urval av nordiska återförsäljare i Sverige, Norge och Danmark:</p>
-    <div class="stores-grid">
-      <div class="store-chip"><span class="flag">🇸🇪</span>Elgiganten</div>
-      <div class="store-chip"><span class="flag">🇸🇪</span>Webhallen</div>
-      <div class="store-chip"><span class="flag">🇸🇪</span>Inet</div>
-      <div class="store-chip"><span class="flag">🇸🇪</span>Power</div>
-      <div class="store-chip"><span class="flag">🇸🇪</span>Ebrix</div>
-      <div class="store-chip"><span class="flag">🇸🇪</span>ToySpace</div>
-      <div class="store-chip"><span class="flag">🇳🇴</span>Komplett NO</div>
-      <div class="store-chip"><span class="flag">🇩🇰</span>Bilka DK</div>
-      <div class="store-chip"><span class="flag">🇩🇰</span>Proshop DK</div>
-    </div>
-    <br/>
-    <p>Vi arbetar ständigt med att lägga till fler butiker och förbättra täckningen.</p>
-  </div>
-
-  <div class="section">
-    <h3>💡 Våra värderingar</h3>
-    <div class="values">
-      <div class="value-card">
-        <div class="icon">🆓</div>
-        <h4>Helt gratis</h4>
-        <p>Tjänsten är och förblir gratis för alla användare. Vi finansieras via annonser och tar aldrig betalt av butikerna för att synas.</p>
-      </div>
-      <div class="value-card">
-        <div class="icon">⚖️</div>
-        <h4>Oberoende</h4>
-        <p>Inga butiker betalar för att rankas högre. Bästa priset visas alltid överst – punkt.</p>
-      </div>
-      <div class="value-card">
-        <div class="icon">🔄</div>
-        <h4>Aktuella priser</h4>
-        <p>Priserna uppdateras automatiskt flera gånger om dagen så att du alltid ser färsk data.</p>
-      </div>
-      <div class="value-card">
-        <div class="icon">🌍</div>
-        <h4>Nordiskt fokus</h4>
-        <p>Vi fokuserar på butiker som levererar till Norden med priser i SEK, NOK och DKK.</p>
-      </div>
+  <div class="ad-slot" id="ad-top"></div>
+  <div id="deals-highlight" style="display:none">
+    <div class="deals-highlight">
+      <h3 id="hl-title">🔥 Bästa deals just nu</h3>
+      <div class="highlight-grid" id="hl-grid"></div>
     </div>
   </div>
-
-  <div class="cta">
-    <h3>Redo att hitta ditt nästa LEGO-set?</h3>
-    <p>Gå tillbaka till startsidan och jämför priser direkt.</p>
-    <a href="/">Se alla priser →</a>
-  </div>
-
+  <div id="results" class="set-grid"></div>
 </main>
 
 <footer>
-  © 2026 bestlegoprice.com · Priser via nordiska butiker ·
-  <a href="/">Tillbaka till startsidan</a>
+  Priser via nordiska butiker. Växelkurser via <a href="https://frankfurter.app" target="_blank">frankfurter.app</a>.<br>
+  Inga garantier om prisnoggrannhet – kontrollera alltid slutpriset i butiken.<br><br>
+  <a href="/about.html">Om oss</a> · © 2026 bestlegoprice.com
 </footer>
 
+<script>
+var RAILWAY = "https://lego-price-api-production.up.railway.app";
+var lang = "sv";
+var currency = "SEK";
+var rates = {EUR:1,SEK:11.2,NOK:11.8,DKK:7.46};
+var allCards = [];
+var mode = "deals";
+var lastQuery = "";
+
+var LANG_COUNTRY = {sv:"SE",no:"NO",da:"DK",en:"SE"};
+var STORE_COUNTRY = {
+  "Elgiganten":"SE","Webhallen":"SE","Inet":"SE","Power":"SE","Ebrix":"SE","ToySpace":"SE",
+  "Komplett NO":"NO","Proshop DK":"DK","Bilka DK":"DK",
+  "LEGO Shop SE":"SE","LEGO Shop NO":"NO","LEGO Shop DK":"DK"
+};
+
+var I18N = {
+  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search:"Sök",back:"← Tillbaka",popular:"Populärt:",title:"Aktuella LEGO-set",sub:"– jämför priser",hl:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy:"Köp →",save:"Du sparar",empty:"Inga set hittades.",from:"Från"},
+  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search:"Søk",back:"← Tilbake",popular:"Populært:",title:"Aktuelle LEGO-sett",sub:"– sammenlign priser",hl:"🔥 Beste deals nå",best:"🏆 Best",buy:"Kjøp →",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra"},
+  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search:"Søg",back:"← Tilbage",popular:"Populært:",title:"Aktuelle LEGO-sæt",sub:"– sammenlign priser",hl:"🔥 Bedste deals nu",best:"🏆 Bedst",buy:"Køb →",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra"},
+  en:{tagline:"We compare prices across major Nordic stores",search:"Search",back:"← Back",popular:"Popular:",title:"Current LEGO sets",sub:"– compare prices",hl:"🔥 Best deals right now",best:"🏆 Best",buy:"Buy →",save:"You save",empty:"No sets found.",from:"From"}
+};
+function t(k){ return (I18N[lang]||I18N.sv)[k]||k; }
+
+function convert(a,from,to){ return from===to?a:(a/rates[from])*rates[to]; }
+function fmt(a,cur){
+  var loc={SEK:"sv-SE",NOK:"nb-NO",DKK:"da-DK",EUR:"de-DE"};
+  return new Intl.NumberFormat(loc[cur]||"sv-SE",{maximumFractionDigits:0}).format(a)+" "+cur;
+}
+function flag(store){
+  var n=(store||"").toLowerCase();
+  if(n.includes("no")||n.includes("komplett")) return "🇳🇴";
+  if(n.includes("dk")||n.includes("bilka")||n.includes("proshop")) return "🇩🇰";
+  return "🇸🇪";
+}
+function country(store){ return STORE_COUNTRY[store]||"SE"; }
+
+async function loadRates(){
+  try{
+    var r=await fetch("https://api.frankfurter.app/latest?from=EUR&to=SEK,NOK,DKK");
+    var d=await r.json();
+    rates={EUR:1,SEK:d.rates.SEK,NOK:d.rates.NOK,DKK:d.rates.DKK};
+    document.getElementById("rates-meta").textContent="Kurser "+new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
+  }catch(e){}
+}
+
+async function fetchPrices(q){
+  try{
+    var url=q?RAILWAY+"/api/search?q="+encodeURIComponent(q):RAILWAY+"/api/deals";
+    var r=await fetch(url);
+    if(!r.ok) return [];
+    var d=await r.json();
+    return d.deals||[];
+  }catch(e){ return []; }
+}
+
+function buildCards(prices){
+  var groups={};
+  prices.forEach(function(p){
+    var key=p.set_number&&p.set_number!=="null"
+      ?"set_"+String(p.set_number).replace(/^0+/,"").replace(/-\d+$/,"")
+      :"name_"+p.name.toLowerCase().replace(/\b\d{4,6}\b/g,"").replace(/lego\s*/gi,"").replace(/[^a-z0-9]+/g,"-").substring(0,40);
+    if(!groups[key]) groups[key]={key:key,name:p.name,setNum:p.set_number,img:null,all:[]};
+    if(p.name.length<groups[key].name.length) groups[key].name=p.name;
+    if(p.image_url&&!groups[key].img) groups[key].img=p.image_url;
+    groups[key].all.push({
+      store:p.store,flag:flag(p.store),cur:p.currency,country:country(p.store),
+      local:p.price_local,converted:convert(p.price_local,p.currency,currency),
+      url:p.store_url,inStock:p.in_stock===1
+    });
+  });
+
+  return Object.values(groups).map(function(g){
+    g.all.sort(function(a,b){return a.converted-b.converted;});
+    var pref=LANG_COUNTRY[lang]||"SE";
+    var others=["SE","NO","DK"].filter(function(c){return c!==pref;});
+    var listings=[];
+    var prefList=g.all.filter(function(l){return l.country===pref;});
+    if(prefList.length) listings.push(prefList[0]);
+    others.forEach(function(c){
+      var cl=g.all.filter(function(l){return l.country===c;});
+      if(cl.length) listings.push(cl[0]);
+    });
+    if(listings.length<4){
+      g.all.filter(function(l){
+        return l.country===pref&&!listings.some(function(x){return x.store===l.store;});
+      }).slice(0,4-listings.length).forEach(function(l){listings.push(l);});
+    }
+    var sorted=listings.slice().sort(function(a,b){return a.converted-b.converted;});
+    if(sorted[0]) sorted[0].best=true;
+    var ps=listings.map(function(l){return l.converted;});
+    var minP=Math.min.apply(null,ps);
+    var maxP=Math.max.apply(null,ps);
+    return {
+      setNum:g.setNum,key:g.key,name:g.name,img:g.img,listings:listings,
+      minP:minP,maxP:maxP,savings:listings.length>1&&maxP>minP?Math.round(maxP-minP):null
+    };
+  });
+}
+
+function applyFilters(){
+  var sort=document.getElementById("sort-select").value;
+  var maxP=parseFloat(document.getElementById("max-price").value)||Infinity;
+  var f=allCards.filter(function(c){return c.minP<=maxP;});
+  if(sort==="price_asc") f.sort(function(a,b){return a.minP-b.minP;});
+  else if(sort==="price_desc") f.sort(function(a,b){return b.minP-a.minP;});
+  else if(sort==="savings") f.sort(function(a,b){return (b.savings||0)-(a.savings||0);});
+  else f.sort(function(a,b){return a.name.localeCompare(b.name);});
+  render(f);
+}
+
+function makeEl(tag,cls,text){
+  var el=document.createElement(tag);
+  if(cls) el.className=cls;
+  if(text) el.textContent=text;
+  return el;
+}
+
+function renderCard(c){
+  var card=makeEl("div","set-card");
+  card.dataset.set=c.key;
+
+  // Top
+  var top=makeEl("div","card-top");
+  var imgBox=makeEl("div","card-img");
+  if(c.img){var im=makeEl("img");im.src=c.img;im.alt=c.name;im.loading="lazy";imgBox.appendChild(im);}
+  else imgBox.textContent="🧱";
+
+  var info=makeEl("div","card-info");
+  var badges=makeEl("div","badges");
+  var sn=c.setNum&&!String(c.setNum).startsWith("set_")&&!String(c.setNum).startsWith("name_");
+  if(sn){var b=makeEl("span","badge badge-num","#"+c.setNum);badges.appendChild(b);}
+  var nm=makeEl("div","card-name",c.name);
+  var fromRow=makeEl("div","card-from");
+  var fromLbl=document.createTextNode(t("from")+" ");
+  var fromVal=makeEl("strong","",fmt(c.minP,currency));
+  fromRow.appendChild(fromLbl);
+  fromRow.appendChild(fromVal);
+  if(c.savings){
+    var sp=makeEl("span","save-pill","💰 "+t("save")+" "+fmt(c.savings,currency));
+    fromRow.appendChild(sp);
+  }
+  info.appendChild(badges);info.appendChild(nm);info.appendChild(fromRow);
+  top.appendChild(imgBox);top.appendChild(info);
+
+  // Rows
+  var rows=makeEl("div","store-rows");
+  c.listings.forEach(function(l){
+    var row=makeEl("div","store-row"+(l.best?" best":""));
+    var left=makeEl("div","store-left");
+    left.appendChild(makeEl("span","store-flag",l.flag));
+    left.appendChild(makeEl("span","store-name",l.store));
+    if(l.best) left.appendChild(makeEl("span","best-pill",t("best")));
+
+    var right=makeEl("div","store-right");
+    var pb=makeEl("div","price-block");
+    pb.appendChild(makeEl("div","price-main",fmt(l.converted,currency)));
+    if(l.cur!==currency) pb.appendChild(makeEl("div","price-local",fmt(l.local,l.cur)+" lokalt"));
+
+    var btn=makeEl("a","buy-btn",t("buy"));
+    btn.href=l.url;btn.target="_blank";btn.rel="noopener";
+
+    right.appendChild(pb);right.appendChild(btn);
+    row.appendChild(left);row.appendChild(right);
+    rows.appendChild(row);
+  });
+
+  card.appendChild(top);card.appendChild(rows);
+  if(c.savings){
+    var sb=makeEl("div","savings-bar","💰 "+t("save")+" "+fmt(c.savings,currency));
+    card.appendChild(sb);
+  }
+  return card;
+}
+
+function renderHighlights(cards){
+  var best=cards.filter(function(c){return c.savings&&c.savings>0;})
+    .sort(function(a,b){return b.savings-a.savings;}).slice(0,4);
+  var hl=document.getElementById("deals-highlight");
+  if(!best.length){hl.style.display="none";return;}
+  hl.style.display="block";
+  document.getElementById("hl-title").textContent=t("hl");
+  var g=document.getElementById("hl-grid");
+  g.innerHTML="";
+  best.forEach(function(c){
+    var el=makeEl("div","highlight-card");
+    el.onclick=function(){var e=document.querySelector('[data-set="'+c.key+'"]');if(e) e.scrollIntoView({behavior:"smooth",block:"center"});};
+    if(c.img){var im=makeEl("img","highlight-img");im.src=c.img;im.loading="lazy";el.appendChild(im);}
+    var info=makeEl("div");
+    info.appendChild(makeEl("div","hl-name",c.name));
+    info.appendChild(makeEl("div","hl-price",fmt(c.minP,currency)));
+    info.appendChild(makeEl("div","hl-save",t("save")+" "+fmt(c.savings,currency)));
+    el.appendChild(info);g.appendChild(el);
+  });
+}
+
+function showSkeletons(n){
+  var el=document.getElementById("results");
+  el.innerHTML="";
+  for(var i=0;i<(n||8);i++) el.appendChild(makeEl("div","skeleton"));
+  document.getElementById("deals-highlight").style.display="none";
+}
+
+function render(cards){
+  var el=document.getElementById("results");
+  el.innerHTML="";
+  if(!cards.length){
+    var em=makeEl("div","empty");
+    em.innerHTML='<div class="icon">🔍</div><p>'+t("empty")+'</p>';
+    el.appendChild(em);
+    document.getElementById("deals-highlight").style.display="none";
+    return;
+  }
+  renderHighlights(cards);
+  cards.forEach(function(c,i){
+    if(i===8){
+      var ad=makeEl("div","ad-slot ad-inline");
+      el.appendChild(ad);
+    }
+    el.appendChild(renderCard(c));
+  });
+}
+
+async function loadDeals(){
+  mode="deals";
+  document.getElementById("section-title").innerHTML=t("title")+' <span>'+t("sub")+'</span>';
+  document.querySelectorAll(".tag").forEach(function(b){b.classList.remove("active");});
+  showSkeletons(12);
+  var prices=await fetchPrices();
+  allCards=buildCards(prices);
+  applyFilters();
+}
+
+async function doSearch(q){
+  q=q||document.getElementById("q").value.trim();
+  if(!q) return;
+  document.getElementById("q").value=q;
+  lastQuery=q;mode="search";
+  document.getElementById("clear-btn").style.display="inline";
+  document.getElementById("search-btn").disabled=true;
+  showSkeletons(8);
+  var prices=await fetchPrices(q);
+  allCards=buildCards(prices);
+  applyFilters();
+  document.getElementById("section-title").innerHTML='"'+q+'" <span>· '+allCards.length+' set</span>';
+  document.getElementById("search-btn").disabled=false;
+}
+
+function clearSearch(){
+  lastQuery="";document.getElementById("q").value="";
+  document.getElementById("clear-btn").style.display="none";
+  document.querySelectorAll(".tag").forEach(function(b){b.classList.remove("active");});
+  loadDeals();
+}
+
+function toggleMore(){document.getElementById("more-menu").classList.toggle("open");}
+function closeMore(){document.getElementById("more-menu").classList.remove("open");}
+document.addEventListener("click",function(e){if(!e.target.closest(".cat-more-wrap")) closeMore();});
+
+function applyLang(){
+  document.getElementById("logo-tagline").textContent=t("tagline");
+  document.getElementById("q").placeholder="🔍  "+t("search")+"...";
+  document.getElementById("search-btn").textContent=t("search");
+  document.getElementById("clear-btn").textContent=t("back");
+  document.getElementById("lbl-popular").textContent=t("popular");
+}
+
+document.getElementById("cur-select").addEventListener("change",function(){
+  currency=this.value;
+  if(mode==="deals") loadDeals(); else doSearch(lastQuery);
+});
+document.getElementById("lang-select").addEventListener("change",function(){
+  lang=this.value;applyLang();applyFilters();
+});
+document.getElementById("q").addEventListener("keydown",function(e){if(e.key==="Enter") doSearch();});
+
+loadRates().then(function(){loadDeals();});
+</script>
 </body>
 </html>
