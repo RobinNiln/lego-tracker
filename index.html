@@ -242,15 +242,20 @@ async function loadRates(){
 
 // ── Brickset via Railway ──────────────────────────────────
 async function fetchSets(params){
-  const r = await fetch(`${RAILWAY}/api/brickset`, {
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({method:"getSets", params:{pageSize:30, ...params}})
-  });
-  if(!r.ok) throw new Error(`Brickset HTTP ${r.status}`);
-  const d = await r.json();
-  if(d.status !== "success") throw new Error(d.message || "Brickset error");
-  return d.sets || [];
+  try {
+    const r = await fetch(`${RAILWAY}/api/brickset`, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({method:"getSets", params:{pageSize:30, ...params}})
+    });
+    if(!r.ok) return [];
+    const d = await r.json();
+    if(d.status !== "success") return [];
+    return d.sets || [];
+  } catch(e) {
+    console.warn("[Brickset]", e.message);
+    return [];
+  }
 }
 
 // ── Railway scraper prices ────────────────────────────────
@@ -267,6 +272,57 @@ async function fetchPrices(query){
     console.warn("[prices]", e.message);
     return [];
   }
+}
+
+// ── Build cards from Railway prices (primary source) ─────
+function buildCardsFromPrices(prices){
+  // Group by set_number or name
+  const groups = {};
+  for(const p of prices){
+    const key = p.set_number || p.name?.toLowerCase().replace(/\s+/g,"-");
+    if(!key) continue;
+    if(!groups[key]) groups[key] = { key, prices:[], name:p.name, imageUrl:null };
+    groups[key].prices.push(p);
+    if(p.image_url && !groups[key].imageUrl) groups[key].imageUrl = p.image_url;
+  }
+
+  return Object.values(groups).map(function(g){
+    const listings = g.prices.map(function(p){
+      return {
+        store: p.store,
+        flag: getFlag(p.store),
+        cur: p.currency,
+        priceLocal: p.price_local,
+        priceConverted: convert(p.price_local, p.currency, currency),
+        url: p.store_url,
+        inStock: p.in_stock === 1,
+        isBest: false,
+      };
+    });
+
+    listings.sort(function(a,b){ return a.priceConverted - b.priceConverted; });
+    if(listings[0]) listings[0].isBest = true;
+
+    const validPrices = listings.map(function(l){ return l.priceConverted; });
+    const minPrice = Math.min.apply(null, validPrices);
+    const maxPrice = Math.max.apply(null, validPrices);
+    const savings = (maxPrice > minPrice) ? Math.round(maxPrice - minPrice) : null;
+
+    // Try to extract set number
+    const setNum = g.key.match(/^\d{4,6}$/) ? g.key : (g.name?.match(/\b(\d{5,6})\b/)?.[1] ?? null);
+
+    return {
+      setNumber: setNum ?? g.key,
+      name: g.name ?? "LEGO Set",
+      theme: "",
+      imageUrl: g.imageUrl,
+      listings: listings,
+      hasPrices: true,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      savings: savings,
+    };
+  });
 }
 
 // ── Merge sets + prices into cards ────────────────────────
@@ -453,11 +509,15 @@ async function loadDeals(){
   document.querySelectorAll(".tag").forEach(function(t){ t.classList.remove("active"); });
   showSkeletons(12);
   try{
-    const [sets, prices] = await Promise.all([
-      fetchSets({year: new Date().getFullYear(), orderBy:"Pieces"}),
-      fetchPrices()
-    ]);
-    allCards = buildCards(sets, prices);
+    const prices = await fetchPrices();
+    if(prices.length > 0){
+      // Use Railway prices as primary source
+      allCards = buildCardsFromPrices(prices);
+    } else {
+      // Fallback to Brickset
+      const sets = await fetchSets({year: new Date().getFullYear(), orderBy:"Pieces"});
+      allCards = buildCards(sets, []);
+    }
     applyFilters();
   } catch(e){
     document.getElementById("results").innerHTML = '<div class="error-box">⚠️ '+e.message+'</div>';
@@ -476,9 +536,25 @@ async function doSearch(q){
   showSkeletons(8);
   try{
     const isNum = /^\d{4,6}(-\d)?$/.test(q);
-    const params = isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()};
-    const [sets, prices] = await Promise.all([fetchSets(params), fetchPrices(q)]);
-    allCards = buildCards(sets, prices);
+    const [sets, prices] = await Promise.all([
+      fetchSets(isNum ? {setNumber:q} : {theme:q, year:new Date().getFullYear()}),
+      fetchPrices(q)
+    ]);
+    // Merge: Railway prices + Brickset metadata
+    if(prices.length > 0){
+      const priceCards = buildCardsFromPrices(prices);
+      const bricksetCards = buildCards(sets, prices);
+      // Combine, deduplicate by name
+      const seen = new Set();
+      allCards = [...priceCards, ...bricksetCards].filter(function(c){
+        const key = c.name.toLowerCase();
+        if(seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    } else {
+      allCards = buildCards(sets, []);
+    }
     applyFilters();
     document.getElementById("section-title").innerHTML = '<span>"'+q+'" · '+allCards.length+' set</span>';
   } catch(e){
