@@ -106,8 +106,13 @@ main{max-width:1280px;margin:0 auto;padding:1.25rem 1rem;}
 .empty .icon{font-size:3rem;margin-bottom:.5rem;}
 .error-msg{background:#fff1f1;border:2px solid #fca5a5;border-radius:10px;padding:.85rem 1rem;color:#b91c1c;font-size:.85rem;font-weight:600;grid-column:1/-1;}
 
-.ad-slot{background:#f0f2f8;border:1px dashed #c5cade;border-radius:10px;height:80px;display:flex;align-items:center;justify-content:center;color:#9ba3bf;font-size:.72rem;margin:1rem 0;}
-.ad-inline{grid-column:1/-1;height:100px;}
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.5rem;flex-wrap:wrap;}
+.page-btn{background:#fff;border:2px solid #e2e5ed;border-radius:8px;padding:.45rem .9rem;font-size:.8rem;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;color:#1a1a1a;}
+.page-btn:hover{border-color:#0057A8;color:#0057A8;}
+.page-btn.active{background:#0057A8;border-color:#0057A8;color:#fff;}
+.page-btn:disabled{opacity:.4;cursor:not-allowed;}
+.page-info{font-size:.78rem;color:#6b7280;font-weight:700;padding:.45rem .5rem;}
 
 footer{background:#1a1a1a;color:rgba(255,255,255,.4);text-align:center;padding:1.5rem 1rem;font-size:.7rem;font-weight:600;margin-top:2rem;line-height:1.9;}
 footer a{color:rgba(255,255,255,.55);text-decoration:none;}
@@ -241,7 +246,6 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
     <h2 id="section-title">Aktuella LEGO-set <span>– jämför priser</span></h2>
     <span class="meta-text" id="rates-meta"></span>
   </div>
-  <div class="ad-slot" id="ad-top"></div>
   <div id="deals-highlight" style="display:none">
     <div class="deals-highlight">
       <h3 id="hl-title">🔥 Bästa deals just nu</h3>
@@ -249,6 +253,7 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
     </div>
   </div>
   <div id="results" class="set-grid"></div>
+  <div id="pagination" class="pagination"></div>
 </main>
 
 <footer>
@@ -263,8 +268,11 @@ var lang = "sv";
 var currency = "SEK";
 var rates = {EUR:1,SEK:11.2,NOK:11.8,DKK:7.46};
 var allCards = [];
+var filteredCards = [];
 var mode = "deals";
 var lastQuery = "";
+var currentPage = 1;
+var PAGE_SIZE = 50;
 
 var LANG_COUNTRY = {sv:"SE",no:"NO",da:"DK",en:"SE"};
 var STORE_COUNTRY = {
@@ -274,10 +282,10 @@ var STORE_COUNTRY = {
 };
 
 var I18N = {
-  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search:"Sök",back:"← Tillbaka",popular:"Populärt:",title:"Aktuella LEGO-set",sub:"– jämför priser",hl:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy:"Köp →",save:"Du sparar",empty:"Inga set hittades.",from:"Från"},
-  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search:"Søk",back:"← Tilbake",popular:"Populært:",title:"Aktuelle LEGO-sett",sub:"– sammenlign priser",hl:"🔥 Beste deals nå",best:"🏆 Best",buy:"Kjøp →",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra"},
-  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search:"Søg",back:"← Tilbage",popular:"Populært:",title:"Aktuelle LEGO-sæt",sub:"– sammenlign priser",hl:"🔥 Bedste deals nu",best:"🏆 Bedst",buy:"Køb →",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra"},
-  en:{tagline:"We compare prices across major Nordic stores",search:"Search",back:"← Back",popular:"Popular:",title:"Current LEGO sets",sub:"– compare prices",hl:"🔥 Best deals right now",best:"🏆 Best",buy:"Buy →",save:"You save",empty:"No sets found.",from:"From"}
+  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search:"Sök",back:"← Tillbaka",popular:"Populärt:",title:"Aktuella LEGO-set",sub:"– jämför priser",hl:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy:"Köp →",save:"Du sparar",empty:"Inga set hittades.",from:"Från",page:"Sida",of:"av"},
+  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search:"Søk",back:"← Tilbake",popular:"Populært:",title:"Aktuelle LEGO-sett",sub:"– sammenlign priser",hl:"🔥 Beste deals nå",best:"🏆 Best",buy:"Kjøp →",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra",page:"Side",of:"av"},
+  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search:"Søg",back:"← Tilbage",popular:"Populært:",title:"Aktuelle LEGO-sæt",sub:"– sammenlign priser",hl:"🔥 Bedste deals nu",best:"🏆 Bedst",buy:"Køb →",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra",page:"Side",of:"af"},
+  en:{tagline:"We compare prices across major Nordic stores",search:"Search",back:"← Back",popular:"Popular:",title:"Current LEGO sets",sub:"– compare prices",hl:"🔥 Best deals right now",best:"🏆 Best",buy:"Buy →",save:"You save",empty:"No sets found.",from:"From",page:"Page",of:"of"}
 };
 function t(k){ return (I18N[lang]||I18N.sv)[k]||k; }
 
@@ -365,7 +373,9 @@ function applyFilters(){
   else if(sort==="price_desc") f.sort(function(a,b){return b.minP-a.minP;});
   else if(sort==="savings") f.sort(function(a,b){return (b.savings||0)-(a.savings||0);});
   else f.sort(function(a,b){return a.name.localeCompare(b.name);});
-  render(f);
+  filteredCards = f;
+  currentPage = 1;
+  renderPage();
 }
 
 function makeEl(tag,cls,text){
@@ -379,7 +389,6 @@ function renderCard(c){
   var card=makeEl("div","set-card");
   card.dataset.set=c.key;
 
-  // Top
   var top=makeEl("div","card-top");
   var imgBox=makeEl("div","card-img");
   if(c.img){var im=makeEl("img");im.src=c.img;im.alt=c.name;im.loading="lazy";imgBox.appendChild(im);}
@@ -402,7 +411,6 @@ function renderCard(c){
   info.appendChild(badges);info.appendChild(nm);info.appendChild(fromRow);
   top.appendChild(imgBox);top.appendChild(info);
 
-  // Rows
   var rows=makeEl("div","store-rows");
   c.listings.forEach(function(l){
     var row=makeEl("div","store-row"+(l.best?" best":""));
@@ -453,31 +461,83 @@ function renderHighlights(cards){
   });
 }
 
+function renderPagination(){
+  var pag=document.getElementById("pagination");
+  pag.innerHTML="";
+  var total=filteredCards.length;
+  var totalPages=Math.ceil(total/PAGE_SIZE);
+  if(totalPages<=1){return;}
+
+  // Föregående
+  var prev=makeEl("button","page-btn","\u2190");
+  prev.disabled=currentPage===1;
+  prev.onclick=function(){if(currentPage>1){currentPage--;renderPage();}};
+  pag.appendChild(prev);
+
+  // Sidnummer – visa max 5 knappar
+  var start=Math.max(1,currentPage-2);
+  var end=Math.min(totalPages,start+4);
+  start=Math.max(1,end-4);
+  for(var i=start;i<=end;i++){
+    (function(pg){
+      var btn=makeEl("button","page-btn"+(pg===currentPage?" active":""),String(pg));
+      btn.onclick=function(){currentPage=pg;renderPage();};
+      pag.appendChild(btn);
+    })(i);
+  }
+
+  // Nästa
+  var next=makeEl("button","page-btn","\u2192");
+  next.disabled=currentPage===totalPages;
+  next.onclick=function(){if(currentPage<totalPages){currentPage++;renderPage();}};
+  pag.appendChild(next);
+
+  // Info t.ex. "Sida 2 av 6"
+  var info=makeEl("span","page-info",t("page")+" "+currentPage+" "+t("of")+" "+totalPages+" · "+total+" set");
+  pag.appendChild(info);
+}
+
+function renderPage(){
+  var el=document.getElementById("results");
+  el.innerHTML="";
+
+  if(!filteredCards.length){
+    var em=makeEl("div","empty");
+    em.innerHTML='<div class="icon">🔍</div><p>'+t("empty")+'</p>';
+    el.appendChild(em);
+    document.getElementById("deals-highlight").style.display="none";
+    document.getElementById("pagination").innerHTML="";
+    return;
+  }
+
+  // Highlights bara på sida 1
+  if(currentPage===1){
+    renderHighlights(filteredCards);
+  } else {
+    document.getElementById("deals-highlight").style.display="none";
+  }
+
+  var start=(currentPage-1)*PAGE_SIZE;
+  var pageCards=filteredCards.slice(start,start+PAGE_SIZE);
+
+  pageCards.forEach(function(c){
+    el.appendChild(renderCard(c));
+  });
+
+  renderPagination();
+
+  // Scrolla upp till toppen av resultaten
+  if(currentPage>1){
+    el.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+}
+
 function showSkeletons(n){
   var el=document.getElementById("results");
   el.innerHTML="";
   for(var i=0;i<(n||8);i++) el.appendChild(makeEl("div","skeleton"));
   document.getElementById("deals-highlight").style.display="none";
-}
-
-function render(cards){
-  var el=document.getElementById("results");
-  el.innerHTML="";
-  if(!cards.length){
-    var em=makeEl("div","empty");
-    em.innerHTML='<div class="icon">🔍</div><p>'+t("empty")+'</p>';
-    el.appendChild(em);
-    document.getElementById("deals-highlight").style.display="none";
-    return;
-  }
-  renderHighlights(cards);
-  cards.forEach(function(c,i){
-    if(i===8){
-      var ad=makeEl("div","ad-slot ad-inline");
-      el.appendChild(ad);
-    }
-    el.appendChild(renderCard(c));
-  });
+  document.getElementById("pagination").innerHTML="";
 }
 
 async function loadDeals(){
@@ -486,6 +546,16 @@ async function loadDeals(){
   document.querySelectorAll(".tag").forEach(function(b){b.classList.remove("active");});
   showSkeletons(12);
   var prices=await fetchPrices();
+  if(!prices.length){
+    // API tomt – visa tydligt felmeddelande istället för tom sida
+    var el=document.getElementById("results");
+    el.innerHTML="";
+    var em=makeEl("div","error-msg");
+    em.textContent="⏳ Prisdata laddas in – försök igen om en stund.";
+    el.appendChild(em);
+    document.getElementById("deals-highlight").style.display="none";
+    return;
+  }
   allCards=buildCards(prices);
   applyFilters();
 }
