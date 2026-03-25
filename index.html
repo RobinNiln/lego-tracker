@@ -178,7 +178,7 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
     </a>
     <div class="header-controls">
       <div class="ctrl-group">
-        <span class="ctrl-label">Valuta</span>
+        <span class="ctrl-label" id="lbl-currency">Valuta</span>
         <select class="hdr-select" id="cur-select">
           <option value="SEK">SEK</option>
           <option value="NOK">NOK</option>
@@ -187,12 +187,13 @@ footer a{color:rgba(255,255,255,.55);text-decoration:none;}
         </select>
       </div>
       <div class="ctrl-group">
-        <span class="ctrl-label">Språk</span>
+        <span class="ctrl-label" id="lbl-lang">Språk</span>
         <select class="hdr-select" id="lang-select">
           <option value="sv">🇸🇪 SV</option>
           <option value="no">🇳🇴 NO</option>
           <option value="da">🇩🇰 DA</option>
           <option value="en">🇬🇧 EN</option>
+          <option value="de">🇩🇪 DE</option>
         </select>
       </div>
     </div>
@@ -274,18 +275,21 @@ var lastQuery = "";
 var currentPage = 1;
 var PAGE_SIZE = 50;
 
-var LANG_COUNTRY = {sv:"SE",no:"NO",da:"DK",en:"SE"};
+var LANG_COUNTRY = {sv:"SE",no:"NO",da:"DK",en:"SE",de:"DE"};
 var STORE_COUNTRY = {
   "Elgiganten":"SE","Webhallen":"SE","Inet":"SE","Power":"SE","Ebrix":"SE","ToySpace":"SE",
   "Komplett NO":"NO","Proshop DK":"DK","Bilka DK":"DK",
-  "LEGO Shop SE":"SE","LEGO Shop NO":"NO","LEGO Shop DK":"DK"
+  "LEGO Shop SE":"SE","LEGO Shop NO":"NO","LEGO Shop DK":"DK",
+  "BricksDirect NL":"NL","BrickShop NL":"NL",
+  "JB Spielwaren DE":"DE"
 };
 
 var I18N = {
-  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search:"Sök",back:"← Tillbaka",popular:"Populärt:",title:"Aktuella LEGO-set",sub:"– jämför priser",hl:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy:"Köp →",save:"Du sparar",empty:"Inga set hittades.",from:"Från",page:"Sida",of:"av"},
-  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search:"Søk",back:"← Tilbake",popular:"Populært:",title:"Aktuelle LEGO-sett",sub:"– sammenlign priser",hl:"🔥 Beste deals nå",best:"🏆 Best",buy:"Kjøp →",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra",page:"Side",of:"av"},
-  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search:"Søg",back:"← Tilbage",popular:"Populært:",title:"Aktuelle LEGO-sæt",sub:"– sammenlign priser",hl:"🔥 Bedste deals nu",best:"🏆 Bedst",buy:"Køb →",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra",page:"Side",of:"af"},
-  en:{tagline:"We compare prices across major Nordic stores",search:"Search",back:"← Back",popular:"Popular:",title:"Current LEGO sets",sub:"– compare prices",hl:"🔥 Best deals right now",best:"🏆 Best",buy:"Buy →",save:"You save",empty:"No sets found.",from:"From",page:"Page",of:"of"}
+  sv:{tagline:"Vi jämför priserna på flera stora nordiska sajter",search:"Sök",back:"← Tillbaka",popular:"Populärt:",title:"Aktuella LEGO-set",sub:"– jämför priser",hl:"🔥 Bästa deals just nu",best:"🏆 Bäst",buy:"Köp →",save:"Du sparar",empty:"Inga set hittades.",from:"Från",page:"Sida",of:"av",currency:"Valuta",language:"Språk"},
+  no:{tagline:"Vi sammenligner priser på store nordiske nettbutikker",search:"Søk",back:"← Tilbake",popular:"Populært:",title:"Aktuelle LEGO-sett",sub:"– sammenlign priser",hl:"🔥 Beste deals nå",best:"🏆 Best",buy:"Kjøp →",save:"Du sparer",empty:"Ingen sett funnet.",from:"Fra",page:"Side",of:"av",currency:"Valuta",language:"Språk"},
+  da:{tagline:"Vi sammenligner priser på store nordiske webshops",search:"Søg",back:"← Tilbage",popular:"Populært:",title:"Aktuelle LEGO-sæt",sub:"– sammenlign priser",hl:"🔥 Bedste deals nu",best:"🏆 Bedst",buy:"Køb →",save:"Du sparer",empty:"Ingen sæt fundet.",from:"Fra",page:"Side",of:"af",currency:"Valuta",language:"Sprog"},
+  en:{tagline:"We compare prices across Nordic & European stores",search:"Search",back:"← Back",popular:"Popular:",title:"Current LEGO sets",sub:"– compare prices",hl:"🔥 Best deals right now",best:"🏆 Best",buy:"Buy →",save:"You save",empty:"No sets found.",from:"From",page:"Page",of:"of",currency:"Currency",language:"Language"},
+  de:{tagline:"Wir vergleichen Preise in nordischen und europäischen Shops",search:"Suchen",back:"← Zurück",popular:"Beliebt:",title:"Aktuelle LEGO-Sets",sub:"– Preise vergleichen",hl:"🔥 Beste Deals jetzt",best:"🏆 Bestes",buy:"Kaufen →",save:"Du sparst",empty:"Keine Sets gefunden.",from:"Ab",page:"Seite",of:"von",currency:"Währung",language:"Sprache"}
 };
 function t(k){ return (I18N[lang]||I18N.sv)[k]||k; }
 
@@ -296,8 +300,11 @@ function fmt(a,cur){
 }
 function flag(store){
   var n=(store||"").toLowerCase();
-  if(n.includes("no")||n.includes("komplett")) return "🇳🇴";
-  if(n.includes("dk")||n.includes("bilka")||n.includes("proshop")) return "🇩🇰";
+  if(n.includes(" no")||n.includes("komplett")) return "🇳🇴";
+  if(n.includes(" dk")||n.includes("bilka")||n.includes("proshop")) return "🇩🇰";
+  if(n.includes(" nl")||n.includes("bricksdirect")||n.includes("brickshop")) return "🇳🇱";
+  if(n.includes(" de")||n.includes("spielwaren")) return "🇩🇪";
+  if(n.includes(" fr")) return "🇫🇷";
   return "🇸🇪";
 }
 function country(store){ return STORE_COUNTRY[store]||"SE"; }
@@ -592,6 +599,9 @@ function applyLang(){
   document.getElementById("search-btn").textContent=t("search");
   document.getElementById("clear-btn").textContent=t("back");
   document.getElementById("lbl-popular").textContent=t("popular");
+  document.getElementById("lbl-currency").textContent=t("currency");
+  document.getElementById("lbl-lang").textContent=t("language");
+  document.documentElement.lang=lang;
 }
 
 document.getElementById("cur-select").addEventListener("change",function(){
